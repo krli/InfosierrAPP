@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" 
+    android:background="@color/verdeFondo">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="false"
+        android:contentDescription="@string/logo_desc"
+        android:maxHeight="@dimen/logo_height"
+        android:maxWidth="@dimen/logo_width"
+        android:scaleType="center"
+        android:src="@drawable/infosierra_logo_web2" />
+    
+    <TextView
+        android:id="@+id/textTitulo"
+        android:text="@string/T_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:inputType="none"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/textSubtitulo"        
+        android:text="@string/T_subtitulo"
+        android:inputType="none"
+        style="@style/T_subtitulo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp" />
+    
+    <EditText
+        android:id="@+id/editText1"
+        android:hint="@string/ET_buscar"
+        android:inputType="text"
+        style="@style/ET_buscar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"        
+        android:layout_marginTop="5dp" >
+        <requestFocus />
+    </EditText>
+
+    <SearchView
+        android:id="@+id/searchView1"
+        style="@style/S_buscar"
+        android:inputType="text"
+        android:queryHint="@string/ET_buscar"
+        android:iconifiedByDefault="false"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp" >
+
+    </SearchView>
+    
+    <LinearLayout
+        android:id="@+id/lytExtra"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="40dp"
+        android:layout_marginTop="20dp"            
+        android:orientation="horizontal" >
+        
+        <Button
+	        android:id="@+id/B_buscar"
+	        android:text="@string/B_buscar"
+	        style="@style/B_buscar"
+	        android:visibility="visible"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:maxHeight="40dp"
+	        android:layout_gravity="center_horizontal" />
+
+    	<ProgressBar
+	        android:id="@+id/progressBar1"
+	        style="?android:attr/progressBarStyleLarge"
+	        android:visibility="gone"
+	        android:maxHeight="40dp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal" />
+    
+    </LinearLayout>
+    
+    
+    
+</LinearLayout>

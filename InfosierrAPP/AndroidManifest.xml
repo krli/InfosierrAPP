@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="es.ulpgc.IST.infosierrapp.PresentadorV_buscador"
+            android:name="es.ulpgc.IST.infosierrapp.main.PresentadorV_buscador"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
