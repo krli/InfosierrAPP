@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class Buscador_PresentadorV extends Activity implements OnClickListener {
+public class PresentadorV_buscador extends Activity implements OnClickListener {
 	
 	/**
 	 * Modelo de datos.
@@ -33,19 +33,14 @@ public class Buscador_PresentadorV extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_buscador);
+		setContentView(R.layout.vista_v_buscador);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main_buscador, menu);
 		return true;
 	}
 	
-	public void funcionTonta() {
-		
-	}
 
 	@Override
 	public void onClick(View v) {
