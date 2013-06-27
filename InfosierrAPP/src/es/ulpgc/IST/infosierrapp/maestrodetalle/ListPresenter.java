@@ -10,6 +10,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+/**
+ * Presenta los items obtenidos en la busqueda
+ * @author jesus
+ *
+ */
+//TODO no crear un ListModel
 public class ListPresenter extends Activity{
 	private static final int REQUEST_CODE = 0;
 	private ListView list;
@@ -18,7 +24,7 @@ public class ListPresenter extends Activity{
 	@Override
 	public void onCreate (Bundle savedInstanceState) {
 		super.onCreate (savedInstanceState);
-		setContentView(R.layout.master_view);
+		setContentView(R.layout.vista_v_maestro);
 		
 		list = (ListView) findViewById (R.id.listView);
 		model = new ListModel();

@@ -2,6 +2,11 @@ package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
 import java.io.Serializable;
 
+/**
+ * Cada uno de los anuncios que se mostraran
+ * @author jesus
+ *
+ */
 public class ItemModel implements Serializable {
 
     public static int maxpos = 0;
@@ -14,7 +19,7 @@ public class ItemModel implements Serializable {
     private String descripcion;
     private int X;
     private int Y;
-//a??adir fotos y map
+//a??adir fotos 
 
     public ItemModel() {
         setNombre("");
@@ -27,6 +32,16 @@ public class ItemModel implements Serializable {
         setPos();
     }
 
+    /**
+     * Constructor para crear nuevos items. Recibe los campos necesarios
+     * @param nombre
+     * @param direccion
+     * @param telefono
+     * @param email
+     * @param descripcion
+     * @param X
+     * @param Y
+     */
     public ItemModel(String nombre, String direccion, String telefono, String email, String descripcion, int X, int Y) {
         setNombre(nombre);
         setDireccion(direccion);

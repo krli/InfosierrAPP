@@ -16,7 +16,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import es.ulpgc.IST.infosierrapp.R;
 
-
+/**
+ * Presentador asignado a cada anuncio
+ * Muestra la disposicion de la informacion
+ * @author jesus
+ *
+ */
 public class ItemPresenter extends FragmentActivity  {
 
     private EditText nombre;
@@ -73,6 +78,9 @@ public class ItemPresenter extends FragmentActivity  {
         setUpMapIfNeeded();
     }
     
+    /**
+     * Intenta abrir el mapa
+     */
     private void setUpMapIfNeeded() {
     	// Si el nMap esta null entonces es porque no se instancio el mapa.
         if (mMap == null) {
@@ -85,6 +93,10 @@ public class ItemPresenter extends FragmentActivity  {
         }
     }
     
+   /**
+    * Coloca marcador en la posicion del anuncio
+    */
+   
     private void setUpMap() {
         mMap.addMarker(new MarkerOptions().position(new LatLng(X, Y)).title("Marker"));
     }
