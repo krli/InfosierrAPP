@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/verdeFondo"
     android:orientation="vertical" >
 
     <TextView
@@ -18,7 +19,9 @@
         android:id="@+id/txtNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:editable="false"
         android:hint="Nombre"
+        android:textColorHint="@color/grisOscuro"
         android:textSize="22dp"
         android:textStyle="bold" />
 
@@ -26,21 +29,27 @@
         android:id="@+id/txtDireccion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:editable="false"
         android:hint="Direccion"
+        android:textColorHint="@color/grisOscuro"
         android:textSize="22dp" />
 
     <EditText
         android:id="@+id/txtTelefono"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:editable="false"
         android:hint="Telefono"
+        android:textColorHint="@color/grisOscuro"
         android:textSize="22dp" />
 
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:editable="false"
         android:hint="Email"
+        android:textColorHint="@color/grisOscuro"
         android:textSize="22dp" />
 
     <EditText

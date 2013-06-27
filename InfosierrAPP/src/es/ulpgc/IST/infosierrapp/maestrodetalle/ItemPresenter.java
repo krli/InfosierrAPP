@@ -43,7 +43,7 @@ public class ItemPresenter extends FragmentActivity  {
     
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail_view);
+        setContentView(R.layout.vista_v_detalle);
         setUpMapIfNeeded();
 
         pos = (TextView)findViewById(R.id.lblPos);

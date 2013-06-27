@@ -20,7 +20,7 @@ public class ListAdapter extends ArrayAdapter {
     }
 
     public ListAdapter(Activity context, ItemModel[] data) {
-        super(context, R.layout.item_view, data);
+        super(context, R.layout.vista_v_item, data);
         this.data = data;
         this.context = context;
     }
@@ -31,7 +31,7 @@ public class ListAdapter extends ArrayAdapter {
 
         if(item == null){
             LayoutInflater inflater = context.getLayoutInflater();
-            item = inflater.inflate(R.layout.item_view, null);
+            item = inflater.inflate(R.layout.vista_v_item, null);
 
             holder = new ViewHolder();
             holder.title = (TextView)item.findViewById(R.id.lblTitle);
