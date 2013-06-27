@@ -12,7 +12,7 @@ import android.content.res.Configuration;
  * @author krlo
  *
  */
-public class PresentadorH_buscador extends PresentadorV_buscador {
+public class PresentadorH_main extends PresentadorV_main {
 	
 	@Override
 	protected void checkOrientation() {	    
@@ -29,8 +29,8 @@ public class PresentadorH_buscador extends PresentadorV_buscador {
 
 	@Override
 	protected Intent getPresenter() {
-		Intent intent = new Intent(PresentadorH_buscador.this,
-				PresentadorV_buscador.class);
+		Intent intent = new Intent(PresentadorH_main.this,
+				PresentadorV_main.class);
 		return intent;
 	}
 

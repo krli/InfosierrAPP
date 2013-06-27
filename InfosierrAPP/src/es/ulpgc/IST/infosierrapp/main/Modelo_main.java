@@ -1,21 +1,21 @@
 package es.ulpgc.IST.infosierrapp.main;
 
-import es.ulpgc.IST.infosierrapp.Anuncio;
+import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 
 
-public class Modelo_buscador {
+public class Modelo_main {
 	
 	// Singleton Pattern
-	private static Modelo_buscador instance = new Modelo_buscador();
+	private static Modelo_main instance = new Modelo_main();
 	
 	//TODO Adaptar el tipo a la lista adecuada 
 	private Anuncio resultados[];
 
-	private Modelo_buscador() {
+	private Modelo_main() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static Modelo_buscador getModel() {
+	public static Modelo_main getModel() {
 	  	return instance;
 	}
 	

@@ -8,12 +8,12 @@ import android.content.res.Configuration;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class PresentadorV_buscador extends Activity implements OnClickListener {
+public class PresentadorV_main extends Activity implements OnClickListener {
 	
 	/**
 	 * Modelo de datos.
 	 */
-	protected Modelo_buscador modelo;
+	protected Modelo_main modelo;
 	
 	
 	@Override
@@ -21,7 +21,7 @@ public class PresentadorV_buscador extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		
 		// Recupera el modelo desde el singleton
-		modelo = Modelo_buscador.getModel();
+		modelo = Modelo_main.getModel();
 		
 		setContentView(R.layout.vista_v_buscador);
 	}
@@ -60,8 +60,8 @@ public class PresentadorV_buscador extends Activity implements OnClickListener {
 
     protected Intent getPresenter() {
 
-    	Intent intent = new Intent(PresentadorV_buscador.this,
-    			PresentadorH_buscador.class);
+    	Intent intent = new Intent(PresentadorV_main.this,
+    			PresentadorH_main.class);
 
     	return intent;
     }

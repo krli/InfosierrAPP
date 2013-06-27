@@ -1,7 +1,7 @@
 /**
  * 
  */
-package es.ulpgc.IST.infosierrapp;
+package es.ulpgc.IST.infosierrapp.datos;
 
 /**
  * @author krlo
