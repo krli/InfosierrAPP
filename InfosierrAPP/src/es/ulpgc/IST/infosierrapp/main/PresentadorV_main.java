@@ -23,7 +23,7 @@ public class PresentadorV_main extends Activity implements OnClickListener {
 		// Recupera el modelo desde el singleton
 		modelo = Modelo_main.getModel();
 		
-		setContentView(R.layout.vista_v_buscador);
+		setContentView(R.layout.main_vista_v);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class PresentadorV_main extends Activity implements OnClickListener {
     protected void loadView() {
         /*Toast.makeText(getApplicationContext(),
                 "loadView1()", Toast.LENGTH_SHORT).show();*/
-        setContentView(R.layout.vista_v_buscador);
+        setContentView(R.layout.main_vista_v);
     }
 	
 

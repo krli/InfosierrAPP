@@ -24,7 +24,7 @@ public class PresentadorH_main extends PresentadorV_main {
 
 	@Override
 	protected void loadView() {
-		setContentView(R.layout.vista_h_buscador);
+		setContentView(R.layout.main_vista_h);
 	}
 
 	@Override

@@ -32,12 +32,14 @@ public class BuscadorDatos {
 	 */
 	public void buscar(String cadena) {
 		
+		// 0. Comprobar que no es la misma búsqueda anterior,
+		// y si lo es, omitir los pasos siguientes
 		// 1. Busca en BD_infosierra
 		// 2. Guarda en BD_resultados
 
 	}
 	public void buscar(String cadena, int cp) {
-		
+		// otros métodos para búsquedas avanzadas
 	}
 
 	/**
