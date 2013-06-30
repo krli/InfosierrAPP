@@ -19,9 +19,11 @@ public class Modelo_main {
 	  	return instance;
 	}
 	
+	
+	
 	/**
 	 * 
-	 * @param cadena patrón para la búsqueda
+	 * @param cadena patr��n para la b��squeda
 	 */
 	public void buscar(String cadena) {
 		
