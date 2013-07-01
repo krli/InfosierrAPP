@@ -54,7 +54,7 @@ public class BuscadorDatos {
 	 */
 	//TODO: definir el tipo que usaremos para esta lista
 	// (ArrayList, Vector...) que sea m��s ��ptimo
-	public  Anuncio[] getResultados() {
+	public static  Anuncio[] getResultados() {
 		Anuncio[] resultados = new Anuncio[3];
 		
 		return resultados;

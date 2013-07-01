@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import es.ulpgc.IST.infosierrapp.R;
+import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 
 /**
  * Presentador asignado a cada anuncio
@@ -29,9 +30,10 @@ public class ItemPresenter extends FragmentActivity  {
     private EditText telefono;
     private EditText email;
     private EditText descripcion;
+    private EditText web;
     private TextView pos;
 
-    private ItemModel model;
+    private Anuncio anuncio;
     private String action;
     
     private GoogleMap mMap;
@@ -51,23 +53,25 @@ public class ItemPresenter extends FragmentActivity  {
         direccion = (EditText)findViewById(R.id.txtDireccion);
         telefono = (EditText)findViewById(R.id.txtTelefono);
         email = (EditText)findViewById(R.id.txtEmail);
+        web = (EditText)findViewById(R.id.txtWeb);
         descripcion = (EditText)findViewById(R.id.txtDescripcion);
        
 
 
 
         Intent intent = getIntent();
-        model = (ItemModel)intent.getSerializableExtra(Intent.ACTION_EDIT);
+        anuncio = (Anuncio)intent.getSerializableExtra(Intent.ACTION_EDIT);
 
-        pos.setText(model.getPos());
+        pos.setText(anuncio.getPos());
 
-        nombre.setText(model.getNombre());
-        direccion.setText(model.getDireccion());
-        telefono.setText(model.getTelefono());
-        email.setText(model.getEmail());
-        descripcion.setText(model.getDescripcion());
-        X=(model.getX());
-        Y=(model.getY());
+        nombre.setText(anuncio.getNombre());
+        direccion.setText(anuncio.getDireccion());
+        telefono.setText(anuncio.getTelefono());
+        email.setText(anuncio.getEmail());
+        web.setText(anuncio.getWeb());
+        descripcion.setText(anuncio.getDescripcion());
+        X=(anuncio.getX());
+        Y=(anuncio.getY());
 
 
     }
@@ -104,7 +108,7 @@ public class ItemPresenter extends FragmentActivity  {
     @Override
     public void finish() {
         Intent intent = new Intent();
-        intent.putExtra(action, model);
+        //intent.putExtra(action, anuncio);
         setResult(RESULT_OK, intent);
         super.finish();
     }
@@ -130,7 +134,7 @@ public class ItemPresenter extends FragmentActivity  {
 //                finish();
 //                return true;
             case R.id.menu_llamar:
-            	Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(model.getTelefono()));
+            	Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(anuncio.getTelefono()));
             	startActivity(intent);
             	finish();
             	return true;

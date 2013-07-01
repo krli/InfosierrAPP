@@ -21,16 +21,5 @@ import es.ulpgc.IST.infosierrapp.datos.BD_resultados;
  */
 public class Inicio {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		/*
-		 * Declaramos el controlador de la BBDD y accedemos en modo escritura
-		 */
-		BD_resultados dbResultados = new BD_resultados(getBaseContext());
-
-		SQLiteDatabase db = dbResultados.getWritableDatabase();
-
-		Toast.makeText(getBaseContext(), "Base de datos local preparada", Toast.LENGTH_LONG).show()
-	}
+	
 }

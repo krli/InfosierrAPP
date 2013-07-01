@@ -80,8 +80,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import es.ulpgc.IST.infosierrapp.R;
-import es.ulpgc.IST.infosierrapp.datos.BD_resultadosAdapter;
-import es.ulpgc.IST.infosierrapp.datos.BD_resultadosCursorAdapter;
 public class ListPresenter extends ListActivity {
 	private BD_resultadosAdapter dbAdapter;
 	private Cursor cursor;

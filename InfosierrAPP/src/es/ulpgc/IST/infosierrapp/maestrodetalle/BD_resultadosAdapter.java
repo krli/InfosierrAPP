@@ -1,5 +1,6 @@
-package es.ulpgc.IST.infosierrapp.datos;
+package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
+import es.ulpgc.IST.infosierrapp.datos.BD_resultados;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;

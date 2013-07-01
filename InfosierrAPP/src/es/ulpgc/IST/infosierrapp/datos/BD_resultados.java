@@ -15,8 +15,10 @@ import android.util.Log;
 public class BD_resultados extends SQLiteOpenHelper {
 
 	private static int version = 1;
-	private static String name = "HipotecaDb" ;
+	private static String name = "ResultadosDb" ;
 	private static CursorFactory factory = null;
+	private static Anuncio[] resultados;
+	private int contador=0;
 
 	public BD_resultados(Context context)
 	{
@@ -50,8 +52,11 @@ public class BD_resultados extends SQLiteOpenHelper {
 		 * Insertamos datos iniciales
 		 */
 		//Sustituir por BuscadorDatos.getResultados()
+		resultados = BuscadorDatos.getResultados();
 		
-		db.execSQL("INSERT INTO ANUNCIO(_id, anuncio_nombre) VALUES(1,'Bar Pepe')");
+		do{
+		//COMO PODRIA LLAMAR A METODO?
+		db.execSQL("INSERT INTO ANUNCIO(_id, anuncio_nombre) VALUES(1,resultados[contador].getNombre())");
 		db.execSQL("INSERT INTO ANUNCIO(_id, anuncio_etiquetas) VALUES(2,'Restaurantes, cafeterias')");
 		db.execSQL("INSERT INTO ANUNCIO(_id, anuncio_direccion) VALUES(3,'Calle 123')");
 		db.execSQL("INSERT INTO ANUNCIO(_id, anuncio_telefono) VALUES(4,'928000000')");
@@ -59,6 +64,8 @@ public class BD_resultados extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO ANUNCIO(_id, anuncio_web) VALUES(6,'www.barpepe.com')");
 		db.execSQL("INSERT INTO ANUNCIO(_id, anuncio_descripcion) VALUES(7,'blablabla')");
 
+		contador++;
+		} while (resultados[contador]!=null);
 		Log.i(this.getClass().toString(), "Datos iniciales ANUNCIOS insertados");
 
 		Log.i(this.getClass().toString(), "Base de datos creada");

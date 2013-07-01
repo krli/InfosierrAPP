@@ -1,4 +1,4 @@
-package es.ulpgc.IST.infosierrapp.datos;
+package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
 import android.content.Context;
 import android.database.Cursor;
