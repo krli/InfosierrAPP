@@ -7,7 +7,8 @@
     <string name="T_titulo">El buscador de la Sierra de Aracena, Picos de Aroche y sus alrededores&#8230;</string>
     <string name="T_subtitulo">¿Qué quieres buscar?</string>
     <string name="ET_buscar">ej: Restaurantes</string>
-    <string name="main_SV_hint">Buscar en InfosierrAPP</string>
+    <string name="SV_hint">Buscar en InfosierrAPP</string>
+    <string name="SV_label">@string/app_name</string>
     <string name="master_title">MASTER</string>
     <string name="detail_title">DETAIL</string>
     <string name="menu_exit">Salir</string>

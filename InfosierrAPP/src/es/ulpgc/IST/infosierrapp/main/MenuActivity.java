@@ -59,7 +59,7 @@ public class MenuActivity extends Activity {
 	
 	
 	/**
-	 * Reacciona las acciones en la ActionBar
+	 * Reacciona a las acciones en la ActionBar
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -68,13 +68,11 @@ public class MenuActivity extends Activity {
 			// app icon in action bar clicked; go main activity
 			return goMain();
 		case R.id.menu_web:
-			// se ha pulsado el boton para abrir infosierra.es
-			goWeb();
-			return true;
+			// se ha pulsado el boton para abrir infosierra.es			
+			return goWeb();
 		case R.id.menu_exit:
 			// se ha pulsado el boton de salir
-			goExit();
-			return true;
+			return goExit();
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -83,8 +81,9 @@ public class MenuActivity extends Activity {
 	protected boolean goMain() {
 		Intent intent = new Intent(this, PresentadorV_main.class);
         // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        // intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+        finish();
         return true;
 	}
 	
@@ -93,6 +92,7 @@ public class MenuActivity extends Activity {
 		intent.addCategory(Intent.CATEGORY_HOME);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
+		finish();
 		return true;
 	}
 	

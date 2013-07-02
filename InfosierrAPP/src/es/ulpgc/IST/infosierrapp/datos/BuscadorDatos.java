@@ -2,37 +2,25 @@ package es.ulpgc.IST.infosierrapp.datos;
 
 
 /**
- * Clase para gestionar las b��squedas y el
+ * Clase para gestionar las búsquedas y el
  * almacenamiento local de los resultados usando
- * las clases BD_*. Ser�� la interfaz para todas
+ * las clases BD_*. Será la interfaz para todas
  * las actividades de la APP.
+ * 
  * 
  * @author krlo
  *
  */
 public class BuscadorDatos {
 
-	// Singleton Pattern
-	private static BuscadorDatos instance = new BuscadorDatos();
-
-
-	private BuscadorDatos() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public static BuscadorDatos getBuscador() {
-		return instance;
-	}
-	
-	
 
 	/**
 	 * Busca en la base de datos completa (BD_infosierra)
 	 * y almacena los resultados en local (BD_resultados)
 	 * 
-	 * @param cadena patr��n para la b��squeda
+	 * @param cadena patrón para la búsqueda
 	 */
-	public void buscar(String cadena) {
+	public static void buscar(String cadena) {
 		
 		// 0. Comprobar que no es la misma b��squeda anterior,
 		// y si lo es, omitir los pasos siguientes
@@ -40,7 +28,7 @@ public class BuscadorDatos {
 		// 2. Guarda en BD_resultados
 
 	}
-	public void buscar(String cadena, int cp) {
+	public static void buscar(String cadena, int cp) {
 		// otros m��todos para b��squedas avanzadas
 	}
 

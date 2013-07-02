@@ -44,7 +44,8 @@
         android:layout_height="0dip"
         android:layout_marginTop="20dp"
         android:layout_weight="0.25"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:visibility="visible" >
     
 	    <TextView
 	        android:id="@+id/textSubtitulo"
@@ -59,9 +60,7 @@
 	        android:id="@+id/searchView1"
 	        style="@style/S_buscar"
 	        android:inputType="text"
-	    	android:hint="@string/main_SV_hint"
 	    	android:iconifiedByDefault="false"
-	        android:queryHint="@string/ET_buscar"        
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="bottom|center_vertical" >
@@ -71,30 +70,21 @@
     </LinearLayout>
     
     <LinearLayout
-        android:id="@+id/lytBotons"
-        android:layout_weight="0.15"
+        android:id="@+id/lytProgreso"
+        android:layout_weight="0.25"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:maxHeight="80dp"
-        android:layout_marginTop="5dp"            
-        android:orientation="horizontal" >
-        
-        <Button
-	        android:id="@+id/B_buscar"
-	        android:text="@string/B_buscar"
-	        style="@style/B_buscar"
-	        android:visibility="visible"
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:gravity="center" />
+        android:layout_marginTop="20dp"            
+        android:orientation="vertical"
+        android:visibility="gone" >
 
     	<ProgressBar
     	    android:id="@+id/progressBar1"
-    	    style="?android:attr/progressBarStyleLarge"
-    	    android:visibility="gone"
-    	    android:layout_width="wrap_content"
-    	    android:layout_height="match_parent"
-    	    android:gravity="center" />
+    	    style="?android:attr/progressBarStyleLarge"    	    
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"    	    
+    	     />
     
     </LinearLayout>
     
