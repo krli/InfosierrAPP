@@ -1,12 +1,15 @@
 package es.ulpgc.IST.infosierrapp.main;
 
 import es.ulpgc.IST.infosierrapp.R;
+import es.ulpgc.IST.infosierrapp.datos.BD_resultados;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class PresentadorV_main extends Activity implements OnClickListener {
 	
@@ -24,6 +27,15 @@ public class PresentadorV_main extends Activity implements OnClickListener {
 		modelo = Modelo_main.getModel();
 		
 		setContentView(R.layout.main_vista_v);
+		
+		/*
+		 * Declaramos el controlador de la BBDD y accedemos en modo escritura
+		 */
+		BD_resultados dbResultados = new BD_resultados(getBaseContext());
+
+		SQLiteDatabase db = dbResultados.getWritableDatabase();
+
+		Toast.makeText(getBaseContext(), "Base de datos local preparada", Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -35,8 +47,8 @@ public class PresentadorV_main extends Activity implements OnClickListener {
     }
     
 	/**
-	 * Verifica que la orientación del dispositivo concuerda con
-	 * la del presentador en uso. Si no es así fuerza el cambio
+	 * Verifica que la orientaci��n del dispositivo concuerda con
+	 * la del presentador en uso. Si no es as�� fuerza el cambio
 	 * al otro presentador.
 	 */
     protected void checkOrientation() {      

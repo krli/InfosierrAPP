@@ -20,7 +20,7 @@
         android:maxHeight="@dimen/logo_height"
         android:maxWidth="@dimen/logo_width"
         android:scaleType="center"
-        android:src="@drawable/infosierra_logo_web2" />
+        android:src="@drawable/logo2_transp" />
     
     <TextView
         android:id="@+id/textTitulo"
@@ -40,18 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp" />
-    
-    <EditText
-        android:id="@+id/editText1"
-        android:hint="@string/ET_buscar"
-        android:inputType="text"
-        style="@style/ET_buscar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"        
-        android:layout_marginTop="5dp" >
-        <requestFocus />
-    </EditText>
 
     <SearchView
         android:id="@+id/searchView1"
