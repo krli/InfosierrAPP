@@ -10,11 +10,12 @@
     <string name="main_SV_hint">Buscar en InfosierrAPP</string>
     <string name="master_title">MASTER</string>
     <string name="detail_title">DETAIL</string>
-    <string name="menu_exit">Exit</string>
+    <string name="menu_exit">Salir</string>
+    <string name="menu_web">Infosierra.es</string>
     <string name="menu_delete">Del</string>
     <string name="menu_new">New</string>
     <string name="menu_back">Back</string>
-    <string name="menu_save">Save</string>
+    <string name="menu_save">Guardar</string>
     <string name="menu_llamar">Llamar</string>
 
 </resources>

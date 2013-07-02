@@ -1,24 +1,28 @@
 package es.ulpgc.IST.infosierrapp.main;
 
 import es.ulpgc.IST.infosierrapp.R;
-import es.ulpgc.IST.infosierrapp.datos.BD_resultados;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-public class PresentadorV_main extends Activity implements OnClickListener {
-	
+public class PresentadorV_main extends MenuActivity implements OnClickListener {
+		
 	/**
 	 * Modelo de datos.
 	 */
 	protected Modelo_main modelo;
 	
+	/*
+	 * Referencias a componentes del layout;
+	 */
+
 	
+	/**
+	 * Inicio de la actividad.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,18 +30,21 @@ public class PresentadorV_main extends Activity implements OnClickListener {
 		// Recupera el modelo desde el singleton
 		modelo = Modelo_main.getModel();
 		
-		setContentView(R.layout.main_vista_v);
+		/* Configuraciones iniciales */
+
+		// Comprobaciones de arranque
+		//Inicio.loquesea();
+		// Verifica la orientación
+		checkOrientation();
 		
-		/*
-		 * Declaramos el controlador de la BBDD y accedemos en modo escritura
-		 */
-		BD_resultados dbResultados = new BD_resultados(getBaseContext());
-
-		SQLiteDatabase db = dbResultados.getWritableDatabase();
-
-		Toast.makeText(getBaseContext(), "Base de datos local preparada", Toast.LENGTH_LONG).show();
+		// Y por último carga el layout
+		loadView();
 	}
 
+	/**
+	 * Se llamará si hay algún cambio en las configuraciones del teléfono, como
+	 * por ejemplo, un cambio de orientación.
+	 */
 	@Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -45,10 +52,11 @@ public class PresentadorV_main extends Activity implements OnClickListener {
         // Si ha habido un giro...
         checkOrientation();    
     }
+		
     
 	/**
-	 * Verifica que la orientaci��n del dispositivo concuerda con
-	 * la del presentador en uso. Si no es as�� fuerza el cambio
+	 * Verifica que la orientación del dispositivo concuerda con
+	 * la del presentador en uso. Si no es así fuerza el cambio
 	 * al otro presentador.
 	 */
     protected void checkOrientation() {      
@@ -69,16 +77,22 @@ public class PresentadorV_main extends Activity implements OnClickListener {
     	finish();    	
     }
     
-
+    /**
+     * Devuelve un intent para cambiar al presentador que
+     * corresponda:
+     * PresenV --> PresenH
+     * PresenH --> PresenV 
+     * @return
+     */
     protected Intent getPresenter() {
-
     	Intent intent = new Intent(PresentadorV_main.this,
     			PresentadorH_main.class);
-
     	return intent;
     }
 
-    
+    /**
+     * Carga el layout.
+     */
     protected void loadView() {
         /*Toast.makeText(getApplicationContext(),
                 "loadView1()", Toast.LENGTH_SHORT).show();*/
@@ -86,6 +100,9 @@ public class PresentadorV_main extends Activity implements OnClickListener {
     }
 	
 
+    /**
+     * Reacciona a los eventos de click
+     */
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub

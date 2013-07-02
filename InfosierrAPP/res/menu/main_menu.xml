@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item
+            android:id="@+id/menu_web"
+            android:icon="@drawable/ic_menu_web"            
+            android:showAsAction="ifRoom"
+            android:title="@string/menu_web"/>
+
+    <item
+            android:id="@+id/menu_exit"
+            android:icon="@drawable/ic_menu_exit"            
+            android:showAsAction="ifRoom"
+            android:title="@string/menu_exit"/>
+    
+</menu>
