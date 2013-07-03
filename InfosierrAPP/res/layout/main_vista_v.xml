@@ -77,14 +77,13 @@
         android:maxHeight="80dp"
         android:layout_marginTop="20dp"            
         android:orientation="vertical"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
     	<ProgressBar
     	    android:id="@+id/progressBar1"
     	    style="?android:attr/progressBarStyleLarge"    	    
     	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content"    	    
-    	     />
+    	    android:layout_height="wrap_content" />
     
     </LinearLayout>
     

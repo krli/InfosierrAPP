@@ -1,5 +1,7 @@
 package es.ulpgc.IST.infosierrapp.main;
 
+import java.util.TooManyListenersException;
+
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
 import android.os.Bundle;
@@ -150,9 +152,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
     		// handles a search query
     		
     		// 1. Arranca el progress spinner
-    		ly_buscador.setVisibility(View.GONE);
-    		ly_progreso.setVisibility(View.VISIBLE);
-    		wi_progreso.setVisibility(View.VISIBLE);
+    		toggleProgressBar();
     		
     		// 2. Ejecuta la búsqueda
     		String query = intent.getStringExtra(SearchManager.QUERY);
@@ -165,9 +165,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
     			    			
     		}
     		// 3. Detiene el progress spineer y pasa al maestro-detalle de resultados
-    		wi_progreso.setVisibility(View.GONE);
-    		ly_progreso.setVisibility(View.GONE);
-    		ly_buscador.setVisibility(View.VISIBLE);    		
+    		toggleProgressBar();
     		Toast.makeText(getApplicationContext(), "<"+query+">", Toast.LENGTH_SHORT).show();    		
     	}
     	
@@ -183,5 +181,23 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private void toggleProgressBar() {
+	    switch (ly_progreso.getVisibility()) {
+	    case View.GONE:
+	    	ly_buscador.setVisibility(View.GONE);
+	    	wi_search.setVisibility(View.GONE);
+	    	ly_progreso.setVisibility(View.VISIBLE);
+	    	wi_progreso.setVisibility(View.VISIBLE);
+	        break;
+	    default:
+	    	ly_progreso.setVisibility(View.GONE);
+	    	wi_progreso.setVisibility(View.GONE);
+	    	ly_buscador.setVisibility(View.VISIBLE);
+	    	wi_search.setVisibility(View.VISIBLE);
+	        break;
+	    }
+	}
+	
 
 }
