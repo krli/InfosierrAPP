@@ -68,12 +68,22 @@
         android:layout_weight="1"
         android:gravity="top"
         android:hint="Descripcion"
+        android:textColorHint="@color/grisOscuro"
         android:textSize="18dp" />
 
+        <EditText
+        android:id="@+id/txtEtiqueta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="top"
+        android:hint="Etiqueta"
+        android:textColorHint="@color/grisOscuro"
+        android:textSize="0dp" />
     <fragment
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="150dp"
         class="com.google.android.gms.maps.SupportMapFragment" />
 
 </LinearLayout>

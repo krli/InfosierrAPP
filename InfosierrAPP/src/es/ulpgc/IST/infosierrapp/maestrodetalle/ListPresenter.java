@@ -91,7 +91,7 @@ import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
 public class ListPresenter extends MenuListActivity {
 	private Cursor cursor;
 	private SimpleCursorAdapter cursorAdapter;
-	
+
 	private TextView mTextView;
 	private ListView mListView;
 
@@ -102,11 +102,9 @@ public class ListPresenter extends MenuListActivity {
 		setContentView(R.layout.vista_v_maestro);
 
 		mTextView = (TextView) findViewById(R.id.text);
-		mListView = (ListView) findViewById(R.id.list);
+		mListView = (ListView) findViewById(R.id.listView);
 
-		//OBTENER CURSOR ADAPTER
 
-		cursorAdapter = BuscadorDatos.initAdapter();
 		mostrar();
 
 		//dbAdapter = new BD_resultadosAdapter(this);
@@ -127,14 +125,21 @@ public class ListPresenter extends MenuListActivity {
 			mTextView.setText(countString);
 
 			// Specify the columns we want to display in the result
+
+			/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			String[] from = new String[] { DictionaryDatabase.KEY_NOMBRE,
 					DictionaryDatabase.KEY_ETIQUETA };
+			 */
 
 			// Specify the corresponding layout elements where we want the columns to go
-			int[] to = new int[] { R.id.nombre,
-					R.id.etiqueta };
+			int[] to = new int[] { R.id.txtNombre,
+					R.id.txtEtiqueta };
 
 			//  
+
+			/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			BuscadorDatos.initAdapter(this, from, to);
+			 */
 
 			mListView.setAdapter(cursorAdapter);
 
@@ -144,10 +149,18 @@ public class ListPresenter extends MenuListActivity {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					// Build the Intent used to open WordActivity with a specific word Uri
+
+
 					Intent wordIntent = new Intent(getApplicationContext(), ItemPresenter.class);
+
+					/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 					Uri data = Uri.withAppendedPath(DictionaryProvider.CONTENT_URI,
 							String.valueOf(id));
+
+
 					wordIntent.setData(data);
+					 */
+
 					startActivity(wordIntent);
 				}
 			});

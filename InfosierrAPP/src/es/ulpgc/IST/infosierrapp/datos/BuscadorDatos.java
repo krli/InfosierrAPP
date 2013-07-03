@@ -1,12 +1,10 @@
 package es.ulpgc.IST.infosierrapp.datos;
 
-import com.example.android.searchabledict.DictionaryProvider;
-import com.example.android.searchabledict.R;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.SimpleCursorAdapter;
+import es.ulpgc.IST.infosierrapp.R;
 
 
 /**
@@ -46,7 +44,7 @@ public class BuscadorDatos {
 	private BD_infosierra dbHelper;
 	private SQLiteDatabase db;
 	private static Cursor cursor;
-	private String cadena;
+	private static String cadena;
 
 	/**
     * Definimos lista de columnas de la tabla para utilizarla en las consultas a la base de datos
@@ -69,9 +67,12 @@ public class BuscadorDatos {
 	}
 	public  void buscar(String cadena, int cp) {
 		// otros m��todos para b��squedas avanzadas
+		
+		/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		 cursor = managedQuery(DictionaryProvider.CONTENT_URI, null, null,
                 new String[] {cadena}, null);
-
+		*/
+		
 		 this.cadena=cadena;
 		this.cursor=cursor;
 	}
@@ -105,9 +106,9 @@ public class BuscadorDatos {
 		return resultados;
 	}
 	
-	public   SimpleCursorAdapter initAdapter(){
+	public static SimpleCursorAdapter initAdapter(Context context, String [] from, int [] to){
 		// Create a simple cursor adapter for the definitions and apply them to the ListView
-        SimpleCursorAdapter words = new SimpleCursorAdapter(this,
+        SimpleCursorAdapter words = new SimpleCursorAdapter(context,
                                       R.layout.vista_v_maestro, cursor, from, to);
         return words;
         
@@ -119,7 +120,7 @@ public class BuscadorDatos {
 		return cursor;
 	}
 	
-	public String getCadena(){
+	public static String getCadena(){
 		return cadena;
 	}
 
