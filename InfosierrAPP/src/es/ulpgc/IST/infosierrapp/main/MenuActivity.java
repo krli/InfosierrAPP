@@ -82,8 +82,7 @@ public class MenuActivity extends Activity {
 		Intent intent = new Intent(this, PresentadorV_main.class);
         // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         // intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
-        finish();
+        startActivity(intent);        
         return true;
 	}
 	
