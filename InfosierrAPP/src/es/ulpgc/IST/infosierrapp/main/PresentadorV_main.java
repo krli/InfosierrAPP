@@ -187,6 +187,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
 	    case View.GONE:
 	    	ly_buscador.setVisibility(View.GONE);
 	    	wi_search.setVisibility(View.GONE);
+	    	wi_search.setIconified(true);
 	    	ly_progreso.setVisibility(View.VISIBLE);
 	    	wi_progreso.setVisibility(View.VISIBLE);
 	        break;
@@ -195,6 +196,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
 	    	wi_progreso.setVisibility(View.GONE);
 	    	ly_buscador.setVisibility(View.VISIBLE);
 	    	wi_search.setVisibility(View.VISIBLE);
+	    	wi_search.setIconified(false);
 	        break;
 	    }
 	}
