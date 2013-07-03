@@ -54,7 +54,7 @@ public class BD_infosierra {
 	    private static final String FTS_VIRTUAL_TABLE = "FTSinfosierra";
 	    private static final int DATABASE_VERSION = 2;
 	    
-	    private final BD_infosierraOpenHelper mDatabaseOpenHelper;
+	    private static   BD_infosierraOpenHelper mDatabaseOpenHelper;
 	    
 	    
 	    private static final HashMap<String,String> mColumnMap = buildColumnMap();
@@ -120,7 +120,7 @@ public class BD_infosierra {
 	     * @param columns The columns to include, if null then all are included
 	     * @return Cursor over all words that match, or null if none found.
 	     */
-	    public Cursor getWordMatches(String query, String[] columns) {
+	    public static  Cursor getWordMatches(String query, String[] columns) {
 	        String selection = KEY_ETIQUETAS + " MATCH ?";
 	        String[] selectionArgs = new String[] {query+"*"};
 
@@ -148,7 +148,7 @@ public class BD_infosierra {
 	     * @param columns The columns to return
 	     * @return A Cursor over all rows matching the query
 	     */
-	    private Cursor query(String selection, String[] selectionArgs, String[] columns) {
+	    private static  Cursor query(String selection, String[] selectionArgs, String[] columns) {
 	        /* The SQLiteBuilder provides a map for all possible columns requested to
 	         * actual columns in the database, creating a simple column alias mechanism
 	         * by which the ContentProvider does not need to know the real column names

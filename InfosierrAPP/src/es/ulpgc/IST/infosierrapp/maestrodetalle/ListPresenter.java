@@ -125,23 +125,7 @@ public class ListPresenter extends MenuListActivity {
 					count, new Object[] {count, BuscadorDatos.getCadena()});
 			mTextView.setText(countString);
 
-			// Specify the columns we want to display in the result
-
-			String[] from = new String[] { BD_infosierra.KEY_NOMBRE,
-					BD_infosierra.KEY_ETIQUETAS };
-
-
-			// Specify the corresponding layout elements where we want the columns to go
-			int[] to = new int[] { R.id.txtNombre,
-					//R.id.txtEtiqueta 
-			};
-
-			//  
-
-
-			BuscadorDatos.initAdapter(this, from, to);
-
-
+			cursorAdapter=BuscadorDatos.initAdapter(this);
 			mListView.setAdapter(cursorAdapter);
 
 			// Define the on-click listener for the list items

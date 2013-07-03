@@ -41,9 +41,7 @@ public class BuscadorDatos extends Activity{
 	public static final String C_COLUMNA_TELEFONO = "anuncio_telefono";
 	public static final String C_COLUMNA_WEB = "anuncio_web";
 	public static final String C_COLUMNA_DESCRIPCION = "anuncio_descripcion";
-	private Context contexto;
-	private BD_infosierra dbHelper;
-	private SQLiteDatabase db;
+
 	private static Cursor cursor;
 	private static String cadena;
 
@@ -58,25 +56,27 @@ public class BuscadorDatos extends Activity{
 	 * 
 	 * @param cadena patrón para la búsqueda
 	 */
-	public  void buscar(String cadena) {
+	public static void buscar(String cadena) {
 
 		// 0. Comprobar que no es la misma b��squeda anterior,
 		// y si lo es, omitir los pasos siguientes
 		// 1. Busca en BD_infosierra
 		// 2. Guarda en BD_resultados
 
-		
-		 cursor = managedQuery( BD_infosierra.CONTENT_URI, null, null,
-				new String[] {cadena}, null);
 
-//		 cursor = CursorLoader(this, BD_infosierra.CONTENT_URI, null, null,
-//						new String[] {cadena}, null);
-		 
+		//cursor = managedQuery( BD_infosierra.CONTENT_URI, null, null,
+			//	new String[] {cadena}, null);
 		
+		cursor = BD_infosierra.getWordMatches(cadena, null);
+
+				// cursor = CursorLoader(this, BD_infosierra.CONTENT_URI, null, null,
+					//			new String[] {cadena}, null);
+
+
 
 		BuscadorDatos.cadena=cadena;
-		
-		
+
+
 	}
 	public  void buscar(String cadena, int cp) {
 		// otros m��todos para b��squedas avanzadas
@@ -113,7 +113,17 @@ public class BuscadorDatos extends Activity{
 		return resultados;
 	}
 
-	public static SimpleCursorAdapter initAdapter(Context context, String [] from, int [] to){
+	public static SimpleCursorAdapter initAdapter(Context context){
+		// Specify the columns we want to display in the result
+
+		String[] from = new String[] { BD_infosierra.KEY_NOMBRE,
+				BD_infosierra.KEY_ETIQUETAS };
+
+
+		// Specify the corresponding layout elements where we want the columns to go
+		int[] to = new int[] { R.id.txtNombre,
+				//R.id.txtEtiqueta 
+		};
 		// Create a simple cursor adapter for the definitions and apply them to the ListView
 		SimpleCursorAdapter words = new SimpleCursorAdapter(context,
 				R.layout.vista_v_maestro, cursor, from, to);
