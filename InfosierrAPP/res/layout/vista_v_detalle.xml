@@ -42,8 +42,8 @@
         android:hint="Telefono"
         android:textColorHint="@color/grisOscuro"
         android:textSize="22dp" />
-    
-        <EditText
+
+    <EditText
         android:id="@+id/txtWeb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,19 +71,23 @@
         android:textColorHint="@color/grisOscuro"
         android:textSize="18dp" />
 
-        <EditText
-        android:id="@+id/txtEtiqueta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="top"
-        android:hint="Etiqueta"
-        android:textColorHint="@color/grisOscuro"
-        android:textSize="0dp" />
     <fragment
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         class="com.google.android.gms.maps.SupportMapFragment" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/share_icono" />
+
+    </LinearLayout>
 
 </LinearLayout>

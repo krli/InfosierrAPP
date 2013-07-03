@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <!--
@@ -18,17 +17,24 @@
             android:id="@+id/menu_delete"
             android:showAsAction="ifRoom"
             android:title="@string/menu_delete"/>
-            -->
+    -->
 
     <item
-            android:id="@+id/menu_back"
-            android:showAsAction="ifRoom"
-            android:title="@string/menu_back"/>
-    
+        android:id="@+id/menu_back"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_back"/>
+    <item
+        android:id="@+id/menu_llamar"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_llamar"/>
+    <item
+        android:id="@+id/menu_compartir"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_compartir"/>
         <item
-            android:id="@+id/menu_llamar"
-            android:showAsAction="ifRoom"
-            android:title="@string/menu_llamar"/>
+        android:id="@+id/menu_email"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_email"/>
 
     <!--
     <item
@@ -36,4 +42,5 @@
             android:showAsAction="ifRoom"
             android:title="@string/menu_exit"/>
     -->
+
 </menu>

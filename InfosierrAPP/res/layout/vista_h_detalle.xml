@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/verdeFondo"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/txtNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:ems="10"
+        android:hint="Nombre"
+        android:textColorHint="@color/grisOscuro"
+        android:textSize="22dp"
+        android:textStyle="bold" >
+
+        <requestFocus />
+    </EditText>
+
+</LinearLayout>

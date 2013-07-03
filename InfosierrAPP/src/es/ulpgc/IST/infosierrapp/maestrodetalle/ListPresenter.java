@@ -86,6 +86,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import es.ulpgc.IST.infosierrapp.R;
+import es.ulpgc.IST.infosierrapp.datos.BD_infosierra;
 import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
 
 public class ListPresenter extends MenuListActivity {
@@ -126,20 +127,20 @@ public class ListPresenter extends MenuListActivity {
 
 			// Specify the columns we want to display in the result
 
-			/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			String[] from = new String[] { DictionaryDatabase.KEY_NOMBRE,
-					DictionaryDatabase.KEY_ETIQUETA };
-			 */
+			String[] from = new String[] { BD_infosierra.KEY_NOMBRE,
+					BD_infosierra.KEY_ETIQUETAS };
+
 
 			// Specify the corresponding layout elements where we want the columns to go
 			int[] to = new int[] { R.id.txtNombre,
-					R.id.txtEtiqueta };
+					//R.id.txtEtiqueta 
+			};
 
 			//  
 
-			/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 			BuscadorDatos.initAdapter(this, from, to);
-			 */
+
 
 			mListView.setAdapter(cursorAdapter);
 
@@ -153,13 +154,13 @@ public class ListPresenter extends MenuListActivity {
 
 					Intent wordIntent = new Intent(getApplicationContext(), ItemPresenter.class);
 
-					/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					Uri data = Uri.withAppendedPath(DictionaryProvider.CONTENT_URI,
+					//
+					Uri data = Uri.withAppendedPath(BD_infosierra.CONTENT_URI,
 							String.valueOf(id));
 
 
 					wordIntent.setData(data);
-					 */
+
 
 					startActivity(wordIntent);
 				}

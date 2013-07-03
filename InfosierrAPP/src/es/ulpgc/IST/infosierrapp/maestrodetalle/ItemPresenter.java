@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -17,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
+import es.ulpgc.IST.infosierrapp.datos.BD_infosierra;
 
 /**
  * Presentador asignado a cada anuncio
@@ -26,13 +26,13 @@ import es.ulpgc.IST.infosierrapp.datos.Anuncio;
  */
 public class ItemPresenter extends FragmentActivity  {
 
-	private EditText nombre;
-	private EditText direccion;
-	private EditText telefono;
-	private EditText email;
-	private EditText descripcion;
-	private EditText web;
-	private TextView pos;
+	//	private EditText nombre;
+	//	private EditText direccion;
+	//	private EditText telefono;
+	//	private EditText email;
+	//	private EditText descripcion;
+	//	private EditText web;
+	//	private TextView pos;
 
 	private Anuncio anuncio;
 	private String action;
@@ -76,12 +76,14 @@ public class ItemPresenter extends FragmentActivity  {
 
 		Uri uri = getIntent().getData();
 		Cursor cursor = managedQuery(uri, null, null, null, null);
+		//Cursor cursor = CursorLoader(this, uri, null, null, null, null);
 
 		if (cursor == null) {
 			finish();
 		} else {
 			cursor.moveToFirst();
 
+			//TODO: meter imagenes
 			TextView nombre = (TextView) findViewById(R.id.txtNombre);
 			// TextView etiquetas = (TextView) findViewById(R.id.txtEtiquetas);
 			TextView direccion = (TextView) findViewById(R.id.txtDireccion);
@@ -89,32 +91,32 @@ public class ItemPresenter extends FragmentActivity  {
 			TextView email = (TextView) findViewById(R.id.txtEmail);
 			TextView web = (TextView) findViewById(R.id.txtWeb);
 			TextView descripcion = (TextView) findViewById(R.id.txtDescripcion);
-			//            TextView posX = (TextView) findViewById(R.id.osX);
+			//            TextView posX = (TextView) findViewById(R.id.posX);
 			//            TextView posY = (TextView) findViewById(R.id.posY);
 
-			/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            int aIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_NOMBRE);
-           // int bIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_ETIQUETAS);
-            int cIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DIRECCION);
-            int dIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_TELEFONO);
-            int eIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_CORREO);
-            int fIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_WEB);
-            int gIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DESCRIPCION);
-            int hIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSX);
-            int iIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSY);
+
+			int aIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_NOMBRE);
+			// int bIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_ETIQUETAS);
+			int cIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DIRECCION);
+			int dIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_TELEFONO);
+			int eIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_CORREO);
+			int fIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_WEB);
+			int gIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DESCRIPCION);
+			X = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSX);
+			Y = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSY);
 
 
-            nombre.setText(cursor.getString(aIndex));
-           // etiquetas.setText(cursor.getString(bIndex));
-            direccion.setText(cursor.getString(cIndex));
-            telefono.setText(cursor.getString(dIndex));
-            email.setText(cursor.getString(eIndex));
-            web.setText(cursor.getString(fIndex));
-            descripcion.setText(cursor.getString(gIndex));
-//            posX.setText(cursor.getString(hIndex));
-//            posY.setText(cursor.getString(iIndex));
+			nombre.setText(cursor.getString(aIndex));
+			// etiquetas.setText(cursor.getString(bIndex));
+			direccion.setText(cursor.getString(cIndex));
+			telefono.setText(cursor.getString(dIndex));
+			email.setText(cursor.getString(eIndex));
+			web.setText(cursor.getString(fIndex));
+			descripcion.setText(cursor.getString(gIndex));
+			//            posX.setText(cursor.getString(hIndex));
+			//            posY.setText(cursor.getString(iIndex));
 
-			 */
+
 		}
 
 
@@ -186,6 +188,23 @@ public class ItemPresenter extends FragmentActivity  {
 			//                action = Intent.ACTION_DELETE;
 			//                finish();
 			//                return true;
+		case R.id.menu_compartir:
+			Intent sendIntent = new Intent();
+			sendIntent.setAction(Intent.ACTION_SEND);
+			sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+			sendIntent.setType("text/plain");
+			startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
+			return true;
+
+		case R.id.menu_email:
+			Intent emailintent = new Intent(Intent.ACTION_SEND);
+			emailintent.setType("plain/text");
+			emailintent.putExtra(Intent.EXTRA_EMAIL,new String[] { "address@example.com" });
+			emailintent.putExtra(Intent.EXTRA_SUBJECT, "Subject of the mail");
+			emailintent.putExtra(Intent.EXTRA_TEXT, "body of the mail");
+			startActivity(Intent.createChooser(emailintent, "Title of the chooser dialog"));
+			return true;
+
 		case R.id.menu_back:
 			action = Intent.ACTION_DEFAULT;
 			finish();

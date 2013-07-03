@@ -18,6 +18,9 @@
     <string name="menu_back">Back</string>
     <string name="menu_save">Guardar</string>
     <string name="menu_llamar">Llamar</string>
+    <string name="menu_compartir">Compartir</string>
+    <string name="send_to">Compartir</string>
+    <string name="menu_email">Email</string>
 
     <!-- Shown above search results when we receive a search request. -->
     <plurals name="search_results">
@@ -27,11 +30,11 @@
 
     <!-- Search failure message. -->
     <string name="no_results">No results found for \"%s\"</string>
-    
-     <!-- General instructions in the main activity. -->
+
+    <!-- General instructions in the main activity. -->
     <string name="search_instructions">Usa el campo de busqueda para buscar lo que desees</string>
-    
-        <!-- The hint text that appears in the search box. -->
+
+    <!-- The hint text that appears in the search box. -->
     <string name="search_hint">Busca en Infosierra!</string>
 
 </resources>
