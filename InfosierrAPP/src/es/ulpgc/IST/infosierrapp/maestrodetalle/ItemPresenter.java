@@ -1,6 +1,7 @@
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.android.searchabledict.DictionaryDatabase;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -48,30 +50,71 @@ public class ItemPresenter extends FragmentActivity  {
         setContentView(R.layout.vista_v_detalle);
         setUpMapIfNeeded();
 
-        pos = (TextView)findViewById(R.id.lblPos);
-        nombre = (EditText)findViewById(R.id.txtNombre);
-        direccion = (EditText)findViewById(R.id.txtDireccion);
-        telefono = (EditText)findViewById(R.id.txtTelefono);
-        email = (EditText)findViewById(R.id.txtEmail);
-        web = (EditText)findViewById(R.id.txtWeb);
-        descripcion = (EditText)findViewById(R.id.txtDescripcion);
-       
+//        pos = (TextView)findViewById(R.id.lblPos);
+//        nombre = (EditText)findViewById(R.id.txtNombre);
+//        direccion = (EditText)findViewById(R.id.txtDireccion);
+//        telefono = (EditText)findViewById(R.id.txtTelefono);
+//        email = (EditText)findViewById(R.id.txtEmail);
+//        web = (EditText)findViewById(R.id.txtWeb);
+//        descripcion = (EditText)findViewById(R.id.txtDescripcion);
+//       
+//
+//
+//
+//        Intent intent = getIntent();
+//        anuncio = (Anuncio)intent.getSerializableExtra(Intent.ACTION_EDIT);
+//
+//        pos.setText(anuncio.getPos());
+//
+//        nombre.setText(anuncio.getNombre());
+//        direccion.setText(anuncio.getDireccion());
+//        telefono.setText(anuncio.getTelefono());
+//        email.setText(anuncio.getEmail());
+//        web.setText(anuncio.getWeb());
+//        descripcion.setText(anuncio.getDescripcion());
+//        X=(anuncio.getX());
+//        Y=(anuncio.getY());
+        
+        Uri uri = getIntent().getData();
+        Cursor cursor = managedQuery(uri, null, null, null, null);
 
+        if (cursor == null) {
+            finish();
+        } else {
+            cursor.moveToFirst();
 
+            TextView nombre = (TextView) findViewById(R.id.nombre);
+            TextView etiquetas = (TextView) findViewById(R.id.etiquetas);
+            TextView direccion = (TextView) findViewById(R.id.direccion);
+            TextView telefono = (TextView) findViewById(R.id.telefono);
+            TextView correo = (TextView) findViewById(R.id.correo);
+            TextView web = (TextView) findViewById(R.id.web);
+            TextView descripcion = (TextView) findViewById(R.id.descripcion);
+            TextView posX = (TextView) findViewById(R.id.posX);
+            TextView posY = (TextView) findViewById(R.id.posY);
 
-        Intent intent = getIntent();
-        anuncio = (Anuncio)intent.getSerializableExtra(Intent.ACTION_EDIT);
+            int aIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_NOMBRE);
+            int bIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_ETIQUETAS);
+            int cIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DIRECCION);
+            int dIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_TELEFONO);
+            int eIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_CORREO);
+            int fIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_WEB);
+            int gIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DESCRIPCION);
+            int hIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSX);
+            int iIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSY);
 
-        pos.setText(anuncio.getPos());
+            nombre.setText(cursor.getString(aIndex));
+            etiquetas.setText(cursor.getString(bIndex));
+            direccion.setText(cursor.getString(cIndex));
+            telefono.setText(cursor.getString(dIndex));
+            correo.setText(cursor.getString(eIndex));
+            web.setText(cursor.getString(fIndex));
+            descripcion.setText(cursor.getString(gIndex));
+            posX.setText(cursor.getString(hIndex));
+            posY.setText(cursor.getString(iIndex));
+            
 
-        nombre.setText(anuncio.getNombre());
-        direccion.setText(anuncio.getDireccion());
-        telefono.setText(anuncio.getTelefono());
-        email.setText(anuncio.getEmail());
-        web.setText(anuncio.getWeb());
-        descripcion.setText(anuncio.getDescripcion());
-        X=(anuncio.getX());
-        Y=(anuncio.getY());
+}
 
 
     }

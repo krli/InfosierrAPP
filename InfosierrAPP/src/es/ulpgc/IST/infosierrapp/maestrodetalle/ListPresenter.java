@@ -73,33 +73,94 @@ package es.ulpgc.IST.infosierrapp.maestrodetalle;
 //
 //}
 
-import android.app.ListActivity;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import es.ulpgc.IST.infosierrapp.R;
-public class ListPresenter extends ListActivity {
-	private BD_resultadosAdapter dbAdapter;
+import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
+
+public class ListPresenter extends MenuListActivity {
 	private Cursor cursor;
-	private BD_resultadosCursorAdapter resultadosAdapter ;
-	private ListView lista;
+	private SimpleCursorAdapter cursorAdapter;
+	
+	private TextView mTextView;
+	private ListView mListView;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.vista_v_maestro);
-		lista = (ListView) findViewById(android.R.id.list);
-		dbAdapter = new BD_resultadosAdapter(this);
-		dbAdapter.abrir();
-		consultar();
+
+		mTextView = (TextView) findViewById(R.id.text);
+		mListView = (ListView) findViewById(R.id.list);
+
+		//OBTENER CURSOR ADAPTER
+
+		cursorAdapter = BuscadorDatos.initAdapter();
+		mostrar();
+
+		//dbAdapter = new BD_resultadosAdapter(this);
+		//dbAdapter.abrir();
+		//consultar();
 	}
-	private void consultar(){
-		cursor = dbAdapter.getCursor();
-		startManagingCursor(cursor);
-		resultadosAdapter = new BD_resultadosCursorAdapter(this, cursor);
-		lista.setAdapter(resultadosAdapter);
+
+	private void mostrar(){
+		cursor=BuscadorDatos.getCursor();
+		if (cursor == null) {
+			// There are no results
+			mTextView.setText(getString(R.string.no_results, new Object[] {BuscadorDatos.getCadena()}));
+		} else {
+			// Display the number of results
+			int count = cursor.getCount();
+			String countString = getResources().getQuantityString(R.plurals.search_results,
+					count, new Object[] {count, BuscadorDatos.getCadena()});
+			mTextView.setText(countString);
+
+			// Specify the columns we want to display in the result
+			String[] from = new String[] { DictionaryDatabase.KEY_NOMBRE,
+					DictionaryDatabase.KEY_ETIQUETA };
+
+			// Specify the corresponding layout elements where we want the columns to go
+			int[] to = new int[] { R.id.nombre,
+					R.id.etiqueta };
+
+			//  
+
+			mListView.setAdapter(cursorAdapter);
+
+			// Define the on-click listener for the list items
+			mListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					// Build the Intent used to open WordActivity with a specific word Uri
+					Intent wordIntent = new Intent(getApplicationContext(), ItemPresenter.class);
+					Uri data = Uri.withAppendedPath(DictionaryProvider.CONTENT_URI,
+							String.valueOf(id));
+					wordIntent.setData(data);
+					startActivity(wordIntent);
+				}
+			});
+		}
 	}
+
+
+	//	private void consultar(){
+	//		cursor = dbAdapter.getCursor();
+	//		startManagingCursor(cursor);
+	//		resultadosAdapter = new BD_resultadosCursorAdapter(this, cursor);
+	//		lista.setAdapter(resultadosAdapter);
+	//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -110,9 +171,9 @@ public class ListPresenter extends ListActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-//		case R.id.menu_new:
-//			startActivity(new ItemModel());
-//			return true;
+		//		case R.id.menu_new:
+		//			startActivity(new ItemModel());
+		//			return true;
 		case R.id.menu_exit:
 			finish();
 			return true;

@@ -1,5 +1,13 @@
 package es.ulpgc.IST.infosierrapp.datos;
 
+import com.example.android.searchabledict.DictionaryProvider;
+import com.example.android.searchabledict.R;
+
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.widget.SimpleCursorAdapter;
+
 
 /**
  * Clase para gestionar las búsquedas y el
@@ -13,6 +21,37 @@ package es.ulpgc.IST.infosierrapp.datos;
  */
 public class BuscadorDatos {
 
+	///////////////////
+	///////ADAPTER/////
+	///////////////////
+	
+	/**
+    * Definimos constante con el nombre de la tabla
+    */
+
+	public static final String C_TABLA = "ANUNCIOS" ;
+
+	/**
+    * Definimos constantes con el nombre de las columnas de la tabla
+    */
+	public static final String C_COLUMNA_ID = "_id";
+	public static final String C_COLUMNA_NOMBRE = "anuncio_nombre";
+	public static final String C_COLUMNA_ETIQUETAS = "anuncio_etiquetas";
+	public static final String C_COLUMNA_DIRECCION = "anuncio_direccion";
+	public static final String C_COLUMNA_EMAIL = "anuncio_email";
+	public static final String C_COLUMNA_TELEFONO = "anuncio_telefono";
+	public static final String C_COLUMNA_WEB = "anuncio_web";
+	public static final String C_COLUMNA_DESCRIPCION = "anuncio_descripcion";
+	private Context contexto;
+	private BD_infosierra dbHelper;
+	private SQLiteDatabase db;
+	private static Cursor cursor;
+	private String cadena;
+
+	/**
+    * Definimos lista de columnas de la tabla para utilizarla en las consultas a la base de datos
+    */
+	private String[] columnas = new String[]{ C_COLUMNA_ID, C_COLUMNA_NOMBRE, C_COLUMNA_ETIQUETAS, C_COLUMNA_DIRECCION, C_COLUMNA_EMAIL, C_COLUMNA_TELEFONO, C_COLUMNA_WEB, C_COLUMNA_DESCRIPCION} ;
 
 	/**
 	 * Busca en la base de datos completa (BD_infosierra)
@@ -28,8 +67,13 @@ public class BuscadorDatos {
 		// 2. Guarda en BD_resultados
 
 	}
-	public static void buscar(String cadena, int cp) {
+	public  void buscar(String cadena, int cp) {
 		// otros m��todos para b��squedas avanzadas
+		 cursor = managedQuery(DictionaryProvider.CONTENT_URI, null, null,
+                new String[] {cadena}, null);
+
+		 this.cadena=cadena;
+		this.cursor=cursor;
 	}
 
 	/**
@@ -59,6 +103,24 @@ public class BuscadorDatos {
 		Anuncio resultados = new Anuncio();
 		
 		return resultados;
+	}
+	
+	public   SimpleCursorAdapter initAdapter(){
+		// Create a simple cursor adapter for the definitions and apply them to the ListView
+        SimpleCursorAdapter words = new SimpleCursorAdapter(this,
+                                      R.layout.vista_v_maestro, cursor, from, to);
+        return words;
+        
+	}
+	
+
+	
+	public static Cursor getCursor(){
+		return cursor;
+	}
+	
+	public String getCadena(){
+		return cadena;
 	}
 
 
