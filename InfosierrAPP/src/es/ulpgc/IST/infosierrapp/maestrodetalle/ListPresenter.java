@@ -85,6 +85,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.BD_infosierra;
 import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
@@ -101,11 +102,14 @@ public class ListPresenter extends MenuListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.vista_v_maestro);
-
+		Toast.makeText(getApplicationContext(), 
+				"Creando Maestro...<", Toast.LENGTH_SHORT).show();		
+		
 		mTextView = (TextView) findViewById(R.id.text);
 		mListView = (ListView) findViewById(R.id.listView);
 
-
+		
+		
 		mostrar();
 
 		//dbAdapter = new BD_resultadosAdapter(this);
