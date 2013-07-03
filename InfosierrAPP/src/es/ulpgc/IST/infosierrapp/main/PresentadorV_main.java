@@ -1,9 +1,7 @@
 package es.ulpgc.IST.infosierrapp.main;
 
-import java.util.TooManyListenersException;
-
 import es.ulpgc.IST.infosierrapp.R;
-import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.SearchManager;
 import android.content.Context;
@@ -11,12 +9,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-public class PresentadorV_main extends MenuActivity implements OnClickListener {
+public class PresentadorV_main extends MenuActivity implements OnClickListener, IfazActBuscador {
 		
 	/**
 	 * Modelo de datos.
@@ -26,10 +25,9 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
 	/*
 	 * Referencias a componentes del layout;
 	 */
-	private SearchView wi_search;
-	private LinearLayout ly_buscador;
-	private LinearLayout ly_progreso;
-	private ProgressBar wi_progreso;
+	private SearchView		wi_search;
+	private ProgressBar 	wi_progreso;
+	private Button			b_buscar;
 	
 	/**
 	 * Inicio de la actividad.
@@ -52,14 +50,16 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
 		/* Inicializa las refs al layout */
 		wi_search=(SearchView)findViewById(R.id.searchView1);
 		wi_progreso=(ProgressBar)findViewById(R.id.progressBar1);
-		ly_buscador=(LinearLayout)findViewById(R.id.lytBuscador);
-		ly_progreso=(LinearLayout)findViewById(R.id.lytProgreso);
+		b_buscar=(Button)findViewById(R.id.B_buscar);
+				
+		/* Registra los listeners */
+		b_buscar.setOnClickListener(this);
 		
 		/* Configuraciones de layout */
-		ly_buscador.setVisibility(View.VISIBLE);
-		ly_progreso.setVisibility(View.GONE);
+		b_buscar.setVisibility(View.VISIBLE);
 		wi_progreso.setVisibility(View.GONE);
-		wi_search.setSubmitButtonEnabled(true);		
+		// wi_search.setSubmitButtonEnabled(true);
+		
 		// Get the SearchView and set the searchable configuration
 	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 	    // Assumes current activity is the searchable activity
@@ -67,6 +67,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
 	    
 		
 		/* Recoge el Intent de llamada y gestiona la acción */
+	    //Toast.makeText(getApplicationContext(), "+++onCreate()", Toast.LENGTH_LONG).show();
 		gestionaIntent(getIntent());	
 	}
 	
@@ -77,7 +78,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
 	 */
 	@Override
 	protected void onNewIntent(Intent intent) {
-		Toast.makeText(getApplicationContext(), "onNewIntent()", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getApplicationContext(), "---onNewIntent()", Toast.LENGTH_LONG).show();
 		gestionaIntent(intent);
 	}
 
@@ -142,33 +143,18 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
     
     protected void gestionaIntent(Intent intent) {
     	
-    	Toast.makeText(getApplicationContext(), "gestionaIntent", Toast.LENGTH_SHORT).show();
-    	
+    	//Toast.makeText(getApplicationContext(), "***gestionaIntent()", Toast.LENGTH_SHORT).show();
+
     	if (Intent.ACTION_VIEW.equals(intent.getAction())) {
     		// handles a click on a search suggestion; launches activity to show word
     		Toast.makeText(getApplicationContext(), "Las sugerencias no funcionan aún", Toast.LENGTH_SHORT).show();
     		// startActivity(wordIntent);
     	} else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-    		// handles a search query
-    		
-    		// 1. Arranca el progress spinner
-    		toggleProgressBar();
-    		
-    		// 2. Ejecuta la búsqueda
+    		// Ejecuta la búsqueda
     		String query = intent.getStringExtra(SearchManager.QUERY);
-    		// BuscadorDatos.buscar(query);
-//    		try {
-//				Thread.currentThread().sleep(5000);
-//			} catch (InterruptedException e) {
-//			} 
-    		for (int k=0;k<=10000;k++) {
-    			    			
-    		}
-    		// 3. Detiene el progress spineer y pasa al maestro-detalle de resultados
-    		toggleProgressBar();
-    		Toast.makeText(getApplicationContext(), "<"+query+">", Toast.LENGTH_SHORT).show();    		
-    	}
-    	
+    		
+    		new TareaBusqueda(this).execute(query);    		    		
+    	}	
     	
     }
 	
@@ -177,29 +163,69 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener {
      * Reacciona a los eventos de click
      */
 	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
+	public void onClick(View view) {
+		int btn = view.getId();
+    	switch (btn) {
+    	case R.id.B_buscar:
+    		// Se ha pulsado buscar... activa la búsqueda
+    		wi_search.setQuery(wi_search.getQuery(), true);    		
+    		break;    		
+    	}		
+	}
+	
+	/**
+	 * Activa/desactiva la progress bar redondita
+	 */
+	private void startProgressBar() {
+	    b_buscar.setVisibility(View.GONE);
+	    wi_progreso.setVisibility(View.VISIBLE);
+	}
+    private void stopProgressBar() {
+    	wi_progreso.setVisibility(View.GONE);
+    	b_buscar.setVisibility(View.VISIBLE);
+	}
+    
+    
+    /**********************************************************************
+     * Los siguientes métodos definen la interfaz para la realimentación 
+     * desde la TareaBusqueda
+     */
+    
+    /*
+     * (non-Javadoc)
+     * @see es.ulpgc.IST.infosierrapp.main.IfazActBuscador#busquedaIniciada()
+     */
+	@Override
+	public void busquedaIniciada() {
+		startProgressBar();		
+	}
+	/*
+	 * (non-Javadoc)
+	 * @see es.ulpgc.IST.infosierrapp.main.IfazActBuscador#busquedaFinalizada(boolean)
+	 */
+	@Override
+	public void busquedaFinalizada(boolean result) {
+		stopProgressBar();
+
+		//pasar al maestro-detalle
 		
 	}
-	
-	private void toggleProgressBar() {
-	    switch (ly_progreso.getVisibility()) {
-	    case View.GONE:
-	    	ly_buscador.setVisibility(View.GONE);
-	    	wi_search.setVisibility(View.GONE);
-	    	wi_search.setIconified(true);
-	    	ly_progreso.setVisibility(View.VISIBLE);
-	    	wi_progreso.setVisibility(View.VISIBLE);
-	        break;
-	    default:
-	    	ly_progreso.setVisibility(View.GONE);
-	    	wi_progreso.setVisibility(View.GONE);
-	    	ly_buscador.setVisibility(View.VISIBLE);
-	    	wi_search.setVisibility(View.VISIBLE);
-	    	wi_search.setIconified(false);
-	        break;
-	    }
+	/*
+	 * (non-Javadoc)
+	 * @see es.ulpgc.IST.infosierrapp.main.IfazActBuscador#busquedaCancelada()
+	 */
+	@Override
+	public void busquedaCancelada() {
+		stopProgressBar();		
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see es.ulpgc.IST.infosierrapp.main.IfazActBuscador#progresoBusqueda(int)
+	 */
+	@Override
+	public void progresoBusqueda(int progreso) {
+		Toast.makeText(getApplicationContext(), 
+				"Buscando...<"+progreso+">", Toast.LENGTH_SHORT).show();		
+	}	
 
 }

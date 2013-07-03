@@ -71,20 +71,31 @@
     
     <LinearLayout
         android:id="@+id/lytProgreso"
-        android:layout_weight="0.25"
+        android:layout_weight="0.20"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:maxHeight="80dp"
-        android:layout_marginTop="20dp"            
+        android:layout_marginTop="0dp"            
         android:orientation="vertical"
         android:visibility="visible" >
 
     	<ProgressBar
     	    android:id="@+id/progressBar1"
-    	    style="?android:attr/progressBarStyleLarge"    	    
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content" />
-    
+    	    style="?android:attr/progressBarStyleLarge"  
+    	    android:layout_gravity="top|center_horizontal"  	    
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content"
+    	    android:visibility="gone" />
+    	
+        <Button
+	        android:id="@+id/B_buscar"	        
+	        style="@style/B_buscar"	  
+	        android:text="@string/B_buscar"    
+	        android:layout_gravity="top|center_horizontal"  
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:visibility="visible" />
+    	        
     </LinearLayout>
     
      <LinearLayout
