@@ -3,8 +3,8 @@ package es.ulpgc.IST.infosierrapp.datos;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 import es.ulpgc.IST.infosierrapp.R;
 
 
@@ -18,7 +18,7 @@ import es.ulpgc.IST.infosierrapp.R;
  * @author krlo
  *
  */
-public class BuscadorDatos extends Activity{
+public class BuscadorDatos {
 
 	///////////////////
 	///////ADAPTER/////
@@ -67,7 +67,8 @@ public class BuscadorDatos extends Activity{
 		//cursor = managedQuery( BD_infosierra.CONTENT_URI, null, null,
 			//	new String[] {cadena}, null);
 		
-		cursor = BD_infosierra.getWordMatches(cadena, null);
+		
+	//	cursor = BD_infosierra.getWordMatches(cadena, null);
 
 				// cursor = CursorLoader(this, BD_infosierra.CONTENT_URI, null, null,
 					//			new String[] {cadena}, null);

@@ -36,17 +36,16 @@
             android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        
         <activity
             android:name=".main.PresentadorH_main"
             android:configChanges="orientation|screenSize"
@@ -56,16 +55,22 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".maestrodetalle.ListPresenter" >
+        
+        <activity 
+            android:label="@string/master_title"
+            android:name=".maestrodetalle.ListPresenter" >
         </activity>
-        <activity android:name=".maestrodetalle.ItemPresenter" >
+        
+        <activity 
+            android:label="@string/detail_title"
+            android:name=".maestrodetalle.ItemPresenter" >
         </activity>
 
         <meta-data
             android:name="android.app.default_searchable"
             android:value=".main.PresentadorV_main" />
         <meta-data
-            android:name="com.google.android.maps.v2.AIzaSyAxk8sbGijUt0DYUynInl1usuVuc8PfLAI"
+            android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAxk8sbGijUt0DYUynInl1usuVuc8PfLAI" />
     </application>
 
