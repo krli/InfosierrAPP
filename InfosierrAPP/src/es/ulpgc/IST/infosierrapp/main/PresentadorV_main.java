@@ -1,6 +1,7 @@
 package es.ulpgc.IST.infosierrapp.main;
 
 import es.ulpgc.IST.infosierrapp.R;
+import es.ulpgc.IST.infosierrapp.maestrodetalle.ListPresenter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.SearchManager;
@@ -158,6 +159,12 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	
     }
 	
+    
+    private void goToMaestroDetalle(){
+    	Intent intent = new Intent(PresentadorV_main.this,
+    			ListPresenter.class);    	
+    	startActivity(intent);    	
+    }
 
     /**
      * Reacciona a los eventos de click
@@ -208,6 +215,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		stopProgressBar();
 
 		//pasar al maestro-detalle
+		goToMaestroDetalle();
 		
 	}
 	/*

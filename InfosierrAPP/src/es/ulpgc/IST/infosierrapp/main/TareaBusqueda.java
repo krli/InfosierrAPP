@@ -1,5 +1,6 @@
 package es.ulpgc.IST.infosierrapp.main;
 
+import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
 import android.os.AsyncTask;
 
 /**
@@ -46,6 +47,7 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 		/** Búsqueda **/
 		
 		// BuscadorDatos.loqueseaYtal...
+		// BuscadorDatos.buscar(query_string);
 		
 		publishProgress(IfazActBuscador.MIN_PROGRESS);
 		try {
