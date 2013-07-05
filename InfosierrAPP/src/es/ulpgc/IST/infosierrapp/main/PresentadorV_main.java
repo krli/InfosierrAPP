@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -20,6 +21,9 @@ import android.widget.Toast;
 
 public class PresentadorV_main extends MenuActivity implements OnClickListener, IfazActBuscador {
 		
+	// Ubicación del fichero con el widget html para el tiempo
+	public final String WEATHER_HTML_FILE="file:///android_asset/tiempo_aracena.html";
+	
 	/**
 	 * Modelo de datos.
 	 */
@@ -31,7 +35,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	private SearchView		wi_search;
 	private ProgressBar 	wi_progreso;
 	private Button			b_buscar;
-	
+	private WebView			wi_webview;
 	/**
 	 * Inicio de la actividad.
 	 */
@@ -52,8 +56,9 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		
 		/* Inicializa las refs al layout */
 		wi_search=(SearchView)findViewById(R.id.searchView1);
-		wi_progreso=(ProgressBar)findViewById(R.id.progressBar1);
+		wi_progreso=(ProgressBar)findViewById(R.id.progressBar1);		
 		b_buscar=(Button)findViewById(R.id.B_buscar);
+		wi_webview=(WebView)findViewById(R.id.webView1);
 				
 		/* Registra los listeners */
 		b_buscar.setOnClickListener(this);
@@ -62,6 +67,13 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		b_buscar.setVisibility(View.VISIBLE);
 		wi_progreso.setVisibility(View.GONE);
 		// wi_search.setSubmitButtonEnabled(true);
+		wi_webview.setClickable(false);
+		wi_webview.getSettings().setJavaScriptEnabled(true);
+		wi_webview.getSettings().setAllowContentAccess(false);
+		wi_webview.getSettings().setSupportZoom(false);
+        wi_webview.getSettings().setSaveFormData(false);
+        wi_webview.getSettings().setBuiltInZoomControls(false);
+		wi_webview.loadUrl(WEATHER_HTML_FILE);
 		
 		// Get the SearchView and set the searchable configuration
 	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
