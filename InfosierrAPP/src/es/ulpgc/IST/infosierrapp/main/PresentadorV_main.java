@@ -4,7 +4,6 @@ import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.IfazActBuscador;
 import es.ulpgc.IST.infosierrapp.datos.TareaBusqueda;
 import es.ulpgc.IST.infosierrapp.maestrodetalle.ListPresenter;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.SearchManager;
 import android.content.Context;
@@ -13,8 +12,8 @@ import android.content.res.Configuration;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -67,13 +66,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		b_buscar.setVisibility(View.VISIBLE);
 		wi_progreso.setVisibility(View.GONE);
 		// wi_search.setSubmitButtonEnabled(true);
-		wi_webview.setClickable(false);
-		wi_webview.getSettings().setJavaScriptEnabled(true);
-		wi_webview.getSettings().setAllowContentAccess(false);
-		wi_webview.getSettings().setSupportZoom(false);
-        wi_webview.getSettings().setSaveFormData(false);
-        wi_webview.getSettings().setBuiltInZoomControls(false);
-		wi_webview.loadUrl(WEATHER_HTML_FILE);
+		wi_weather_config();
 		
 		// Get the SearchView and set the searchable configuration
 	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -175,9 +168,28 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	
     
     private void goToMaestroDetalle(){
-    	Intent intent = new Intent(PresentadorV_main.this,
+    	/*Intent intent = new Intent(PresentadorV_main.this,
     			ListPresenter.class);    	
-    	startActivity(intent);    	
+    	startActivity(intent); */    	
+    }
+    
+    private void wi_weather_config(){
+    	wi_webview.setClickable(false);
+    	wi_webview.getSettings().setLoadWithOverviewMode(true);
+    	// wi_webview.getSettings().setUseWideViewPort(true);
+		wi_webview.getSettings().setJavaScriptEnabled(true);				
+		wi_webview.setWebViewClient(new WebViewClient() {
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url){
+				// view.loadUrl(url); no abrimos nada
+				return true;
+			}
+		});
+		wi_webview.getSettings().setAllowContentAccess(false);
+		wi_webview.getSettings().setSupportZoom(false);
+        wi_webview.getSettings().setSaveFormData(false);
+        wi_webview.getSettings().setBuiltInZoomControls(false);
+		wi_webview.loadUrl(WEATHER_HTML_FILE);
     }
 
     /**

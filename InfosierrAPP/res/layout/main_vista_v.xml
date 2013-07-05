@@ -114,7 +114,7 @@
         	
         	android:textSize="16sp"
         	android:textStyle="italic"  
-            android:text="Medium Text"
+            android:text="sugerencias de búsqueda"
             android:inputType="none"  />           
     	
     </LinearLayout>
@@ -124,13 +124,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_marginTop="10dp"
-        android:layout_weight="0.2"
+        android:layout_weight="0.25"
         android:orientation="vertical" >
 
         <WebView
             android:id="@+id/webView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" 
+            android:background="@color/verdeFondo"
+            android:layout_gravity="center"/>
             	
     </LinearLayout>
     

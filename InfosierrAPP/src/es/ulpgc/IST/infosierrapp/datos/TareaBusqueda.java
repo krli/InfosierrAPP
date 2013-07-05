@@ -46,7 +46,7 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 		/** Búsqueda **/
 		
 		// BuscadorDatos.loqueseaYtal...
-		 BuscadorDatos.buscar(query_string);
+		// BuscadorDatos.buscar(query_string);
 		
 		publishProgress(IfazActBuscador.MIN_PROGRESS);
 		try {
