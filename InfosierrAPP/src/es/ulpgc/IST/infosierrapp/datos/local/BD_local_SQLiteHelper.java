@@ -1,7 +1,9 @@
-package es.ulpgc.IST.infosierrapp.datos;
+package es.ulpgc.IST.infosierrapp.datos.local;
 
 import android.content.Context;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
@@ -9,7 +11,11 @@ import android.util.Log;
 
 /**
  * Clase responsable de la creación de la BD local en SQLite.
- * Define su estructura: columnas, constantes... y la crea.
+ * Define su estructura: columnas, constantes... y la crea. 
+ * Proporciona los métodos getReadableDatabase() y getWriteableDatabase()
+ * para acceder a la BD.
+ * Se implementa mediante un Singleton para evitar múltiples helpers y 
+ * los problemas que esto puede provocar.
  * 
  * @author krlo
  *
@@ -20,7 +26,8 @@ public class BD_local_SQLiteHelper extends SQLiteOpenHelper implements BaseColum
 	private static final String 	DATABASE_NAME = "infosierraResults.db";
 	private static final int		DATABASE_VERSION = 1;
 	
-	// Nombre de la tabla (sólo tendremos una)
+	// Nombre de la tabla (sólo tendremos una, si hubiese más
+	// sería recomendable definirlas en clases separadas)
 	public static final String	TABLE_RESULTADOS = "resultados";	
 	// Columnas de la tabla
 	public static final String 	COL_ID =		BaseColumns._ID;	
@@ -34,8 +41,13 @@ public class BD_local_SQLiteHelper extends SQLiteOpenHelper implements BaseColum
 	public static final String	COL_FOTO =		"foto";
 	public static final String	COL_MAPX =		"mapX";
 	public static final String	COL_MAPY =		"mapY";
+	
+	public static final String[] ALL_COLUMNS = {COL_ID, COL_NOMBRE, COL_DIRECCION,
+												COL_TELEFONOS, COL_EMAIL, COL_WEB,
+												COL_DESC, COL_TAGS, COL_FOTO,
+												COL_MAPX, COL_MAPY}; 
         		
-	// Forma la cadena SQL para creación de la tabla
+	// Forma la cadena SQL para creación de la tabla en la db
 	private static final String DATABASE_CREATE = "CREATE TABLE "
 			+ TABLE_RESULTADOS + "( " 
 			+ COL_ID 		+ " INTEGER PRIMARY KEY, "
@@ -53,14 +65,37 @@ public class BD_local_SQLiteHelper extends SQLiteOpenHelper implements BaseColum
 
 	// TODO ¿¿usar tipo BLOB para las fotos y 
 	// guardar la img directamente en lugar de la url??
-
-
+		
+	/* Objeto singleton */
+	private static BD_local_SQLiteHelper instance = null;
+	
 	/**
-	 * Constructor
+	 * Constructores privados (Singleton)
 	 * @param context
 	 */
-	public BD_local_SQLiteHelper(Context context) {
+	private BD_local_SQLiteHelper(Context context, String name,
+			CursorFactory factory, int version,
+			DatabaseErrorHandler errorHandler) {
+		super(context, name, factory, version, errorHandler);
+	}
+	private BD_local_SQLiteHelper(Context context, String name,
+			CursorFactory factory, int version) {
+		super(context, name, factory, version);
+	}
+	private BD_local_SQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}		
+
+	/** 
+	 * Devuelve el helper ("constructor singleton")
+	 * @param context
+	 * @return 
+	 */
+	public static BD_local_SQLiteHelper getHelper(Context context) {
+		if(instance == null){
+			instance = new BD_local_SQLiteHelper(context);
+		}
+		return instance;		
 	}
 
 
