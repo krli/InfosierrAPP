@@ -23,7 +23,7 @@ import android.util.Log;
  * 
  * @author krlo
  */
-public class BD_local_acceso {
+public class BD_local_Acceso {
 	
 	// Etiqueta para logs
 	public static final String LOGS_TAG="infosierAPP";	
@@ -37,7 +37,7 @@ public class BD_local_acceso {
 	 * Inicializa el helper
 	 * @param context
 	 */
-	public BD_local_acceso(Context context) {
+	public BD_local_Acceso(Context context) {
 		helper = BD_local_SQLiteHelper.getHelper(context);
 	}
 	
