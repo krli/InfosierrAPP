@@ -180,7 +180,7 @@ public class ItemPresenter extends FragmentActivity  {
 		//                finish();
 		//                return true;
 		case R.id.menu_llamar:
-			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(anuncio.getTelefono()));
+			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(anuncio.get_tlf()));
 			startActivity(intent);
 			finish();
 			return true;
