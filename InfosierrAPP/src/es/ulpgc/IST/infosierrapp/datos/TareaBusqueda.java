@@ -1,6 +1,5 @@
-package es.ulpgc.IST.infosierrapp.main;
+package es.ulpgc.IST.infosierrapp.datos;
 
-import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
 import android.os.AsyncTask;
 
 /**

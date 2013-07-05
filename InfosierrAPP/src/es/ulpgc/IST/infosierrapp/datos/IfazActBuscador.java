@@ -1,4 +1,4 @@
-package es.ulpgc.IST.infosierrapp.main;
+package es.ulpgc.IST.infosierrapp.datos;
 
 public interface IfazActBuscador {
 	
