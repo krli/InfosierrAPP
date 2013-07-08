@@ -1,22 +1,38 @@
 package es.ulpgc.IST.infosierrapp.datos;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 /**
  * Ejecuta una tarea de búsqueda en segundo plano informando
- * al buscador (interfaz IfazActBuscador) del inicio, progreso y fin
+ * a la actividad (con interfaz ListenerTareaBusqueda) del
+ * progreso
  * 
  * @author krlo
  */
 public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 
 	/**
-	 * Interfaz para comunicación con el buscador que ejecuta la tarea
+	 * Interfaz para comunicación con la actividad
+	 * que ejecuta la tarea
 	 */
-	private IfazActBuscador buscador;
+	private ListenerTareaBusqueda listener;
 	
-	public TareaBusqueda(IfazActBuscador buscador) {
-		this.buscador=buscador;
+	/**
+	 * Clase que contiene toda la lógica para la 
+	 * búsqueda.
+	 */
+	private BuscadorDatos buscador;
+	
+	/**
+	 * Constructor
+	 * @param context contexto de la aplicación
+	 * @param actividad actividad que implementa ListenerTareaBusqueda que 
+	 * recibirá los avisos de progreso
+	 */
+	public TareaBusqueda(Context context, ListenerTareaBusqueda actividad) {
+		this.listener=actividad;
+		this.buscador=BuscadorDatos.getBuscador(context);
 	}	
 	
 	/**
@@ -25,11 +41,11 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 	@Override
 	protected void onPreExecute() {
 		// notifica al buscador
-		buscador.busquedaIniciada();		
+		listener.busquedaIniciada();			
 	}		
 
 	/**
-	 * Ejecuta la tarea
+	 * Proceso que se ejecuta en segundo plano
 	 */
 	@Override
 	protected Boolean doInBackground(String... param) {
@@ -43,17 +59,19 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 		}
 		String query_string = param[0];
 		
+		
 		/** Búsqueda **/
 		
 		// BuscadorDatos.loqueseaYtal...
-		// BuscadorDatos.buscar(query_string);
+		buscador.buscar(query_string);		
 		
-		publishProgress(IfazActBuscador.MIN_PROGRESS);
+		
+		publishProgress(ListenerTareaBusqueda.MIN_PROGRESS);
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
-		publishProgress(IfazActBuscador.MAX_PROGRESS);
+		publishProgress(ListenerTareaBusqueda.MAX_PROGRESS);
 		
 		return true;
 	}
@@ -65,7 +83,7 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 	protected void onProgressUpdate(Integer... values) {
 		// notifica al buscador
 		for (Integer value : values) {
-			buscador.progresoBusqueda(value.intValue());
+			listener.progresoBusqueda(value.intValue());
 		}
 	}		
 	
@@ -75,7 +93,7 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 	@Override
 	protected void onPostExecute(Boolean result){
 		// notifica al buscador
-		buscador.busquedaFinalizada(result);		
+		listener.busquedaFinalizada(result);		
 	}
 	
 	/**
@@ -84,7 +102,7 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 	@Override
 	protected void onCancelled(Boolean result) {
 		// notifica al buscador
-		buscador.busquedaCancelada(); 
+		listener.busquedaCancelada(); 
 	}		
 	
 	

@@ -1,11 +1,13 @@
 package es.ulpgc.IST.infosierrapp.datos;
 
-import android.app.Activity;
+import java.util.List;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toast;
 import es.ulpgc.IST.infosierrapp.R;
+import es.ulpgc.IST.infosierrapp.datos.local.BD_local_Acceso;
+import es.ulpgc.IST.infosierrapp.datos.local.TablaResultados;
 
 
 /**
@@ -20,127 +22,222 @@ import es.ulpgc.IST.infosierrapp.R;
  */
 public class BuscadorDatos {
 
-	///////////////////
-	///////ADAPTER/////
-	///////////////////
 
 	/**
-    * Definimos constante con el nombre de la tabla
-    */
-
-	public static final String C_TABLA = "ANUNCIOS" ;
-
-	/**
-    * Definimos constantes con el nombre de las columnas de la tabla
-    */
-	public static final String C_COLUMNA_ID = "_id";
-	public static final String C_COLUMNA_NOMBRE = "anuncio_nombre";
-	public static final String C_COLUMNA_ETIQUETAS = "anuncio_etiquetas";
-	public static final String C_COLUMNA_DIRECCION = "anuncio_direccion";
-	public static final String C_COLUMNA_EMAIL = "anuncio_email";
-	public static final String C_COLUMNA_TELEFONO = "anuncio_telefono";
-	public static final String C_COLUMNA_WEB = "anuncio_web";
-	public static final String C_COLUMNA_DESCRIPCION = "anuncio_descripcion";
-
-	private static Cursor cursor;
-	private static String cadena;
+	 * Historial con las última búsquedas realizadas
+	 */
+	private static final int HISTORY_SIZE = 10;
+	private HistorialBusquedas queries_history;	
 
 	/**
-    * Definimos lista de columnas de la tabla para utilizarla en las consultas a la base de datos
-    */
-	private String[] columnas = new String[]{ C_COLUMNA_ID, C_COLUMNA_NOMBRE, C_COLUMNA_ETIQUETAS, C_COLUMNA_DIRECCION, C_COLUMNA_EMAIL, C_COLUMNA_TELEFONO, C_COLUMNA_WEB, C_COLUMNA_DESCRIPCION} ;
-
+	 * Objeto singleton.		
+	 */
+	private static BuscadorDatos instance = null;
+	
+	
+	// Conexión con base de datos local
+	private BD_local_Acceso dbLocal;	
+	// Conexón con base de datos remota
+	// private DatosInfosierra_Acceso dbRemota;
+		
+	
+	// Constructor privado (usar getBuscador() )
+	private BuscadorDatos(Context context) {
+		// Historial de búsquedas
+		queries_history = new HistorialBusquedas(HISTORY_SIZE);		
+		// Conexiones con BDs
+		dbLocal=new BD_local_Acceso(context);
+		// dbRemota=new DatosInfosierra_Acceso();
+		
+		
+	}
+	// "Constructor Singleton"
+	public static BuscadorDatos getBuscador(Context context) {
+		if(instance == null){
+			instance = new BuscadorDatos(context);
+		}
+		return instance;		
+	}
+	
+	
 	/**
-	 * Busca en la base de datos completa (BD_infosierra)
+	 * Busca en la base de datos completa (infosierra)
 	 * y almacena los resultados en local (BD_resultados)
+	 * 
 	 * 
 	 * @param cadena patrón para la búsqueda
 	 */
-	public static void buscar(String cadena) {
-
-		// 0. Comprobar que no es la misma b��squeda anterior,
-		// y si lo es, omitir los pasos siguientes
-		// 1. Busca en BD_infosierra
-		// 2. Guarda en BD_resultados
-
-
-		//cursor = managedQuery( BD_infosierra.CONTENT_URI, null, null,
-			//	new String[] {cadena}, null);
+	public void buscar(String query_string) {
 		
+			
+		/* Este método deberá:
+		 * 
+		 * 0. Comprobar que la búsqueda no es repetida,
+		 * y si lo es, omitir los pasos 1, 2 y 3
+		 * 
+		 * 1. Actualizar el historial 
+		 * 
+		 * 2. Buscar en dbRemota
+		 * 
+		 * 3. Guardar resultados en dbLocal 
+		 *
+		 */
+				
+		// Paso 0:
+		if (query_string == null) {
+			return;
+		}
+		if (query_string.equalsIgnoreCase(queries_history.getLast())) {
+			return;
+		}
 		
-	//	cursor = BD_infosierra.getWordMatches(cadena, null);
-
-				// cursor = CursorLoader(this, BD_infosierra.CONTENT_URI, null, null,
-					//			new String[] {cadena}, null);
-
-
-
-		BuscadorDatos.cadena=cadena;
-
+		// Paso 1:
+		queries_history.add(query_string);
+		
+		// Paso 2:
+		// TODO
+		
+		// Paso 3:
+		// TODO
+			
+		// Por ahora vaciamos la dbLocal y la rellenamos para pruebas
+		dbLocal.borrarResultados();		
+		dbLocal.rellenaUnPoco();
 
 	}
-	public  void buscar(String cadena, int cp) {
-		// otros m��todos para b��squedas avanzadas
-
-
+	
+	/**
+	 * Devuelve la última cadena buscada
+	 * @return
+	 */
+	public String get_cadena_busqueda() {
+		return queries_history.getLast();
 	}
+
 
 	/**
-	 * Devuelve los resultados que se mantienen de la ��ltima
-	 * b��squeda en local (BD_resultados). Digamos que traduce
-	 * del tipo en que se guarden en la BD al tipo de objetos
-	 * que usamos en nuestra APP
+	 * Devuelve una lista con todos los Anuncios almacenados en la
+	 * base de datos local.
 	 * 
 	 * @return los datos almacenados
 	 */
-	//TODO: definir el tipo que usaremos para esta lista
-	// (ArrayList, Vector...) que sea m��s ��ptimo
-	public static  Anuncio[] getResultados() {
-		Anuncio[] resultados = new Anuncio[3];
+	public List<Anuncio> get_resultados_lista() {
+		return dbLocal.get_all_list();
+	}
 
-		return resultados;
+
+	/**
+	 * Devuelve todos los Anuncios almacenados en la
+	 * base de datos local mediante un Cursor
+	 * 
+	 * @return los datos almacenados
+	 */
+	public Cursor get_resultados_cursor() {		
+		return dbLocal.get_all_cursor();
 	}
 
 	/**
-	 * ���� Devuelve los resultados que se mantienen de la ��ltima
-	 * b��squeda en local (BD_resultados) UNO a UNO. ??
-	 *  
-	 * @return los datos almacenados
+	 * TODO: Esto parece más propio de la configuración del 
+	 * layout del maestro-detalle ¿¿ Sacar de aquí y meter 
+	 * directamente allí ??
+	 * 
+	 * @param context
+	 * @return
 	 */
+	public SimpleCursorAdapter getCursorAdapter(Context context){
 
-	public  Anuncio getResultadosUnoAuno() {
-		Anuncio resultados = new Anuncio();
+		// Especifica las columnas que se mostraran en el resultado
+		String[] from = new String[] { TablaResultados.COL_NOMBRE };
+	
+		// Especifica los correspondintes elementos del layout 
+		int[] to = new int[] { R.id.txtNombre};
 
-		return resultados;
-	}
+		//crea el cursor adapter para las definiciones dadas y lo aplica a la ListView
+		//Inicializa el adaptador.
+		//El 3 argumento es null porque el cursor aun no ha sido cargado por primera vez
+		//El ultimo argumento es 0 para prevenir el registro del Observer (CursorLoader lo hace directamente)
+		SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(context, R.layout.vista_v_maestro,
+				null, from, to, 0);
 
-	public static SimpleCursorAdapter initAdapter(Context context){
-		// Specify the columns we want to display in the result
-
-		String[] from = new String[] { BD_infosierra.KEY_NOMBRE,
-				BD_infosierra.KEY_ETIQUETAS };
-
-
-		// Specify the corresponding layout elements where we want the columns to go
-		int[] to = new int[] { R.id.txtNombre,
-				//R.id.txtEtiqueta 
-		};
-		// Create a simple cursor adapter for the definitions and apply them to the ListView
-		SimpleCursorAdapter words = new SimpleCursorAdapter(context,
-				R.layout.vista_v_maestro, cursor, from, to);
-		return words;
+		// Devuelve el CursorAdapter a ListPresenter
+		return cursorAdapter;
 
 	}
-
-
-
-	public static Cursor getCursor(){
-		return cursor;
+	
+	
+	/******************* Clase HistorialBusquedas *****************/
+	/**
+	 * Clase que implementa un historial para
+	 * almacenar un número fijo de cadenas. Cuando está
+	 * lleno y se guardan más cadenas va borrando
+	 * las más viejas.
+	 *  
+	 * @author krlo
+	 */
+	private class HistorialBusquedas {
+		/**
+		 *  Número de Strings que se guardan
+		 */
+		private int HISTORY_SIZE = 10;	
+		
+		/**
+		 * Vector almacén
+		 */
+		private String[] history;
+		
+		/**
+		 * Índice de la última cadena guardada
+		 */
+		private int last;
+		
+		public HistorialBusquedas(int size) {
+			HISTORY_SIZE=size;
+			history=new String[size];
+			last=0;
+		}
+		
+		/**
+		 * Añade una cadena al historial
+		 */
+		public void add(String cadena) {
+			incre_last();
+			history[last]=cadena;			
+		}
+		/**
+		 * Devuelve la última String añadida 
+		 */
+		public String getLast() {
+			return history[last];
+		}
+		/**
+		 * Devuelve todo el historial
+		 */
+		@SuppressWarnings("unused")
+		public String[] getHistory() {
+			return history;
+		}
+		/**
+		 * Borra todo el historial
+		 */
+		@SuppressWarnings("unused")
+		public void clearHistory() {
+			history = null;
+			history = new String[HISTORY_SIZE];
+		}
+		
+		/**
+		 * Incrementa el índice que indica la última
+		 * cadena almacenada. Vuelve a 0 cuando llega
+		 * al final del vector.
+		 */
+		private void incre_last() {
+			last++;
+			if (last >= HISTORY_SIZE) {
+				last=0;
+			}
+		}		
 	}
-
-	public static String getCadena(){
-		return cadena;
-	}
+	/***************** Fin Clase HistorialBusquedas ***************/
 
 
 }

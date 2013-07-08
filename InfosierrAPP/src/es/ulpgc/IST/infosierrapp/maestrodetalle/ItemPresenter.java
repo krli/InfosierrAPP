@@ -16,7 +16,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
-import es.ulpgc.IST.infosierrapp.datos.BD_infosierra;
 
 /**
  * Presentador asignado a cada anuncio
@@ -95,26 +94,26 @@ public class ItemPresenter extends FragmentActivity  {
 			//            TextView posY = (TextView) findViewById(R.id.posY);
 
 
-			int aIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_NOMBRE);
-			// int bIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_ETIQUETAS);
-			int cIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DIRECCION);
-			int dIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_TELEFONO);
-			int eIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_CORREO);
-			int fIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_WEB);
-			int gIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DESCRIPCION);
-			X = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSX);
-			Y = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSY);
-
-
-			nombre.setText(cursor.getString(aIndex));
-			// etiquetas.setText(cursor.getString(bIndex));
-			direccion.setText(cursor.getString(cIndex));
-			telefono.setText(cursor.getString(dIndex));
-			email.setText(cursor.getString(eIndex));
-			web.setText(cursor.getString(fIndex));
-			descripcion.setText(cursor.getString(gIndex));
-			//            posX.setText(cursor.getString(hIndex));
-			//            posY.setText(cursor.getString(iIndex));
+//			int aIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_NOMBRE);
+//			// int bIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_ETIQUETAS);
+//			int cIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DIRECCION);
+//			int dIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_TELEFONO);
+//			int eIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_CORREO);
+//			int fIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_WEB);
+//			int gIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DESCRIPCION);
+//			X = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSX);
+//			Y = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSY);
+//
+//
+//			nombre.setText(cursor.getString(aIndex));
+//			// etiquetas.setText(cursor.getString(bIndex));
+//			direccion.setText(cursor.getString(cIndex));
+//			telefono.setText(cursor.getString(dIndex));
+//			email.setText(cursor.getString(eIndex));
+//			web.setText(cursor.getString(fIndex));
+//			descripcion.setText(cursor.getString(gIndex));
+//			//            posX.setText(cursor.getString(hIndex));
+//			//            posY.setText(cursor.getString(iIndex));
 
 
 		}
@@ -180,7 +179,7 @@ public class ItemPresenter extends FragmentActivity  {
 		//                finish();
 		//                return true;
 		case R.id.menu_llamar:
-			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(anuncio.get_tlf()));
+			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(anuncio.get_tlf(0)));
 			startActivity(intent);
 			finish();
 			return true;

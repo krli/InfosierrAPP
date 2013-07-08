@@ -6,7 +6,7 @@
                 android:color="@color/grisClaro" />
             <stroke
                 android:width="2dp"
-                android:color="@color/grisOscuro" />
+                android:color="@color/grisClaro" />
             <corners
                 android:radius="20dp" />           
         </shape>
@@ -19,7 +19,7 @@
                 android:angle="270" />
             <stroke
                 android:width="2dp"
-                android:color="@color/grisOscuro" />
+                android:color="@color/grisClaro" />
             <corners
                 android:radius="20dp" />
         </shape>
