@@ -115,7 +115,10 @@ public class BuscadorDatos {
 	}
 	
 	public String[] get_historial(int cantidad) {
-		return queries_history.getLastN(cantidad);		
+		return queries_history.getLastN(cantidad);
+	}
+	public String[] get_historial() {
+		return queries_history.getHistory();
 	}
 
 
@@ -180,10 +183,6 @@ public class BuscadorDatos {
 	 * @author krlo
 	 */
 	private class HistorialBusquedas {
-		/**
-		 *  Número de Strings que se guardan
-		 */
-		private int HISTORY_SIZE = 10;	
 		
 		/**
 		 * Vector almacén
@@ -191,28 +190,67 @@ public class BuscadorDatos {
 		private String[] history;
 		
 		/**
-		 * Índice de la última cadena guardada
+		 * Índice de la posición para guardar la
+		 * próxima cadena
 		 */
-		private int _last;
+		private int _pointer;
 		
+		/**
+		 * Constructor
+		 * @param size tamaño del historial
+		 */
 		public HistorialBusquedas(int size) {
-			HISTORY_SIZE=size;
 			history=new String[size];
-			_last=0;
+			_pointer=0;
+		}	
+		
+		/**
+		 * Incrementa el índice que indica la posición
+		 * para la próxima cadena almacenada. Vuelve a 0
+		 * cuando llega al final del vector.
+		 */
+		private void increPointer() {
+			_pointer++;
+			if (getPointer() >= history.length) {
+				_pointer=0;
+			}
+		}
+		/**
+		 * Devuelve la posición para guardar la próxima búsqueda 
+		 */
+		private int getPointer(){
+			return _pointer;
+		}
+		/**
+		 * Devuelve la última String añadida 
+		 */
+		public String getLast() {		
+			return history[getLastIndex()];
+		}
+		/**
+		 * Devuelve la posición de la última búsqueda guardada 
+		 */
+		private int getLastIndex() {
+			int last = getPointer()-1;
+			if (last < 0) {
+				last = history.length - 1;
+			}
+			return last;
 		}
 		
 		/**
 		 * Añade una cadena al historial
 		 */
 		public void add(String cadena) {			
-			history[_last]=cadena;		
-			incre_last();
-		}
+			history[ getPointer() ] = cadena;		
+			increPointer();
+		}		
 		/**
-		 * Devuelve la última String añadida 
+		 * Borra todo el historial
 		 */
-		public String getLast() {
-			return history[_last];
+		@SuppressWarnings("unused")
+		public void clearHistory() {
+			history = new String[history.length];
 		}
 		/**
 		 * Devuelve todo el historial
@@ -220,59 +258,43 @@ public class BuscadorDatos {
 		@SuppressWarnings("unused")
 		public String[] getHistory() {
 			return history;
-		}
-		
-		public String[] getLastN(int N) {
-			
-			// Respuesta
-			String[] queries;
-			
+		}		
+		/**
+		 * Devuelve las últimas N cadenas añadidas. Si N
+		 * es mayor que el tamaño del historial se devuelve
+		 * se ignora y se devuelve un vector del tamaño 
+		 * del historial
+		 *  
+		 * @param N número de Strings que se quieren recuperar
+		 * @return vector de búsquedas ordenadas desde la más reciente
+		 */
+		public String[] getLastN(int N) {			
+			// Vector respuesta
+			String[] queries;			
 			// Calcula tamaño de queries
-			if (N > HISTORY_SIZE) {
-				queries = new String[HISTORY_SIZE];
+			if (N > history.length) {
+				queries = new String[history.length];
 			} else {
 				queries = new String[N];	
-			}		
+			}			
 			
-			// Rellena queries con las últimas
-			// búsquedas empezando por la más reciente
-			int pointer = _last;
+			// Rellena queries con las últimas búsquedas:
+			// desde LastIndex hacia atrás
+			int index = getLastIndex();
 			for(int k=0; k < queries.length; k++) {
 				
-				queries[k]=history[pointer];
-				
-				// Actualiza el puntero que recorre el historial
-				pointer++;
-				if (pointer >= HISTORY_SIZE) {
-					pointer=0;
-				}	
-			}
-			
+				queries[k]=history[index];				
+				// Actualiza index (vuelve al final cuando llega a 0)
+				index--;
+				if (index < 0 ) {
+					index=history.length -1;
+				}
+			}			
 			return queries;
 		}
 		
-		/**
-		 * Borra todo el historial
-		 */
-		@SuppressWarnings("unused")
-		public void clearHistory() {
-			history = null;
-			history = new String[HISTORY_SIZE];
-		}
-		
-		/**
-		 * Incrementa el índice que indica la última
-		 * cadena almacenada. Vuelve a 0 cuando llega
-		 * al final del vector.
-		 */
-		private void incre_last() {
-			_last++;
-			if (_last >= HISTORY_SIZE) {
-				_last=0;
-			}
-		}		
-	}
-	/***************** Fin Clase HistorialBusquedas ***************/
+	} /***************** Fin Clase HistorialBusquedas ***************/
+	
 
 
 }

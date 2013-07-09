@@ -1,6 +1,5 @@
 package es.ulpgc.IST.infosierrapp.datos;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 /**
@@ -30,9 +29,9 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 	 * @param actividad actividad que implementa ListenerTareaBusqueda que 
 	 * recibirá los avisos de progreso
 	 */
-	public TareaBusqueda(Context context, ListenerTareaBusqueda actividad) {
+	public TareaBusqueda(BuscadorDatos buscador, ListenerTareaBusqueda actividad) {
 		this.listener=actividad;
-		this.buscador=BuscadorDatos.getBuscador(context);
+		this.buscador=buscador;
 	}	
 	
 	/**
@@ -62,15 +61,16 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 		
 		/** Búsqueda **/
 		
-		// BuscadorDatos.loqueseaYtal...
-		buscador.buscar(query_string);		
-		
-		
 		publishProgress(ListenerTareaBusqueda.MIN_PROGRESS);
+		
+		
+		// BuscadorDatos.loqueseaYtal...
+		buscador.buscar(query_string);
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 		}
+		
 		publishProgress(ListenerTareaBusqueda.MAX_PROGRESS);
 		
 		return true;
@@ -82,9 +82,9 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 	@Override
 	protected void onProgressUpdate(Integer... values) {
 		// notifica al buscador
-		for (Integer value : values) {
-			listener.progresoBusqueda(value.intValue());
-		}
+		// for (Integer value : values) {
+		//	listener.progresoBusqueda(value.intValue());
+		//}
 	}		
 	
 	/**

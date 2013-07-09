@@ -60,6 +60,20 @@
 		<item name="android:alignmentMode">alignMargins</item>
     </style>
     
+    <style name="B_cancelar">
+        <item name="android:background">@drawable/b_cancelar</item>
+        <item name="android:textColor">@color/white</item>        
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">sans</item>
+		<item name="android:paddingLeft">5dp</item>
+		<item name="android:paddingRight">5dp</item>
+		<item name="android:paddingTop">0dp</item>		
+		<item name="android:paddingBottom">0dp</item>
+		<item name="android:gravity">center_vertical|center_horizontal</item>
+		<item name="android:alignmentMode">alignMargins</item>
+    </style>
+    
     <style name="B_suge">
         <item name="android:background">@drawable/b_suge</item>        
         <item name="android:textColor">@color/white</item>        

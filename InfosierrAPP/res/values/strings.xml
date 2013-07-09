@@ -4,6 +4,7 @@
     <string name="app_name">InfosierrAPP</string>
     <string name="logo_desc">Logotipo Infosierra</string>
     <string name="B_buscar"> ¡Encontrar! </string>
+    <string name="B_cancelar">Parar</string>
     <string name="T_titulo">El buscador de la Sierra de Aracena, Picos de Aroche y sus alrededores&#8230;</string>
     <string name="T_subtitulo">¿Qué quieres buscar?</string>    
     <string name="ET_buscar">ej: Restaurantes</string>
