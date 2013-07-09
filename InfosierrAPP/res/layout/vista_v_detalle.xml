@@ -10,7 +10,7 @@
         android:id="@+id/lblPos"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:gravity="right"
         android:hint="ID"
         android:paddingRight="5dp"
@@ -21,9 +21,10 @@
         android:id="@+id/txtNombre"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:editable="false"
         android:hint="Nombre"
+        android:inputType="none"
         android:textColorHint="@color/grisOscuro"
         android:textSize="22dp"
         android:textStyle="bold" />
@@ -32,9 +33,10 @@
         android:id="@+id/txtDireccion"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:editable="false"
         android:hint="Direccion"
+        android:inputType="none"
         android:textColorHint="@color/grisOscuro"
         android:textSize="22dp" />
 
@@ -42,9 +44,10 @@
         android:id="@+id/txtTelefono"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:editable="false"
         android:hint="Telefono"
+        android:inputType="none"
         android:textColorHint="@color/grisOscuro"
         android:textSize="22dp" />
 
@@ -52,9 +55,10 @@
         android:id="@+id/txtWeb"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:editable="false"
         android:hint="Web"
+        android:inputType="none"
         android:textColorHint="@color/grisOscuro"
         android:textSize="22dp" />
 
@@ -62,9 +66,10 @@
         android:id="@+id/txtEmail"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.1"
+        android:layout_weight="0.15"
         android:editable="false"
         android:hint="Email"
+        android:inputType="none"
         android:textColorHint="@color/grisOscuro"
         android:textSize="22dp" />
 
@@ -72,35 +77,38 @@
         android:id="@+id/txtDescripcion"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.15"
+        android:layout_weight="0.25"
         android:gravity="top"
         android:hint="Descripcion"
+        android:inputType="none"
         android:textColorHint="@color/grisOscuro"
         android:textSize="18dp" />
 
-        <EditText
-            android:id="@+id/txtX"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="0"
-            android:ems="10"
-            android:enabled="false"
-            android:visibility="invisible" />
+    <EditText
+        android:id="@+id/txtX"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0"
+        android:ems="10"
+        android:enabled="false"
+        android:visibility="invisible" />
 
-        <EditText
-            android:id="@+id/txtY"
-            android:layout_width="match_parent"
-            android:layout_weight="0"
-            android:layout_height="1dp"
-            android:ems="10"
-            android:enabled="false"
-            android:visibility="invisible" />
-            
-        <fragment
-            android:id="@+id/map"
-            class="com.google.android.gms.maps.MapFragment"
-          	android:layout_width="match_parent"
-        	android:layout_height="0dip"        	
-            android:layout_weight="0.35" />
+    <EditText
+        android:id="@+id/txtY"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0"
+        android:ems="10"
+        android:enabled="false"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/B_map"
+        style="@style/B_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_margin="10dp"
+        android:text="@string/B_map" />
 
 </LinearLayout>

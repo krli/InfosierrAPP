@@ -1,20 +1,16 @@
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
 import android.app.Activity;
+import android.view.View.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 
@@ -24,7 +20,7 @@ import es.ulpgc.IST.infosierrapp.datos.Anuncio;
  * @author jesus
  *
  */
-public class ItemPresenter extends Activity {
+public class ItemPresenter extends Activity implements OnClickListener{
 
 	private EditText nombre;
 	private EditText direccion;
@@ -37,7 +33,9 @@ public class ItemPresenter extends Activity {
 	private Anuncio anuncio;
 	private String action;
 
-	private GoogleMap mMap;
+	private Button b_mapa;
+
+
 	//coordenadas
 	private double X;
 	private double Y;
@@ -47,8 +45,8 @@ public class ItemPresenter extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.vista_v_detalle);
-		setUpMapIfNeeded();
-		//Anuncio anuncio = new Anuncio();
+
+
 
 		pos = (TextView)findViewById(R.id.lblPos);
 		nombre = (EditText)findViewById(R.id.txtNombre);
@@ -58,11 +56,15 @@ public class ItemPresenter extends Activity {
 		web = (EditText)findViewById(R.id.txtWeb);
 		descripcion = (EditText)findViewById(R.id.txtDescripcion);
 
+		b_mapa=(Button)findViewById(R.id.B_map);
+		
+		b_mapa.setOnClickListener(this);
 
 
 
-		//Intent intent = getIntent();
-		//anuncio = (Anuncio)intent.getSerializableExtra(Intent.ACTION_EDIT);
+
+		Intent intent = getIntent();
+		anuncio = (Anuncio)intent.getSerializableExtra(Intent.ACTION_EDIT);
 		String nombre = getIntent().getStringExtra("nombre");
 		String descripcion = getIntent().getStringExtra("descripcion");
 		String direccion = getIntent().getStringExtra("direccion");
@@ -135,34 +137,20 @@ public class ItemPresenter extends Activity {
 
 
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		setUpMapIfNeeded();
-	}
 
 	/**
-	 * Intenta abrir el mapa
+	 * Cambia a la actividad que muestra 
+	 * el widget del tiempo
 	 */
-	private void setUpMapIfNeeded() {
-		// Si el nMap esta null entonces es porque no se instancio el mapa.
-		if (mMap == null) {
-			// Intenta obtener el mapa del SupportMapFragment. 
-			mMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
-			// Comprueba si hemos tenido exito en la obtencion del mapa.
-			if (mMap != null) {
-				setUpMap();
-			}
-		}
+	private void goToMap(){
+		Intent intent = new Intent(ItemPresenter.this,
+				Presentador_map.class);   
+		intent.putExtra("nombre", this.nombre.toString());
+		intent.putExtra("X", this.X);
+		intent.putExtra("Y", this.Y);
+		startActivity(intent);   	
 	}
 
-	/**
-	 * Coloca marcador en la posicion del anuncio
-	 */
-
-	private void setUpMap() {
-		mMap.addMarker(new MarkerOptions().position(new LatLng(X, Y)).title("Marker"));
-	}
 
 	@Override
 	public void finish() {
@@ -178,6 +166,20 @@ public class ItemPresenter extends Activity {
 		return true;
 	}
 
+
+	/**
+	 * Reacciona a los eventos de click
+	 */
+	@Override
+	public void onClick(View view) {
+		int btn = view.getId();
+		switch (btn) {
+
+		case R.id.B_map:
+			goToMap();
+			break;   
+		}
+	}
 
 
 	@Override
@@ -204,7 +206,7 @@ public class ItemPresenter extends Activity {
 		case R.id.menu_compartir:
 			Intent sendIntent = new Intent();
 			sendIntent.setAction(Intent.ACTION_SEND);
-			sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+			sendIntent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
 			sendIntent.setType("text/plain");
 			startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
 			return true;
@@ -212,10 +214,10 @@ public class ItemPresenter extends Activity {
 		case R.id.menu_email:
 			Intent emailintent = new Intent(Intent.ACTION_SEND);
 			emailintent.setType("plain/text");
-			emailintent.putExtra(Intent.EXTRA_EMAIL,new String[] { "address@example.com" });
-			emailintent.putExtra(Intent.EXTRA_SUBJECT, "Subject of the mail");
-			emailintent.putExtra(Intent.EXTRA_TEXT, "body of the mail");
-			startActivity(Intent.createChooser(emailintent, "Title of the chooser dialog"));
+			emailintent.putExtra(Intent.EXTRA_EMAIL,this.email.getText());
+			emailintent.putExtra(Intent.EXTRA_SUBJECT, "RECOMENDACION INFOSIERRA");
+			emailintent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
+			startActivity(Intent.createChooser(emailintent, "Envialo por email..."));
 			return true;
 
 		case R.id.menu_back:
@@ -226,4 +228,6 @@ public class ItemPresenter extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
+
 }
