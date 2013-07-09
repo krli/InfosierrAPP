@@ -14,67 +14,67 @@ public class Anuncio implements Serializable {
 
 	// autogen
 	private static final long serialVersionUID = -1003039284438735824L;
-		
-	public static final int NO_ID = 0;
-    // Número de etiquetas para un anuncio
-    public static final int N_TAGS = 4;
-    // Números de teléfono
-    public static final int N_TLFS = 2;
-    // Separador para múltiples strings concatenadas
-    public static final String SEPARATOR= "#";
-        
-    /**
-     * Nombre del negocio
-     */
-    private String		_nombre;
-    /**
-     * Dirección postal
-     */
-    private String		_direccion;    
-    /**
-     * Números de teléfono
-     */
-    private String[]	_telefonos;  
-    /**
-     * Dirección de correo electrónico
-     */
-    private String		_email;
-    /**
-     * URL a la página web.
-     */
-    private URL			_web;    
-    /**
-     * Breve descripción de la actividad del negocio
-     */    
-    private String		_descripcion;
-    /**
-     * Etiquetas descriptivas que definen en qué búsquedas
-     * aparecerá el negocio
-     */
-    private String[]	_tags;
-    /**
-     * URL al fichero con la foto
-     */
-    private URL			_foto;    
-    /**
-     * Coordenadas para GoogleMaps
-     */
-    private double 		_X;
-    private double 		_Y;
-    /**
-     * Identificador único de item 
-     * (No tiene utilidad alguna, pero es
-     * necesario para la gestión de las BD, los
-     * Providers...etc.)
-     */
-    private long			_id;
 
-    
-    
-    /**
-     * Constructor vacío
-     */
-    public Anuncio() {
+	public static final int NO_ID = 0;
+	// Número de etiquetas para un anuncio
+	public static final int N_TAGS = 4;
+	// Números de teléfono
+	public static final int N_TLFS = 2;
+	// Separador para múltiples strings concatenadas
+	public static final String SEPARATOR= "#";
+
+	/**
+	 * Nombre del negocio
+	 */
+	private String		_nombre;
+	/**
+	 * Dirección postal
+	 */
+	private String		_direccion;    
+	/**
+	 * Números de teléfono
+	 */
+	private String[]	_telefonos;  
+	/**
+	 * Dirección de correo electrónico
+	 */
+	private String		_email;
+	/**
+	 * URL a la página web.
+	 */
+	private URL			_web;    
+	/**
+	 * Breve descripción de la actividad del negocio
+	 */    
+	private String		_descripcion;
+	/**
+	 * Etiquetas descriptivas que definen en qué búsquedas
+	 * aparecerá el negocio
+	 */
+	private String[]	_tags;
+	/**
+	 * URL al fichero con la foto
+	 */
+	private String			_foto;    
+	/**
+	 * Coordenadas para GoogleMaps
+	 */
+	private double 		_X;
+	private double 		_Y;
+	/**
+	 * Identificador único de item 
+	 * (No tiene utilidad alguna, pero es
+	 * necesario para la gestión de las BD, los
+	 * Providers...etc.)
+	 */
+	private long			_id;
+
+
+
+	/**
+	 * Constructor vacío
+	 */
+	public Anuncio() {
 		set_nombre("");
 		set_direccion("");
 		set_telefonos(new String[N_TLFS]);
@@ -86,26 +86,26 @@ public class Anuncio implements Serializable {
 		set_X(0);
 		set_Y(0);
 		set_id(NO_ID);
-    }
+	}
 
-    /**
-     * Constructor completo del item.
-     * 
-     * @param nombre
-     * @param direccion
-     * @param telefonos
-     * @param email
-     * @param web
-     * @param descripcion
-     * @param tags
-     * @param foto
-     * @param X
-     * @param Y
-     * @param id
-     */
-    public Anuncio(String nombre, String direccion, String[] telefonos,
+	/**
+	 * Constructor completo del item.
+	 * 
+	 * @param nombre
+	 * @param direccion
+	 * @param telefonos
+	 * @param email
+	 * @param web
+	 * @param descripcion
+	 * @param tags
+	 * @param foto
+	 * @param X
+	 * @param Y
+	 * @param id
+	 */
+	public Anuncio(String nombre, String direccion, String[] telefonos,
 			String email, URL web, String descripcion, String[] tags,
-			URL foto, double X, double Y, int id) {
+			String foto, double X, double Y, int id) {
 
 		set_nombre(nombre);
 		set_direccion(direccion);
@@ -120,7 +120,7 @@ public class Anuncio implements Serializable {
 		set_id(id);
 	}
 
-    /********* GETTERS / SETTERS *********/
+	/********* GETTERS / SETTERS *********/
 	public String get_nombre() {
 		return _nombre;
 	}
@@ -218,7 +218,7 @@ public class Anuncio implements Serializable {
 		splitString(tags, N_TAGS);
 	}
 	//***********************************
-	public URL get_foto() {
+	public String get_foto() {
 		return _foto;
 	}
 	public String get_foto_string() {		
@@ -227,8 +227,9 @@ public class Anuncio implements Serializable {
 		}		
 		return null;
 	}
-	public void set_foto(URL _foto) {
-		this._foto = _foto;
+	public void set_foto(String _foto) {
+		this._foto=_foto;
+
 	}
 	//***********************************
 	public double get_X() {
@@ -251,8 +252,8 @@ public class Anuncio implements Serializable {
 		this._id = id;
 	}
 	//************************************
-		
-	
+
+
 	/**
 	 * Trocea una cadena en subcadenas separadas por SEPARATOR,
 	 * y en un máximo de maxParts trozos. Complementaria
@@ -262,13 +263,13 @@ public class Anuncio implements Serializable {
 	 * @return un vector de Strings con los trozos separados
 	 */
 	private String[] splitString(String string, int maxParts) {		
-		
+
 		int substrings_counter = 0;		
 		int start_index = 0;
 		int next_separator_index = 0;
 		boolean flag_fin=false;
 		String resultado[] = new String[maxParts];
-		
+
 		// Comprob argumentos
 		if(string == null){
 			return null;
@@ -290,10 +291,10 @@ public class Anuncio implements Serializable {
 				flag_fin=true;
 			}				
 		}
-		
+
 		return resultado;
 	}
-	
+
 	/**
 	 * Une un vector de Strings en una única String 
 	 * separándolas mediante SEPARATOS. Complementaria a splitStrings.
@@ -303,21 +304,25 @@ public class Anuncio implements Serializable {
 	 */
 	private String joinStrings(String[] vector) {
 		StringBuffer str = new StringBuffer();
-		
+
 		if (vector == null) {
 			return null;
 		}
-		
+
 		for (int i=0; i<vector.length;i++) {
 			str.append(vector[i] + SEPARATOR);
 		}	
 		return str.toString();		
 	}
-	
-	
+
+
 	public String toString() {		
 		return get_nombre() + "/n" + get_descripcion();
 	}
-	
-	
+
+
+
 }
+
+
+

@@ -17,7 +17,6 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import es.ulpgc.IST.infosierrapp.R;
-import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
 import es.ulpgc.IST.infosierrapp.datos.local.BD_local_Acceso;
 import es.ulpgc.IST.infosierrapp.datos.local.TablaResultados;
@@ -173,7 +172,7 @@ public class ListPresenter extends MenuActivity implements LoaderManager.LoaderC
 		myIntent.putExtra("mapy", cursor.getDouble(cursor.getColumnIndex(TablaResultados.COL_MAPY)));
 		myIntent.putExtra("telefono", cursor.getString(cursor.getColumnIndex(TablaResultados.COL_TELEFONOS)));
 		myIntent.putExtra("web", cursor.getString(cursor.getColumnIndex(TablaResultados.COL_WEB)));
-
+		myIntent.putExtra("foto", cursor.getString(cursor.getColumnIndex(TablaResultados.COL_FOTO)));
 
 		startActivity(myIntent);
 

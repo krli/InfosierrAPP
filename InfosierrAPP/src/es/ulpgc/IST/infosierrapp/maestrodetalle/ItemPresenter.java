@@ -1,16 +1,25 @@
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import android.app.Activity;
-import android.view.View.OnClickListener;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 
@@ -29,6 +38,9 @@ public class ItemPresenter extends Activity implements OnClickListener{
 	private EditText descripcion;
 	private EditText web;
 	private TextView pos;
+	
+	
+	private ImageView image;
 
 	private Anuncio anuncio;
 	private String action;
@@ -55,6 +67,9 @@ public class ItemPresenter extends Activity implements OnClickListener{
 		email = (EditText)findViewById(R.id.txtEmail);
 		web = (EditText)findViewById(R.id.txtWeb);
 		descripcion = (EditText)findViewById(R.id.txtDescripcion);
+		
+		image = (ImageView)findViewById(R.id.image);
+
 
 		b_mapa=(Button)findViewById(R.id.B_map);
 		
@@ -71,6 +86,7 @@ public class ItemPresenter extends Activity implements OnClickListener{
 		String email = getIntent().getStringExtra("email");
 		String web = getIntent().getStringExtra("web");
 		String telefono = getIntent().getStringExtra("telefono");
+		String foto = getIntent().getStringExtra("foto");
 		X = getIntent().getDoubleExtra("mapx",0);
 		Y = getIntent().getDoubleExtra("mapy",0);
 
@@ -83,7 +99,17 @@ public class ItemPresenter extends Activity implements OnClickListener{
 		this.email.setText(email);
 		this.web.setText(web);
 		this.telefono.setText(telefono);
+		
 
+
+		
+		if (foto.length()>0)
+        {
+			Toast.makeText(this, "descargando imagen...", Toast.LENGTH_SHORT).show();
+
+			image.setTag(foto);
+			new DownloadImagesTask().execute(image);
+        }
 
 
 
@@ -145,9 +171,9 @@ public class ItemPresenter extends Activity implements OnClickListener{
 	private void goToMap(){
 		Intent intent = new Intent(ItemPresenter.this,
 				Presentador_map.class);   
-		intent.putExtra("nombre", this.nombre.toString());
+		/*intent.putExtra("nombre", this.nombre.getText());
 		intent.putExtra("X", this.X);
-		intent.putExtra("Y", this.Y);
+		intent.putExtra("Y", this.Y);*/
 		startActivity(intent);   	
 	}
 
@@ -228,6 +254,46 @@ public class ItemPresenter extends Activity implements OnClickListener{
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	/** 
+	 * Clase que se encarga de ejecutar la descarga de la foto
+	 * @author Usuario
+	 *
+	 */
+	
+	public class DownloadImagesTask extends AsyncTask<ImageView, Void, Bitmap> {
+
+	    ImageView imageView = null;
+
+	    @Override
+	    protected Bitmap doInBackground(ImageView... imageViews) {
+	        this.imageView = imageViews[0];
+	        return download_Image((String)imageView.getTag());
+	    }
+
+	    @Override
+	    protected void onPostExecute(Bitmap result) {
+	        imageView.setImageBitmap(result);
+	    }
+
+	    private Bitmap download_Image(String url) {
+
+	        Bitmap bmp =null;
+	        try{
+	            URL ulrn = new URL(url);
+	            HttpURLConnection con = (HttpURLConnection)ulrn.openConnection();
+	            InputStream is = con.getInputStream();
+	            bmp = BitmapFactory.decodeStream(is);
+	            if (null != bmp)
+	                return bmp;
+
+	            }catch(Exception e){}
+	        return bmp;
+	    }
+	}
+	
+	
+
 
 
 }

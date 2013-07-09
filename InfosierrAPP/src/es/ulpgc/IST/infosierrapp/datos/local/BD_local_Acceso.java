@@ -26,7 +26,7 @@ import es.ulpgc.IST.infosierrapp.datos.Anuncio;
  * @author krlo
  */
 public class BD_local_Acceso {
-	
+
 	// Etiqueta para logs
 	public static final String LOG_TAG="BD_local_Acceso";	
 	// Base de datos
@@ -42,7 +42,7 @@ public class BD_local_Acceso {
 	public BD_local_Acceso(Context context) {
 		dbHelper = BD_local_SQLiteHelper.getHelper(context);
 	}
-	
+
 	/**
 	 * Abre la conexión con la BD
 	 * @throws SQLException
@@ -64,7 +64,7 @@ public class BD_local_Acceso {
 			database.close();
 		}
 	}
-	
+
 
 	/**
 	 * Devuelve todo el contenido de la BD en una lista
@@ -74,17 +74,17 @@ public class BD_local_Acceso {
 	 * o haya algún error  
 	 */
 	public List<Anuncio> get_all_list() {
-		
+
 		// Lista a devolver
 		List<Anuncio> anuncios = new ArrayList<Anuncio>();
-		
+
 		//Abre la conexón con la BD
 		open_db();
-		
+
 		// Obtiene el cursor con todos los resultados de la BD
 		Cursor cursor = database.query(TablaResultados.TABLE_NAME,
 				TablaResultados.ALL_COLUMNS, null, null, null, null, null);
-		
+
 		if (cursor != null) {
 			// Recorre la BD mediante el cursor, convirtiendo
 			// cada entrada en un Anuncio y añadiéndolo a la lista
@@ -98,16 +98,16 @@ public class BD_local_Acceso {
 			cursor.close();
 			// Cierra la BD
 			close_db();
-			
+
 		} else {
 			anuncios = null;			
 		}
-		
+
 		// Devuelve la lista o null en caso de que no haya
 		// encontrado nada
 		return anuncios;
 	}
-	
+
 	/**
 	 * Devuelve todo el contenido de la BD mediante un cursor.
 	 * Importante cerrar el cursor y la base de datos una vez se
@@ -117,7 +117,7 @@ public class BD_local_Acceso {
 	 * si la db estaba vacía o hubo algún error 
 	 */
 	public Cursor get_all_cursor() {
-		
+
 		//Abre la conexón con la BD
 		open_db();
 
@@ -125,12 +125,12 @@ public class BD_local_Acceso {
 		Cursor cursor = database.query( TablaResultados.TABLE_NAME,
 				TablaResultados.ALL_COLUMNS, 
 				null, null, null, null, null);
-		
+
 		// Devuelve el cursor
 		return cursor;
 	}
-	
-	
+
+
 	/**
 	 * Realiza una búsqueda en la DB devolviendo una lista de Anuncios
 	 * 
@@ -165,15 +165,15 @@ public class BD_local_Acceso {
 			// Cierra el cursor y la BD
 			cursor.close();
 			close_db();
-			
+
 		} else {
 			anuncios = null;
 		}
 
 		return anuncios;		
 	}
-	
-	
+
+
 	/**
 	 * Realiza una búsqueda en la DB devolviendo un Cursor
 	 * con los resultados. Importante cerrar el cursor y la
@@ -186,21 +186,21 @@ public class BD_local_Acceso {
 
 		//Abre la conexón con la BD
 		open_db();
-		
+
 		// Hace la búsqueda
 		Cursor cursor = database.query(TablaResultados.TABLE_NAME,
 				TablaResultados.ALL_COLUMNS, 
 				TablaResultados.COL_TAGS + " MATCH ?",
 				new String[] {"*"+query_string+"*"},
 				null, null, null);
-		
+
 		// Devuelve el cursor
 		return cursor;
-		
+
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 
 	 * Vacía la tabla Resultados.
@@ -212,7 +212,7 @@ public class BD_local_Acceso {
 		dbHelper.onCreate(database);
 		close_db();
 	}
-	
+
 
 	/**
 	 * Guarda un objeto Anuncio en la BD
@@ -220,10 +220,10 @@ public class BD_local_Acceso {
 	 * @return el ID de la nueva fila creada. -1 si hubo algún error.
 	 */
 	public long insertAnuncio(Anuncio anuncio) {
-		
+
 		// Crea el contenedor para meter en la BD
 		ContentValues anuncioCV = new ContentValues();
-		
+
 		// Procesa todos los campos excepto el ID (se lo asignará automáticamente la BD)
 		anuncioCV.put(TablaResultados.COL_NOMBRE,		anuncio.get_nombre() );		
 		anuncioCV.put(TablaResultados.COL_DIRECCION,	anuncio.get_direccion() );
@@ -235,21 +235,21 @@ public class BD_local_Acceso {
 		anuncioCV.put(TablaResultados.COL_MAPY, 		anuncio.get_Y() );		
 		anuncioCV.put(TablaResultados.COL_TAGS,			anuncio.get_AllTags() );
 		anuncioCV.put(TablaResultados.COL_TELEFONOS,	anuncio.get_AllTelefonos() );		
-		
-		
+
+
 		// Abre la conexión con la BD
 		open_db();
-		
+
 		// Realiza la inserción
 		// Excepción SQLException si hay error.
 		long inserted_ID = database.insert(TablaResultados.TABLE_NAME, null, anuncioCV);
-		
+
 		// Cierra la BD
 		close_db();
 
 		return inserted_ID;
 	}
-	
+
 	/**
 	 * Procesa una fila de la tabla (objeto Cursor) y
 	 * lo convierte en un objeto java Anuncio
@@ -284,11 +284,9 @@ public class BD_local_Acceso {
 		}
 		//------
 		int i_foto = cursor.getColumnIndex(TablaResultados.COL_FOTO);
-		try {
-			anuncio.set_foto(new URL(cursor.getString(i_foto)));
-		} catch (MalformedURLException e) {
-			anuncio.set_foto(null);
-		}
+
+		anuncio.set_foto((cursor.getString(i_foto)));
+
 		//------
 		int i_mapx = cursor.getColumnIndex(TablaResultados.COL_MAPX);		
 		anuncio.set_X(cursor.getDouble(i_mapx));
@@ -304,9 +302,9 @@ public class BD_local_Acceso {
 
 		return anuncio;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * TODO: borrar método y referencias cuando se 
 	 * terminen las pruebas iniciales
@@ -316,7 +314,7 @@ public class BD_local_Acceso {
 	 */
 	public void rellenaUnPoco() {
 		open_db();
-		
+
 		Anuncio anuncio1 = new Anuncio();
 		anuncio1.set_nombre("Anuncio1 Nombre");
 		anuncio1.set_descripcion("Anun1 descripciooon");
@@ -329,7 +327,9 @@ public class BD_local_Acceso {
 		anuncio1.set_X(6.474167);
 		anuncio1.set_Y(37.893056);
 		anuncio1.set_tags(new String[]{"eti1", "eti2", "eti3","eti4"});
-		anuncio1.set_telefonos(new String[]{"987654321", "123456789"});		
+		anuncio1.set_telefonos(new String[]{"987654321", "123456789"});	
+
+		anuncio1.set_foto("http://www.cristoferdelatorre.com/fondosdps/wallpapers/homer-alegre.jpg");
 		insertAnuncio(anuncio1);
 
 		Anuncio anuncio2 = new Anuncio();
@@ -341,16 +341,16 @@ public class BD_local_Acceso {
 		anuncio3.set_nombre("Nombre Anuncio3");
 		anuncio3.set_descripcion("Anunu3 desc");
 		insertAnuncio(anuncio3);
-		
+
 		Anuncio anuncio4 = new Anuncio();
 		anuncio4.set_nombre("Nombre_Anuncio4");
 		anuncio4.set_descripcion("Cuarto anuncio descripción");
 		insertAnuncio(anuncio4);	
-		
+
 		close_db();
-		
+
 	}
-	
-	
-	
+
+
+
 }
