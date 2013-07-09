@@ -50,9 +50,12 @@ public class MenuActivity extends Activity {
 	    //SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
 	    inflater.inflate(R.menu.main_menu, menu);
 	    
-		// activa el menu home para volver al main
+		// activa el menu home para volver al main		
+		// action_bar.setDisplayShowHomeEnabled(true);
 		action_bar.setDisplayHomeAsUpEnabled(true);
-	    
+		// modo navegación en pestañas
+		action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+	    	
 	    return super.onCreateOptionsMenu(menu);
 	    // return true;
 	}
@@ -73,6 +76,8 @@ public class MenuActivity extends Activity {
 		case R.id.menu_exit:
 			// se ha pulsado el boton de salir
 			return goExit();
+		case R.id.menu_opciones:
+			return goOpciones();
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -98,6 +103,11 @@ public class MenuActivity extends Activity {
 	protected boolean goWeb() {
 		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(get_infosierraWebURL()));
 		startActivity(intent);
+		return true;
+	}
+	
+	protected boolean goOpciones() {
+		
 		return true;
 	}
 

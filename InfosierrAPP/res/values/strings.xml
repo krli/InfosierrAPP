@@ -18,10 +18,11 @@
     <string name="B_suge6">Librerías</string>
     <string name="B_weather">¿Qué tiempo hace?</string>
     <string name="T_weather">El tiempo en la sierra&#8230;</string>
-    <string name="master_title">MASTER</string>
-    <string name="detail_title">DETAIL</string>
+    <string name="master_title">Resultados</string>
+    <string name="detail_title">Detalle</string>
     <string name="menu_exit">Salir</string>
-    <string name="menu_web">Infosierra.es</string>
+    <string name="menu_opciones">Opciones</string>
+    <string name="menu_web">Ir a infosierra.es</string>
     <string name="menu_delete">Del</string>
     <string name="menu_new">New</string>
     <string name="menu_back">Back</string>
