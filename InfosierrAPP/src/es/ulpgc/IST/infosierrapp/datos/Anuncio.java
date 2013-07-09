@@ -1,5 +1,6 @@
 package es.ulpgc.IST.infosierrapp.datos;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Arrays;
 
@@ -9,9 +10,12 @@ import java.util.Arrays;
  * 
  * @author krlo
  */
-public class Anuncio {
+public class Anuncio implements Serializable {
 
-    public static final int NO_ID = 0;
+	// autogen
+	private static final long serialVersionUID = -1003039284438735824L;
+		
+	public static final int NO_ID = 0;
     // Número de etiquetas para un anuncio
     public static final int N_TAGS = 4;
     // Números de teléfono

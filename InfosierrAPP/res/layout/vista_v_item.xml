@@ -5,12 +5,10 @@
     android:background="@drawable/background"
     android:orientation="vertical" >
 
-    <TextView android:id="@+id/lblTitle"
+    <TextView android:id="@+id/txtNombre"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:textStyle="bold"
               android:textSize="22dp" />
-
-
 
 </LinearLayout>

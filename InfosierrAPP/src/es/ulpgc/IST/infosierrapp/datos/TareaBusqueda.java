@@ -67,7 +67,7 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 		// BuscadorDatos.loqueseaYtal...
 		buscador.buscar(query_string);
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(500);
 		} catch (InterruptedException e) {
 		}
 		

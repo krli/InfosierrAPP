@@ -154,17 +154,18 @@ public class BuscadorDatos {
 	public SimpleCursorAdapter getCursorAdapter(Context context){
 
 		// Especifica las columnas que se mostraran en el resultado
-		String[] from = new String[] { TablaResultados.COL_NOMBRE };
-	
+		String[] from = new String[] { TablaResultados.COL_NOMBRE, TablaResultados.COL_DESC, TablaResultados.COL_DIRECCION,
+				TablaResultados.COL_EMAIL, TablaResultados.COL_TELEFONOS, TablaResultados.COL_WEB, TablaResultados.COL_MAPX, TablaResultados.COL_MAPY};
+
 		// Especifica los correspondintes elementos del layout 
-		int[] to = new int[] { R.id.txtNombre};
+		int[] to = new int[] { R.id.txtNombre, R.id.txtDescripcion, R.id.txtDireccion, R.id.txtEmail, R.id.txtTelefono, R.id.txtWeb, R.id.txtX, R.id.txtY};
 
 		//crea el cursor adapter para las definiciones dadas y lo aplica a la ListView
 		//Inicializa el adaptador.
 		//El 3 argumento es null porque el cursor aun no ha sido cargado por primera vez
 		//El ultimo argumento es 0 para prevenir el registro del Observer (CursorLoader lo hace directamente)
-		SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(context, R.layout.vista_v_maestro,
-				null, from, to, 0);
+		SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(context, R.layout.vista_v_item,
+				get_resultados_cursor(), from, to, 0);
 
 		// Devuelve el CursorAdapter a ListPresenter
 		return cursorAdapter;

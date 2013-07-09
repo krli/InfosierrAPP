@@ -320,6 +320,16 @@ public class BD_local_Acceso {
 		Anuncio anuncio1 = new Anuncio();
 		anuncio1.set_nombre("Anuncio1 Nombre");
 		anuncio1.set_descripcion("Anun1 descripciooon");
+		anuncio1.set_direccion("Calle imaginaria, N tal");
+		anuncio1.set_email("email@este.com");
+		try {
+			anuncio1.set_web(new URL("http://www.miweb.com"));
+		} catch (MalformedURLException e) {
+		}
+		anuncio1.set_X(37.893056);
+		anuncio1.set_Y(6.474167);
+		anuncio1.set_tags(new String[]{"eti1", "eti2", "eti3","eti4"});
+		anuncio1.set_telefonos(new String[]{"987654321", "123456789"});		
 		insertAnuncio(anuncio1);
 
 		Anuncio anuncio2 = new Anuncio();
