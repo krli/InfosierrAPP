@@ -113,6 +113,10 @@ public class BuscadorDatos {
 	public String get_cadena_busqueda() {
 		return queries_history.getLast();
 	}
+	
+	public String[] get_historial(int cantidad) {
+		return queries_history.getLastN(cantidad);		
+	}
 
 
 	/**
@@ -167,6 +171,7 @@ public class BuscadorDatos {
 	
 	/******************* Clase HistorialBusquedas *****************/
 	/**
+	 * TODO
 	 * Clase que implementa un historial para
 	 * almacenar un número fijo de cadenas. Cuando está
 	 * lleno y se guardan más cadenas va borrando
@@ -188,26 +193,26 @@ public class BuscadorDatos {
 		/**
 		 * Índice de la última cadena guardada
 		 */
-		private int last;
+		private int _last;
 		
 		public HistorialBusquedas(int size) {
 			HISTORY_SIZE=size;
 			history=new String[size];
-			last=0;
+			_last=0;
 		}
 		
 		/**
 		 * Añade una cadena al historial
 		 */
-		public void add(String cadena) {
+		public void add(String cadena) {			
+			history[_last]=cadena;		
 			incre_last();
-			history[last]=cadena;			
 		}
 		/**
 		 * Devuelve la última String añadida 
 		 */
 		public String getLast() {
-			return history[last];
+			return history[_last];
 		}
 		/**
 		 * Devuelve todo el historial
@@ -216,6 +221,36 @@ public class BuscadorDatos {
 		public String[] getHistory() {
 			return history;
 		}
+		
+		public String[] getLastN(int N) {
+			
+			// Respuesta
+			String[] queries;
+			
+			// Calcula tamaño de queries
+			if (N > HISTORY_SIZE) {
+				queries = new String[HISTORY_SIZE];
+			} else {
+				queries = new String[N];	
+			}		
+			
+			// Rellena queries con las últimas
+			// búsquedas empezando por la más reciente
+			int pointer = _last;
+			for(int k=0; k < queries.length; k++) {
+				
+				queries[k]=history[pointer];
+				
+				// Actualiza el puntero que recorre el historial
+				pointer++;
+				if (pointer >= HISTORY_SIZE) {
+					pointer=0;
+				}	
+			}
+			
+			return queries;
+		}
+		
 		/**
 		 * Borra todo el historial
 		 */
@@ -231,9 +266,9 @@ public class BuscadorDatos {
 		 * al final del vector.
 		 */
 		private void incre_last() {
-			last++;
-			if (last >= HISTORY_SIZE) {
-				last=0;
+			_last++;
+			if (_last >= HISTORY_SIZE) {
+				_last=0;
 			}
 		}		
 	}

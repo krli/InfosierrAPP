@@ -1,6 +1,7 @@
 package es.ulpgc.IST.infosierrapp.main;
 
 import es.ulpgc.IST.infosierrapp.R;
+import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
 import es.ulpgc.IST.infosierrapp.datos.ListenerTareaBusqueda;
 import es.ulpgc.IST.infosierrapp.datos.TareaBusqueda;
 import es.ulpgc.IST.infosierrapp.maestrodetalle.ListPresenter;
@@ -34,6 +35,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	private SearchView		wi_search;
 	private ProgressBar 	wi_progreso;
 	private Button			b_buscar;
+	private Button			b_weather;
 	private Button			b_suge1;
 	private Button			b_suge2;
 	private TextView		txt_titulo;
@@ -62,6 +64,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		wi_search=(SearchView)findViewById(R.id.searchView1);
 		wi_progreso=(ProgressBar)findViewById(R.id.progressBar1);		
 		b_buscar=(Button)findViewById(R.id.B_buscar);
+		b_weather=(Button)findViewById(R.id.B_weather);
 		b_suge1=(Button)findViewById(R.id.B_suge1);
 		b_suge2=(Button)findViewById(R.id.B_suge2);
 		txt_titulo=(TextView)findViewById(R.id.textTitulo);
@@ -69,13 +72,18 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 				
 		/* Registra los listeners */
 		b_buscar.setOnClickListener(this);
+		b_weather.setOnClickListener(this);
+		b_suge1.setOnClickListener(this);
+		b_suge2.setOnClickListener(this);
 		
 		/* Configuraciones de layout */
 		b_buscar.setVisibility(View.VISIBLE);
 		wi_progreso.setVisibility(View.GONE);
 		// wi_search.setSubmitButtonEnabled(true);
-		FuentesTTF.setFont(this, txt_titulo, Fuentes.roboto);
 		FuentesTTF.setFont(this, txt_subtitulo, Fuentes.segoe);
+		FuentesTTF.setFont(this, b_weather, Fuentes.segoe);
+		
+		actualizaSugerencias();
 		
 		// Get the SearchView and set the searchable configuration
 	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -95,8 +103,13 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	 */
 	@Override
 	protected void onNewIntent(Intent intent) {
+		
+		actualizaSugerencias();
+		
 		//Toast.makeText(getApplicationContext(), "---onNewIntent()", Toast.LENGTH_LONG).show();
 		gestionaIntent(intent);
+		
+		
 	}
 
 	/**
@@ -203,6 +216,40 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	startActivity(intent);   	
     }
 
+    
+    private void actualizaSugerencias() {
+    	BuscadorDatos buscador = BuscadorDatos.getBuscador(getApplicationContext());    	
+    	String[] busquedas = buscador.get_historial(6);
+    	
+    	Toast.makeText(getApplicationContext(), 
+				"busquedas["+busquedas.length+"]", Toast.LENGTH_SHORT).show();
+    	
+    	Toast.makeText(getApplicationContext(), 
+				"busquedas[0]:"+busquedas[0], Toast.LENGTH_SHORT).show();
+    	Toast.makeText(getApplicationContext(), 
+				"busquedas[1]:"+busquedas[1], Toast.LENGTH_SHORT).show();
+    	
+    	for(int k=0; k<busquedas.length; k++) {
+    		if ( busquedas[k] != null) {
+    			setSugeText(k, busquedas[k]);
+    		}
+    	}
+    }
+    private void setSugeText(int index, String text) {
+    	switch(index) {
+    	case 0:
+    		b_suge1.setText(text);
+    		break;
+    	case 1:
+    		b_suge2.setText(text);
+    		break;
+    	}
+    }
+    
+    
+    
+    
+    
     /**
      * Reacciona a los eventos de click
      */
@@ -261,7 +308,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		stopProgressBar();
 
 		//pasar al maestro-detalle
-		goToMaestroDetalle();
+		// goToMaestroDetalle();
 		
 	}
 	/*

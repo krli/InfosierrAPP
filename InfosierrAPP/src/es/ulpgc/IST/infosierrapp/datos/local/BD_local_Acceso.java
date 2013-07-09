@@ -209,10 +209,9 @@ public class BD_local_Acceso {
 	public void borrarResultados() {
 		open_db();
 		database.execSQL("DROP TABLE IF EXISTS " + TablaResultados.TABLE_NAME);
+		dbHelper.onCreate(database);
 		close_db();
 	}
-	
-	
 	
 
 	/**
