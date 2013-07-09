@@ -24,7 +24,8 @@
     <string name="presentador_map">Mapa</string>
     <string name="menu_exit">Salir</string>
     <string name="menu_opciones">Opciones</string>
-    <string name="menu_web">Ir a infosierra.es</string>
+    <string name="menu_web">Ir a www.infosierra.es</string>
+    <string name="menu_borrar_busquedas">Limpiar sugerencias</string>
     <string name="menu_delete">Del</string>
     <string name="menu_new">New</string>
     <string name="menu_back">Back</string>

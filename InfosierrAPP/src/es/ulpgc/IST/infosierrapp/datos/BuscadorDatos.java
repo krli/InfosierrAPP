@@ -120,6 +120,9 @@ public class BuscadorDatos {
 	public String[] get_historial() {
 		return queries_history.getHistory();
 	}
+	public void limpiar_historial() {
+		queries_history.clearHistory();
+	}
 
 
 	/**
@@ -249,14 +252,13 @@ public class BuscadorDatos {
 		/**
 		 * Borra todo el historial
 		 */
-		@SuppressWarnings("unused")
 		public void clearHistory() {
 			history = new String[history.length];
+			_pointer=0;
 		}
 		/**
 		 * Devuelve todo el historial
 		 */
-		@SuppressWarnings("unused")
 		public String[] getHistory() {
 			return history;
 		}		

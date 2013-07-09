@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MenuActivity extends Activity {
 	
@@ -46,6 +47,12 @@ public class MenuActivity extends Activity {
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		
+		
+		Toast.makeText(getApplicationContext(), 
+				"Creando Menu Padre", 
+				Toast.LENGTH_SHORT).show();
+		
 	    MenuInflater inflater = getMenuInflater();
 	    //SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
 	    inflater.inflate(R.menu.main_menu, menu);
@@ -66,6 +73,8 @@ public class MenuActivity extends Activity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+
+		
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// app icon in action bar clicked; go main activity
@@ -107,7 +116,9 @@ public class MenuActivity extends Activity {
 	}
 	
 	protected boolean goOpciones() {
-		
+		Toast.makeText(getApplicationContext(), 
+				"++ Opciones ++", 
+				Toast.LENGTH_SHORT).show();
 		return true;
 	}
 
