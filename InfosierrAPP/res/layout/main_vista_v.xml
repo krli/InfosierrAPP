@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
+    android:background="@drawable/background"
     android:baselineAligned="false"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" 
-    android:background="@color/verdeFondo">
-    
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="1" >
     
     <LinearLayout
         android:id="@+id/lytLogo"
@@ -20,13 +19,27 @@
         android:layout_height="0dip"
         android:maxHeight="@dimen/logo_height"
         android:layout_marginTop="10dp"            
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
+        
+        
+    	<TextView
+	        android:id="@+id/textTitulo"
+	        style="@style/T_titulo"
+	        android:layout_weight="0.6"
+	        android:layout_width="0dip"
+	        android:layout_marginRight="10dp"
+	        android:layout_height="match_parent"	        
+	        android:gravity="center|left"
+	        android:inputType="none"
+	        android:text="@string/T_titulo" />
+        
         
         <ImageView
 	        android:id="@+id/logo"
-	        android:layout_width="wrap_content"
-	        android:layout_height="60dip"
-	        android:layout_gravity="right|center_vertical"        
+	        android:layout_weight="0.4"
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_gravity="right|top"        
 	        android:adjustViewBounds="true"
 	        android:baselineAlignBottom="false"
 	        android:contentDescription="@string/logo_desc"
@@ -69,23 +82,41 @@
          
     </LinearLayout>
     
+
+    
     <LinearLayout
         android:id="@+id/lytProgreso"
-        android:layout_weight="0.20"
         android:layout_width="match_parent"
+        android:layout_weight="0.20"
         android:layout_height="0dip"
         android:maxHeight="80dp"
         android:layout_marginTop="0dp"            
         android:orientation="vertical"
         android:visibility="visible" >
+	    
+         <RelativeLayout
+	         android:id="@+id/lytProgreso2"
+	         android:layout_width="match_parent"
+	         android:layout_height="match_parent"
+	         android:layout_marginTop="0dp"                
+	         android:orientation="horizontal"
+	         android:visibility="visible" >
 
-    	<ProgressBar
-    	    android:id="@+id/progressBar1"
-    	    style="?android:attr/progressBarStyleLarge"  
-    	    android:layout_gravity="top|center_horizontal"  	    
-    	    android:layout_width="match_parent"
-    	    android:layout_height="wrap_content"
-    	    android:visibility="gone" />
+		   	<ProgressBar
+		   	    android:id="@+id/progressBar1"
+		   	    style="?android:attr/progressBarStyleLarge"
+		        android:layout_centerInParent="true" 
+		   	    android:layout_width="wrap_content"
+		   	    android:layout_height="match_parent" />    	
+		    <Button
+		        android:id="@+id/B_cancelar"	        
+		        style="@style/B_cancelar"	  
+		        android:text="@string/B_cancelar" 
+		        android:layout_alignParentTop="true"
+		        android:layout_alignParentRight="true"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+   		</RelativeLayout>
     	
         <Button
 	        android:id="@+id/B_buscar"	        
@@ -94,28 +125,82 @@
 	        android:layout_gravity="top|center_horizontal"  
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:visibility="visible" />
+	        android:visibility="gone" />
     	        
-    </LinearLayout>
+	</LinearLayout>
     
-     <LinearLayout
-        android:id="@+id/lytSugerencias"
+    <LinearLayout
+        android:id="@+id/lytSugerencias1"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.1"
-        android:orientation="vertical" >
-
-         <TextView
-            android:id="@+id/textView1"             
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-			android:textColor="@color/white"       
-        	
-        	android:textSize="16sp"
-        	android:textStyle="italic"  
-            android:text="sugerencias de búsqueda"
-            android:inputType="none"  />           
+        android:layout_marginTop="5dp"
+        android:layout_weight="0.10"
+        android:orientation="horizontal"
+        android:weightSum="1.5" >        
+         
+        <Button
+	        android:id="@+id/B_suge1"	        
+	        style="@style/B_suge"	  
+	        android:text="@string/B_suge1"
+			android:layout_weight="0.5"	            
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_margin="1dp"/>
+        <Button
+	        android:id="@+id/B_suge2"	        
+	        style="@style/B_suge"	  
+	        android:text="@string/B_suge2"
+			android:layout_weight="0.5"	            
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_margin="1dp" />
+         <Button
+	        android:id="@+id/B_suge3"	        
+	        style="@style/B_suge"
+	        android:text="@string/B_suge3"
+			android:layout_weight="0.5"	            
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_margin="1dp" />
+    	
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/lytSugerencias2"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_marginTop="1dp"
+        android:layout_weight="0.10"
+        android:orientation="horizontal"
+        android:weightSum="1.5" >
+        
+         
+        <Button
+	        android:id="@+id/B_suge4"	        
+	        style="@style/B_suge"	  
+	        android:text="@string/B_suge4"
+			android:layout_weight="0.5"	            
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_margin="1dp"/>
+        <Button
+	        android:id="@+id/B_suge5"	        
+	        style="@style/B_suge"	  
+	        android:text="@string/B_suge5"
+			android:layout_weight="0.5"	            
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_margin="1dp" />
+         <Button
+	        android:id="@+id/B_suge6"	        
+	        style="@style/B_suge"
+	        android:text="@string/B_suge6"
+			android:layout_weight="0.5"	            
+	        android:layout_width="0dip"
+	        android:layout_height="match_parent"
+	        android:layout_margin="1dp" />
+         
+         
     	
     </LinearLayout>
     
@@ -124,17 +209,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_marginTop="10dp"
-        android:layout_weight="0.25"
+        android:layout_weight="0.2"
         android:orientation="vertical" >
-
-        <WebView
-            android:id="@+id/webView1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" 
-            android:background="@color/verdeFondo"
-            android:layout_gravity="center"/>
-            	
-    </LinearLayout>
+         
+	 <Button
+	     android:id="@+id/B_weather"
+	     android:text="@string/B_weather" 
+	     style="@style/B_weather"
+	     android:layout_gravity="top|center_horizontal"  
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:layout_margin="10dp" />
+	 
+</LinearLayout>
     
     
 </LinearLayout>

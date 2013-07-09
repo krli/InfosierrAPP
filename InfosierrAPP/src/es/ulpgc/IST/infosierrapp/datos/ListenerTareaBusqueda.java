@@ -1,6 +1,6 @@
 package es.ulpgc.IST.infosierrapp.datos;
 
-public interface IfazActBuscador {
+public interface ListenerTareaBusqueda {
 	
 	public final int MAX_PROGRESS=100;
 	public final int MIN_PROGRESS=0;

@@ -16,7 +16,12 @@
 <color name="blue">#0000FF</color>
 <color name="navy">#000080</color>
 <color name="black">#000000</color>
-<color name="verdeFondo">#128512</color>
+
+<color name="verdeFondo1">#185918</color>
+<color name="verdeFondo2">#128512</color>
+<color name="verdeFondo3">#6EAF6E</color>
+<color name="verdeFondo4">#72B172</color>
+
 <color name="grisOscuro">#414141</color>
 <color name="grisClaro">#696969</color>
  
