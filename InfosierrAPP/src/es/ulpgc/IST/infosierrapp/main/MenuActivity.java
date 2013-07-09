@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-<<<<<<< HEAD
 import es.ulpgc.IST.infosierrapp.R;
-=======
 import android.widget.Toast;
->>>>>>> branch 'master' of https://github.com/krli/InfosierrAPP.git
+
 
 public class MenuActivity extends Activity {
 	
