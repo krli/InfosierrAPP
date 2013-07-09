@@ -162,10 +162,10 @@ public class BD_local_Acceso {
 				anuncios.add(anuncio);
 				cursor.moveToNext();
 			}
-			// Cierra la BD
-			close_db();
-			// Cierra el cursor y devuelve la lista
+			// Cierra el cursor y la BD
 			cursor.close();
+			close_db();
+			
 		} else {
 			anuncios = null;
 		}
