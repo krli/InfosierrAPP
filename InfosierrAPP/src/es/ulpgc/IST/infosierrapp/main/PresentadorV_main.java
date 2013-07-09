@@ -1,7 +1,9 @@
 package es.ulpgc.IST.infosierrapp.main;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -376,25 +378,14 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		
+		// Primero configura el menu de MenuActivity
 		super.onCreateOptionsMenu(menu);
-		
-		
-		Toast.makeText(getApplicationContext(), 
-				"Creando Menu PresenV", 
-				Toast.LENGTH_SHORT).show();				
+		// Activa el item
 		MenuItem item = menu.findItem(R.id.menu_borrar_busquedas);		
 		if (item !=null) {
-			
-			
-			Toast.makeText(getApplicationContext(), 
-					"activando borrar busquedas", 
-					Toast.LENGTH_SHORT).show();
-			
 			item.setEnabled(true);
 			item.setVisible(true);
-		}
-		
+		}		
 		return true;
 	}
 	
@@ -405,11 +396,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_borrar_busquedas:
-			Toast.makeText(getApplicationContext(), 
-					"Borrando historial...", 
-					Toast.LENGTH_SHORT).show();
-			buscador.limpiar_historial();
-			actualizaSugerencias();
+			do_limpiar_sugerencias();
 			return true;
 			
 		default:
@@ -417,6 +404,26 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		}
 	}
     
+	
+	private void do_limpiar_sugerencias() {
+		
+		//Crea un simple diálogo SI/NO para confirmar
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setTitle("Restableciendo sugerencias...");
+    	builder.setMessage("¿Estás seguro?");
+    	builder.setIcon(android.R.drawable.ic_delete);
+    	builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+    	    public void onClick(DialogInterface dialog, int which) {			      	
+    	    	//Si la respuesta es sí...
+    	    	buscador.limpiar_historial();
+    			actualizaSugerencias();    	    	
+    	    }
+    	});
+    	builder.setNegativeButton("No", null);
+    	builder.show();		
+	}
+	
+	
     /**********************************************************************
      * Los siguientes métodos definen la interfaz para la realimentación 
      * desde la TareaBusqueda
