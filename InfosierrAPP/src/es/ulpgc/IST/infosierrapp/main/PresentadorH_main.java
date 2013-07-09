@@ -4,9 +4,9 @@
 package es.ulpgc.IST.infosierrapp.main;
 
 
-import es.ulpgc.IST.infosierrapp.R;
 import android.content.Intent;
 import android.content.res.Configuration;
+import es.ulpgc.IST.infosierrapp.R;
 
 /**
  * @author krlo

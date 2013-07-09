@@ -1,40 +1,56 @@
 package es.ulpgc.IST.infosierrapp.main;
 
-import es.ulpgc.IST.infosierrapp.R;
-import es.ulpgc.IST.infosierrapp.datos.IfazActBuscador;
-import es.ulpgc.IST.infosierrapp.datos.TareaBusqueda;
-import es.ulpgc.IST.infosierrapp.maestrodetalle.ListPresenter;
-import android.os.Bundle;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
+import es.ulpgc.IST.infosierrapp.R;
+import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
+import es.ulpgc.IST.infosierrapp.datos.ListenerTareaBusqueda;
+import es.ulpgc.IST.infosierrapp.datos.TareaBusqueda;
+import es.ulpgc.IST.infosierrapp.maestrodetalle.ListPresenter;
+import es.ulpgc.IST.infosierrapp.main.FuentesTTF.Fuentes;
 
-public class PresentadorV_main extends MenuActivity implements OnClickListener, IfazActBuscador {
-		
-	// Ubicación del fichero con el widget html para el tiempo
-	public final String WEATHER_HTML_FILE="file:///android_asset/tiempo_aracena.html";
+public class PresentadorV_main extends MenuActivity implements OnClickListener, ListenerTareaBusqueda {
 	
 	/**
 	 * Modelo de datos.
 	 */
 	protected Modelo_main modelo;
+	/**
+	 * Clase buscador de datos que proporciona el historial de búsquedas 
+	 */
+	protected BuscadorDatos buscador; 
+	protected TareaBusqueda busqueda;
 	
 	/*
 	 * Referencias a componentes del layout;
 	 */
 	private SearchView		wi_search;
 	private ProgressBar 	wi_progreso;
+	private RelativeLayout	ly_progreso;
 	private Button			b_buscar;
-	private WebView			wi_webview;
+	private Button			b_weather;
+	private Button			b_cancelar;
+	private Button			b_suge1;	
+	private Button			b_suge2;
+	private Button			b_suge3;
+	private Button			b_suge4;
+	private Button			b_suge5;
+	private Button			b_suge6;
+	private TextView		txt_titulo;
+	private TextView		txt_subtitulo;
+	
+	
 	/**
 	 * Inicio de la actividad.
 	 */
@@ -52,21 +68,42 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		
 		/* Recupera el modelo desde el singleton */
 		modelo = Modelo_main.getModel();
+		buscador = BuscadorDatos.getBuscador(getApplicationContext());
 		
 		/* Inicializa las refs al layout */
 		wi_search=(SearchView)findViewById(R.id.searchView1);
-		wi_progreso=(ProgressBar)findViewById(R.id.progressBar1);		
+		wi_progreso=(ProgressBar)findViewById(R.id.progressBar1);	
+		ly_progreso=(RelativeLayout)findViewById(R.id.lytProgreso2);
 		b_buscar=(Button)findViewById(R.id.B_buscar);
-		wi_webview=(WebView)findViewById(R.id.webView1);
+		b_weather=(Button)findViewById(R.id.B_weather);
+		b_cancelar=(Button)findViewById(R.id.B_cancelar);
+		b_suge1=(Button)findViewById(R.id.B_suge1);
+		b_suge2=(Button)findViewById(R.id.B_suge2);
+		b_suge3=(Button)findViewById(R.id.B_suge3);
+		b_suge4=(Button)findViewById(R.id.B_suge4);
+		b_suge5=(Button)findViewById(R.id.B_suge5);
+		b_suge6=(Button)findViewById(R.id.B_suge6);
+		txt_titulo=(TextView)findViewById(R.id.textTitulo);
+		txt_subtitulo=(TextView)findViewById(R.id.textSubtitulo);
 				
 		/* Registra los listeners */
 		b_buscar.setOnClickListener(this);
+		b_weather.setOnClickListener(this);
+		b_suge1.setOnClickListener(this);
+		b_suge2.setOnClickListener(this);
+		b_suge3.setOnClickListener(this);
+		b_suge4.setOnClickListener(this);
+		b_suge5.setOnClickListener(this);
+		b_suge6.setOnClickListener(this);
+		b_cancelar.setOnClickListener(this);
 		
 		/* Configuraciones de layout */
 		b_buscar.setVisibility(View.VISIBLE);
-		wi_progreso.setVisibility(View.GONE);
+		ly_progreso.setVisibility(View.GONE);
+		// wi_progreso.setVisibility(View.GONE);
 		// wi_search.setSubmitButtonEnabled(true);
-		wi_weather_config();
+		FuentesTTF.setFont(this, txt_subtitulo, Fuentes.segoe);
+		FuentesTTF.setFont(this, b_weather, Fuentes.segoe);
 		
 		// Get the SearchView and set the searchable configuration
 	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -86,8 +123,11 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	 */
 	@Override
 	protected void onNewIntent(Intent intent) {
-		//Toast.makeText(getApplicationContext(), "---onNewIntent()", Toast.LENGTH_LONG).show();
-		gestionaIntent(intent);
+		
+		if (intent != null) {
+			gestionaIntent(intent);
+		}
+		
 	}
 
 	/**
@@ -143,55 +183,107 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
      * Carga el layout.
      */
     protected void loadView() {
-        /*Toast.makeText(getApplicationContext(),
-                "loadView1()", Toast.LENGTH_SHORT).show();*/
         setContentView(R.layout.main_vista_v);
     }
     
-    
-    protected void gestionaIntent(Intent intent) {
-    	
-    	//Toast.makeText(getApplicationContext(), "***gestionaIntent()", Toast.LENGTH_SHORT).show();
 
-    	if (Intent.ACTION_VIEW.equals(intent.getAction())) {
-    		// handles a click on a search suggestion; launches activity to show word
-    		Toast.makeText(getApplicationContext(), "Las sugerencias no funcionan aún", Toast.LENGTH_SHORT).show();
-    		// startActivity(wordIntent);
-    	} else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-    		// Ejecuta la búsqueda
-    		String query = intent.getStringExtra(SearchManager.QUERY);
-    		
-    		new TareaBusqueda(this).execute(query);    		    		
-    	}	
+    /**
+     * 
+     * @param intent
+     */
+    protected void gestionaIntent(Intent intent) {
+
     	
+    	// Click en una sugerencia de búsqueda... (no soportado aún)
+    	if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+    		
+    		Toast.makeText(getApplicationContext(), 
+    				"Las sugerencias no funcionan aún",
+    				Toast.LENGTH_SHORT).show();
+
+    		// Intro o click en Buscar --> Ejecuta la búsqueda
+    	} else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+
+    		// Extrae la cadena desde el Intent
+    		String query_string = intent.getStringExtra(SearchManager.QUERY);
+
+    		// Ejecuta la búsqueda en segundo plano
+    		busqueda = new TareaBusqueda(buscador, this);
+    		if (busqueda !=null) {
+    			busqueda.execute(query_string);
+    		}
+    		
+    	} else {
+    		Toast.makeText(getApplicationContext(), 
+    				"gestionaIntent: No Hago Nada",
+    				Toast.LENGTH_SHORT).show();
+    	}
+    	
+    	actualizaSugerencias();
+
     }
 	
-    
+    /**
+     * Cambia a la actividad que muestra los resultados de
+     * la búsqueda.
+     */
     private void goToMaestroDetalle(){
-    	/*Intent intent = new Intent(PresentadorV_main.this,
+    	Intent intent = new Intent(PresentadorV_main.this,
     			ListPresenter.class);    	
-    	startActivity(intent); */    	
+    	startActivity(intent);   	
     }
     
-    private void wi_weather_config(){
-    	wi_webview.setClickable(false);
-    	wi_webview.getSettings().setLoadWithOverviewMode(true);
-    	// wi_webview.getSettings().setUseWideViewPort(true);
-		wi_webview.getSettings().setJavaScriptEnabled(true);				
-		wi_webview.setWebViewClient(new WebViewClient() {
-			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url){
-				// view.loadUrl(url); no abrimos nada
-				return true;
-			}
-		});
-		wi_webview.getSettings().setAllowContentAccess(false);
-		wi_webview.getSettings().setSupportZoom(false);
-        wi_webview.getSettings().setSaveFormData(false);
-        wi_webview.getSettings().setBuiltInZoomControls(false);
-		wi_webview.loadUrl(WEATHER_HTML_FILE);
+    /**
+     * Cambia a la actividad que muestra 
+	 * el widget del tiempo
+     */
+    private void goToWeather(){
+    	Intent intent = new Intent(PresentadorV_main.this,
+    			Presentador_weather.class);    	
+    	startActivity(intent);   	
     }
 
+    
+    private void actualizaSugerencias() {    	   	
+    	String[] busquedas = buscador.get_historial(6);
+    	for(int k=0; k<busquedas.length; k++) {
+    		if ( busquedas[k] != null) {    			
+    			setSugeText(k, busquedas[k]);
+    		}
+    	}
+    }
+    private void setSugeText(int index, String text) {
+    	switch(index) {
+    	case 0:
+    		b_suge1.setText(text);
+    		break;
+    	case 1:
+    		b_suge2.setText(text);
+    		break;
+    	case 2:
+    		b_suge3.setText(text);
+    		break;
+    	case 3:
+    		b_suge4.setText(text);
+    		break;
+    	case 4:
+    		b_suge5.setText(text);
+    		break;
+    	case 5:
+    		b_suge6.setText(text);
+    		break;
+    	}
+    }
+    
+    
+    private void cancelarBusqueda() {
+    	if (busqueda !=null) {
+			busqueda.cancel(true);
+		}    	
+    }
+    
+    
+    
     /**
      * Reacciona a los eventos de click
      */
@@ -203,21 +295,46 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     		// Se ha pulsado buscar... activa la búsqueda
     		wi_search.setQuery(wi_search.getQuery(), true);    		
     		break;    		
-    	}		
+    	case R.id.B_weather:
+    		goToWeather();
+    		break;    		
+    	case R.id.B_suge1:
+    		wi_search.setQuery(b_suge1.getText(), true);
+    		break;
+    	case R.id.B_suge2:
+    		wi_search.setQuery(b_suge2.getText(), true);
+    		break;
+    	case R.id.B_suge3:
+    		wi_search.setQuery(b_suge3.getText(), true);
+    		break;
+    	case R.id.B_suge4:
+    		wi_search.setQuery(b_suge4.getText(), true);
+    		break;
+    	case R.id.B_suge5:
+    		wi_search.setQuery(b_suge5.getText(), true);
+    		break;
+    	case R.id.B_suge6:
+    		wi_search.setQuery(b_suge6.getText(), true);
+    		break;
+    	case R.id.B_cancelar:
+    		cancelarBusqueda();
+    		break;
+    	}
 	}
 	
 	/**
-	 * Activa/desactiva la progress bar redondita
+	 * Activa/desactiva la progress bar
 	 */
 	private void startProgressBar() {
 	    b_buscar.setVisibility(View.GONE);
-	    wi_progreso.setVisibility(View.VISIBLE);
+	    // wi_progreso.setVisibility(View.VISIBLE);
+	    ly_progreso.setVisibility(View.VISIBLE);
 	}
     private void stopProgressBar() {
-    	wi_progreso.setVisibility(View.GONE);
+    	// wi_progreso.setVisibility(View.GONE);
+    	ly_progreso.setVisibility(View.GONE);
     	b_buscar.setVisibility(View.VISIBLE);
-	}
-    
+	}    
     
     /**********************************************************************
      * Los siguientes métodos definen la interfaz para la realimentación 
@@ -226,7 +343,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     
     /*
      * (non-Javadoc)
-     * @see es.ulpgc.IST.infosierrapp.main.IfazActBuscador#busquedaIniciada()
+     * @see es.ulpgc.IST.infosierrapp.main.ListenerTareaBusqueda#busquedaIniciada()
      */
 	@Override
 	public void busquedaIniciada() {
@@ -234,11 +351,13 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	}
 	/*
 	 * (non-Javadoc)
-	 * @see es.ulpgc.IST.infosierrapp.main.IfazActBuscador#busquedaFinalizada(boolean)
+	 * @see es.ulpgc.IST.infosierrapp.main.ListenerTareaBusqueda#busquedaFinalizada(boolean)
 	 */
 	@Override
 	public void busquedaFinalizada(boolean result) {
 		stopProgressBar();
+		
+		busqueda = null;
 
 		//pasar al maestro-detalle
 		goToMaestroDetalle();
@@ -246,15 +365,19 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	}
 	/*
 	 * (non-Javadoc)
-	 * @see es.ulpgc.IST.infosierrapp.main.IfazActBuscador#busquedaCancelada()
+	 * @see es.ulpgc.IST.infosierrapp.main.ListenerTareaBusqueda#busquedaCancelada()
 	 */
 	@Override
 	public void busquedaCancelada() {
-		stopProgressBar();		
+		stopProgressBar();
+		busqueda = null;
+		Toast.makeText(getApplicationContext(), 
+				"Búsqueda cancelada.", 
+				Toast.LENGTH_SHORT).show();
 	}
 	/*
 	 * (non-Javadoc)
-	 * @see es.ulpgc.IST.infosierrapp.main.IfazActBuscador#progresoBusqueda(int)
+	 * @see es.ulpgc.IST.infosierrapp.main.ListenerTareaBusqueda#progresoBusqueda(int)
 	 */
 	@Override
 	public void progresoBusqueda(int progreso) {

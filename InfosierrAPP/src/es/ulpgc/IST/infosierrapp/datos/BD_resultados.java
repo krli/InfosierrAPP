@@ -52,7 +52,7 @@ public class BD_resultados extends SQLiteOpenHelper {
 		 * Insertamos datos iniciales
 		 */
 		//Sustituir por BuscadorDatos.getResultados()
-		resultados = BuscadorDatos.getResultados();
+		//resultados = BuscadorDatos.getResultados();
 		
 		do{
 		//COMO PODRIA LLAMAR A METODO?
@@ -81,3 +81,4 @@ public class BD_resultados extends SQLiteOpenHelper {
 
 	}
 }
+

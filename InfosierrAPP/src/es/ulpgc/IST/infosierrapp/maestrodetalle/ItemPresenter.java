@@ -1,22 +1,22 @@
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
-import es.ulpgc.IST.infosierrapp.datos.BD_infosierra;
 
 /**
  * Presentador asignado a cada anuncio
@@ -24,23 +24,23 @@ import es.ulpgc.IST.infosierrapp.datos.BD_infosierra;
  * @author jesus
  *
  */
-public class ItemPresenter extends FragmentActivity  {
+public class ItemPresenter extends Activity {
 
-	//	private EditText nombre;
-	//	private EditText direccion;
-	//	private EditText telefono;
-	//	private EditText email;
-	//	private EditText descripcion;
-	//	private EditText web;
-	//	private TextView pos;
+	private EditText nombre;
+	private EditText direccion;
+	private EditText telefono;
+	private EditText email;
+	private EditText descripcion;
+	private EditText web;
+	private TextView pos;
 
 	private Anuncio anuncio;
 	private String action;
 
 	private GoogleMap mMap;
 	//coordenadas
-	private int X;
-	private int Y;
+	private double X;
+	private double Y;
 
 
 
@@ -48,79 +48,92 @@ public class ItemPresenter extends FragmentActivity  {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.vista_v_detalle);
 		setUpMapIfNeeded();
+		//Anuncio anuncio = new Anuncio();
 
-		//        pos = (TextView)findViewById(R.id.lblPos);
-		//        nombre = (EditText)findViewById(R.id.txtNombre);
-		//        direccion = (EditText)findViewById(R.id.txtDireccion);
-		//        telefono = (EditText)findViewById(R.id.txtTelefono);
-		//        email = (EditText)findViewById(R.id.txtEmail);
-		//        web = (EditText)findViewById(R.id.txtWeb);
-		//        descripcion = (EditText)findViewById(R.id.txtDescripcion);
-		//       
+		pos = (TextView)findViewById(R.id.lblPos);
+		nombre = (EditText)findViewById(R.id.txtNombre);
+		direccion = (EditText)findViewById(R.id.txtDireccion);
+		telefono = (EditText)findViewById(R.id.txtTelefono);
+		email = (EditText)findViewById(R.id.txtEmail);
+		web = (EditText)findViewById(R.id.txtWeb);
+		descripcion = (EditText)findViewById(R.id.txtDescripcion);
+
+
+
+
+		//Intent intent = getIntent();
+		//anuncio = (Anuncio)intent.getSerializableExtra(Intent.ACTION_EDIT);
+		String nombre = getIntent().getStringExtra("nombre");
+		String descripcion = getIntent().getStringExtra("descripcion");
+		String direccion = getIntent().getStringExtra("direccion");
+		String email = getIntent().getStringExtra("email");
+		String web = getIntent().getStringExtra("web");
+		String telefono = getIntent().getStringExtra("telefono");
+		X = getIntent().getDoubleExtra("mapx",0);
+		Y = getIntent().getDoubleExtra("mapy",0);
+
+
+
+
+		this.nombre.setText(nombre);
+		this.descripcion.setText(descripcion);
+		this.direccion.setText(direccion);
+		this.email.setText(email);
+		this.web.setText(web);
+		this.telefono.setText(telefono);
+
+
+
+
+
+		//CON CONTENT PROVIDER//
+
+		//		Uri uri = getIntent().getData();
+		//		Cursor cursor = managedQuery(uri, null, null, null, null);
+		//
+		//		if (cursor == null) {
+		//			finish();
+		//		} else {
+		//			cursor.moveToFirst();
+		//
+		//			//TODO: meter imagenes
+		//			TextView nombre = (TextView) findViewById(R.id.txtNombre);
+		//			// TextView etiquetas = (TextView) findViewById(R.id.txtEtiquetas);
+		//			TextView direccion = (TextView) findViewById(R.id.txtDireccion);
+		//			TextView telefono = (TextView) findViewById(R.id.txtTelefono);
+		//			TextView email = (TextView) findViewById(R.id.txtEmail);
+		//			TextView web = (TextView) findViewById(R.id.txtWeb);
+		//			TextView descripcion = (TextView) findViewById(R.id.txtDescripcion);
+		//			//            TextView posX = (TextView) findViewById(R.id.posX);
+		//			//            TextView posY = (TextView) findViewById(R.id.posY);
 		//
 		//
+		//			int aIndex = cursor.getColumnIndexOrThrow(BD_local_SQLiteHelper.COL_NOMBRE);
+		//			// int bIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_ETIQUETAS);
+		//			int cIndex = cursor.getColumnIndexOrThrow(BD_local_SQLiteHelper.COL_DIRECCION);
+		//			int dIndex = cursor.getColumnIndexOrThrow(BD_local_SQLiteHelper.COL_TELEFONOS);
+		//			int eIndex = cursor.getColumnIndexOrThrow(BD_local_SQLiteHelper.COL_EMAIL);
+		//			int fIndex = cursor.getColumnIndexOrThrow(BD_local_SQLiteHelper.COL_WEB);
+		//			int gIndex = cursor.getColumnIndexOrThrow(BD_local_SQLiteHelper.COL_DESC);
+		//			X = cursor.getColumnIndexOrThrow(BD_local_SQLiteHelper.COL_MAPX);
+		//			Y = cursor.getColumnIndexOrThrow(BD_local_SQLiteHelper.COL_MAPY);
 		//
-		//        Intent intent = getIntent();
-		//        anuncio = (Anuncio)intent.getSerializableExtra(Intent.ACTION_EDIT);
 		//
-		//        pos.setText(anuncio.getPos());
+		//			nombre.setText(cursor.getString(aIndex));
+		//			// etiquetas.setText(cursor.getString(bIndex));
+		//			direccion.setText(cursor.getString(cIndex));
+		//			telefono.setText(cursor.getString(dIndex));
+		//			email.setText(cursor.getString(eIndex));
+		//			web.setText(cursor.getString(fIndex));
+		//			descripcion.setText(cursor.getString(gIndex));
+		//			//            posX.setText(cursor.getString(hIndex));
+		//			//            posY.setText(cursor.getString(iIndex));
 		//
-		//        nombre.setText(anuncio.getNombre());
-		//        direccion.setText(anuncio.getDireccion());
-		//        telefono.setText(anuncio.getTelefono());
-		//        email.setText(anuncio.getEmail());
-		//        web.setText(anuncio.getWeb());
-		//        descripcion.setText(anuncio.getDescripcion());
-		//        X=(anuncio.getX());
-		//        Y=(anuncio.getY());
-
-		Uri uri = getIntent().getData();
-		Cursor cursor = managedQuery(uri, null, null, null, null);
-		//Cursor cursor = CursorLoader(this, uri, null, null, null, null);
-
-		if (cursor == null) {
-			finish();
-		} else {
-			cursor.moveToFirst();
-
-			//TODO: meter imagenes
-			TextView nombre = (TextView) findViewById(R.id.txtNombre);
-			// TextView etiquetas = (TextView) findViewById(R.id.txtEtiquetas);
-			TextView direccion = (TextView) findViewById(R.id.txtDireccion);
-			TextView telefono = (TextView) findViewById(R.id.txtTelefono);
-			TextView email = (TextView) findViewById(R.id.txtEmail);
-			TextView web = (TextView) findViewById(R.id.txtWeb);
-			TextView descripcion = (TextView) findViewById(R.id.txtDescripcion);
-			//            TextView posX = (TextView) findViewById(R.id.posX);
-			//            TextView posY = (TextView) findViewById(R.id.posY);
-
-
-			int aIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_NOMBRE);
-			// int bIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_ETIQUETAS);
-			int cIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DIRECCION);
-			int dIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_TELEFONO);
-			int eIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_CORREO);
-			int fIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_WEB);
-			int gIndex = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_DESCRIPCION);
-			X = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSX);
-			Y = cursor.getColumnIndexOrThrow(BD_infosierra.KEY_POSY);
-
-
-			nombre.setText(cursor.getString(aIndex));
-			// etiquetas.setText(cursor.getString(bIndex));
-			direccion.setText(cursor.getString(cIndex));
-			telefono.setText(cursor.getString(dIndex));
-			email.setText(cursor.getString(eIndex));
-			web.setText(cursor.getString(fIndex));
-			descripcion.setText(cursor.getString(gIndex));
-			//            posX.setText(cursor.getString(hIndex));
-			//            posY.setText(cursor.getString(iIndex));
-
-
-		}
-
 
 	}
+
+
+
 
 	@Override
 	protected void onResume() {
@@ -135,7 +148,7 @@ public class ItemPresenter extends FragmentActivity  {
 		// Si el nMap esta null entonces es porque no se instancio el mapa.
 		if (mMap == null) {
 			// Intenta obtener el mapa del SupportMapFragment. 
-			mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+			mMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
 			// Comprueba si hemos tenido exito en la obtencion del mapa.
 			if (mMap != null) {
 				setUpMap();
@@ -154,7 +167,7 @@ public class ItemPresenter extends FragmentActivity  {
 	@Override
 	public void finish() {
 		Intent intent = new Intent();
-		//intent.putExtra(action, anuncio);
+		intent.putExtra(action, anuncio);
 		setResult(RESULT_OK, intent);
 		super.finish();
 	}
@@ -180,7 +193,7 @@ public class ItemPresenter extends FragmentActivity  {
 		//                finish();
 		//                return true;
 		case R.id.menu_llamar:
-			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(anuncio.get_tlf()));
+			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(anuncio.get_tlf(0)));
 			startActivity(intent);
 			finish();
 			return true;
