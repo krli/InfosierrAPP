@@ -1,10 +1,14 @@
 package es.ulpgc.IST.infosierrapp.main;
 
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -188,6 +192,8 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     
 
     /**
+     * Gestiona el intent que se recibe en el arranque o la llamada
+     * a onNewIntent de la actividad
      * 
      * @param intent
      */
@@ -214,11 +220,12 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     		}
     		
     	} else {
-    		Toast.makeText(getApplicationContext(), 
-    				"gestionaIntent: No Hago Nada",
-    				Toast.LENGTH_SHORT).show();
+//    		Toast.makeText(getApplicationContext(), 
+//    				"gestionaIntent: No Hago Nada",
+//    				Toast.LENGTH_SHORT).show();
     	}
     	
+    	// Actualiza los botones de sugerencias
     	actualizaSugerencias();
 
     }
@@ -243,39 +250,69 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	startActivity(intent);   	
     }
 
-    
+    /**
+     * Actualiza los botones de sugerencias
+     */
     private void actualizaSugerencias() {    	   	
     	String[] busquedas = buscador.get_historial(6);
     	for(int k=0; k<busquedas.length; k++) {
-    		if ( busquedas[k] != null) {    			
-    			setSugeText(k, busquedas[k]);
-    		}
+    		setSugeText(k, busquedas[k]);
     	}
     }
+    /**
+     * Método auxiliar para facilitar el establecimiento
+     * del texto en los botones de sugerencias
+     */
     private void setSugeText(int index, String text) {
     	switch(index) {
     	case 0:
-    		b_suge1.setText(text);
+    		if (text != null) {
+    			b_suge1.setText(text);
+    		} else {
+    			b_suge1.setText(R.string.B_suge1);
+    		}
     		break;
     	case 1:
-    		b_suge2.setText(text);
+    		if (text != null) {
+    			b_suge2.setText(text);
+    		} else {
+    			b_suge2.setText(R.string.B_suge2);
+    		}
     		break;
     	case 2:
-    		b_suge3.setText(text);
+    		if (text != null) {
+    			b_suge3.setText(text);
+    		} else {
+    			b_suge3.setText(R.string.B_suge3);
+    		}
     		break;
     	case 3:
-    		b_suge4.setText(text);
+    		if (text != null) {
+    			b_suge4.setText(text);
+    		} else {
+    			b_suge4.setText(R.string.B_suge4);
+    		}
     		break;
     	case 4:
-    		b_suge5.setText(text);
+    		if (text != null) {
+    			b_suge5.setText(text);
+    		} else {
+    			b_suge5.setText(R.string.B_suge5);
+    		}
     		break;
     	case 5:
-    		b_suge6.setText(text);
+    		if (text != null) {
+    			b_suge6.setText(text);
+    		} else {
+    			b_suge6.setText(R.string.B_suge6);
+    		}
     		break;
     	}
     }
     
-    
+    /**
+     * Fuerza la parada de la tarea de búsqueda
+     */
     private void cancelarBusqueda() {
     	if (busqueda !=null) {
 			busqueda.cancel(true);
@@ -336,6 +373,57 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	b_buscar.setVisibility(View.VISIBLE);
 	}    
     
+    /**
+	 * Activa el item borrar historial.
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Primero configura el menu de MenuActivity
+		super.onCreateOptionsMenu(menu);
+		// Activa el item
+		MenuItem item = menu.findItem(R.id.menu_borrar_busquedas);		
+		if (item !=null) {
+			item.setEnabled(true);
+			item.setVisible(true);
+		}		
+		return true;
+	}
+	
+	/**
+	 * Comportamiento de menu_borrar_busquedas
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_borrar_busquedas:
+			do_limpiar_sugerencias();
+			return true;
+			
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+    
+	
+	private void do_limpiar_sugerencias() {
+		
+		//Crea un simple diálogo SI/NO para confirmar
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setTitle("Restableciendo sugerencias...");
+    	builder.setMessage("¿Estás seguro?");
+    	builder.setIcon(android.R.drawable.ic_delete);
+    	builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+    	    public void onClick(DialogInterface dialog, int which) {			      	
+    	    	//Si la respuesta es sí...
+    	    	buscador.limpiar_historial();
+    			actualizaSugerencias();    	    	
+    	    }
+    	});
+    	builder.setNegativeButton("No", null);
+    	builder.show();		
+	}
+	
+	
     /**********************************************************************
      * Los siguientes métodos definen la interfaz para la realimentación 
      * desde la TareaBusqueda
