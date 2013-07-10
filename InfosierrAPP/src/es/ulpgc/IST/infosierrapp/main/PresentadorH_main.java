@@ -1,6 +1,3 @@
-/**
- * 
- */
 package es.ulpgc.IST.infosierrapp.main;
 
 
@@ -9,8 +6,8 @@ import android.content.res.Configuration;
 import es.ulpgc.IST.infosierrapp.R;
 
 /**
- * @author krlo
- *
+ * Presentador para la versión horizontal de la actividad main.
+ * El único cambio es el layout.
  */
 public class PresentadorH_main extends PresentadorV_main {
 	

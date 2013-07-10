@@ -28,11 +28,6 @@ import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF.Fuentes;
 public class PresentadorV_main extends MenuActivity implements OnClickListener, ListenerTareaBusqueda {
 	
 	/**
-	 * Modelo de datos.
-	 */
-	protected Modelo_main modelo;
-	
-	/**
 	 * Clase buscador de datos que proporciona el historial de búsquedas 
 	 */
 	protected BuscadorDatos buscador;
@@ -77,7 +72,6 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		loadView();
 		
 		/* Recupera el modelo desde el singleton */
-		modelo = Modelo_main.getModel();
 		buscador = BuscadorDatos.getBuscador(getApplicationContext());
 		
 		/* Inicializa las refs al layout */
@@ -320,9 +314,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	if (busqueda !=null) {
 			busqueda.cancel(true);
 		}    	
-    }
-    
-    
+    }       
     
     /**
      * Reacciona a los eventos de click
@@ -407,9 +399,11 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		}
 	}
     
-	
-	private void do_limpiar_sugerencias() {
-		
+	/**
+	 * Limpia los botones de sugerencias, mostrando previamente
+	 * un diálogo de confirmación.
+	 */
+	private void do_limpiar_sugerencias() {		
 		//Crea un simple diálogo SI/NO para confirmar
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setTitle("Restableciendo sugerencias...");
@@ -425,6 +419,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	builder.setNegativeButton("No", null);
     	builder.show();		
 	}
+	
 	
 	
     /**********************************************************************

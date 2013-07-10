@@ -1,6 +1,5 @@
 package es.ulpgc.IST.infosierrapp.recursos;
 
-/******************* Clase HistorialBusquedas *****************/
 /**
  * Clase que implementa un historial para
  * almacenar un número fijo de cadenas. Cuando está
