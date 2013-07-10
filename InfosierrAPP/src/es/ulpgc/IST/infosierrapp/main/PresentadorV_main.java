@@ -22,7 +22,8 @@ import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
 import es.ulpgc.IST.infosierrapp.datos.ListenerTareaBusqueda;
 import es.ulpgc.IST.infosierrapp.datos.TareaBusqueda;
 import es.ulpgc.IST.infosierrapp.maestrodetalle.ListPresenter;
-import es.ulpgc.IST.infosierrapp.main.FuentesTTF.Fuentes;
+import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF;
+import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF.Fuentes;
 
 public class PresentadorV_main extends MenuActivity implements OnClickListener, ListenerTareaBusqueda {
 	

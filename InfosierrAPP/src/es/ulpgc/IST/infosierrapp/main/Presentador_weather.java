@@ -8,7 +8,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 import es.ulpgc.IST.infosierrapp.R;
-import es.ulpgc.IST.infosierrapp.main.FuentesTTF.Fuentes;
+import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF;
+import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF.Fuentes;
 
 /**
  * Presentador para la actividad weather. Simplemente 
