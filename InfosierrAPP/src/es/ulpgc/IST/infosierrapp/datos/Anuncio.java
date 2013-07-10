@@ -25,7 +25,7 @@ public class Anuncio implements Serializable {
 	public static final String SEPARATOR= "#";
 	
 	// Valor por defecto para campos no establecidos
-	public static final String SIN_VALOR="no establecido";
+	public static final String SIN_VALOR="<no establecido>";
 
 	/**
 	 * Nombre del negocio
@@ -46,7 +46,7 @@ public class Anuncio implements Serializable {
 	/**
 	 * URL a la página web.
 	 */
-	private String			_web;    
+	private String		_web;    
 	/**
 	 * Breve descripción de la actividad del negocio
 	 */    
@@ -59,7 +59,7 @@ public class Anuncio implements Serializable {
 	/**
 	 * URL al fichero con la foto
 	 */
-	private String			_foto;    
+	private String		_foto;    
 	/**
 	 * Coordenadas para GoogleMaps
 	 */
@@ -71,7 +71,7 @@ public class Anuncio implements Serializable {
 	 * necesario para la gestión de las BD, los
 	 * Providers...etc.)
 	 */
-	private long			_id;
+	private long		_id;
 
 
 
@@ -164,7 +164,10 @@ public class Anuncio implements Serializable {
 		}
 	}
 	public void set_AllTelefonos(String tlfs) {
+
 		set_telefonos(splitString(tlfs, N_TLFS));		
+		set_telefonos( splitString(tlfs, N_TLFS) );		
+
 	}
 	//***********************************
 	public String get_email() {
@@ -223,7 +226,7 @@ public class Anuncio implements Serializable {
 		}
 	}
 	public void set_AllTags(String tags) {		
-		splitString(tags, N_TAGS);
+		set_tags( splitString(tags, N_TAGS));
 	}
 	//***********************************
 	public String get_foto() {
@@ -267,7 +270,7 @@ public class Anuncio implements Serializable {
 
 	/**
 	 * Trocea una cadena en subcadenas separadas por SEPARATOR,
-	 * y en un máximo de maxParts trozos. Complementaria
+	 * y en un máximo de maxParts trozos. Complementario
 	 * a joinStrings().
 	 * @param string la cadena a descomponer
 	 * @param maxParts el máximo de trozos que se deben extraer
@@ -308,7 +311,8 @@ public class Anuncio implements Serializable {
 
 	/**
 	 * Une un vector de Strings en una única String 
-	 * separándolas mediante SEPARATOS. Complementaria a splitStrings.
+	 * separándolas mediante SEPARATOR. 
+	 * Complementario a splitStrings.
 	 * 
 	 * @param vector de Strings a separar
 	 * @return String unión de las componentes del vector
