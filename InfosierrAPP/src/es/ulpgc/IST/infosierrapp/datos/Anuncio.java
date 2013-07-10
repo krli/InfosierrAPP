@@ -1,6 +1,7 @@
 package es.ulpgc.IST.infosierrapp.datos;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
@@ -22,6 +23,9 @@ public class Anuncio implements Serializable {
 	public static final int N_TLFS = 2;
 	// Separador para múltiples strings concatenadas
 	public static final String SEPARATOR= "#";
+	
+	// Valor por defecto para campos no establecidos
+	public static final String SIN_VALOR="no establecido";
 
 	/**
 	 * Nombre del negocio
@@ -42,7 +46,7 @@ public class Anuncio implements Serializable {
 	/**
 	 * URL a la página web.
 	 */
-	private URL			_web;    
+	private String			_web;    
 	/**
 	 * Breve descripción de la actividad del negocio
 	 */    
@@ -75,14 +79,14 @@ public class Anuncio implements Serializable {
 	 * Constructor vacío
 	 */
 	public Anuncio() {
-		set_nombre("");
-		set_direccion("");
+		set_nombre(SIN_VALOR);
+		set_direccion(SIN_VALOR);
 		set_telefonos(new String[N_TLFS]);
-		set_email("");
-		set_web(null);
-		set_descripcion("");
+		set_email(SIN_VALOR);
+		set_web(SIN_VALOR);
+		set_descripcion(SIN_VALOR);
 		set_tags(new String[N_TAGS]);
-		set_foto(null);
+		set_foto(SIN_VALOR);
 		set_X(0);
 		set_Y(0);
 		set_id(NO_ID);
@@ -104,7 +108,7 @@ public class Anuncio implements Serializable {
 	 * @param id
 	 */
 	public Anuncio(String nombre, String direccion, String[] telefonos,
-			String email, URL web, String descripcion, String[] tags,
+			String email, String web, String descripcion, String[] tags,
 			String foto, double X, double Y, int id) {
 
 		set_nombre(nombre);
@@ -170,18 +174,22 @@ public class Anuncio implements Serializable {
 		this._email = _email;
 	}
 	//***********************************
-	public URL get_web() {
+	public String get_web() {
 		return _web;
 	}
-	public String get_web_string() {		
-		if ( get_web() != null) {
-			return get_web().toString();
-		}		
-		return null;
+	public URL get_web_URL() {		
+		URL url;
+		try {
+			url=new URL(get_web());
+		} catch (MalformedURLException e) {
+			url=null;
+		}
+		return url;
 	}
-	public void set_web(URL _web) {
-		this._web = _web;
+	public void set_web(String web) {
+		this._web=web;
 	}
+	
 	//***********************************
 	public String get_descripcion() {
 		return _descripcion;
@@ -221,16 +229,19 @@ public class Anuncio implements Serializable {
 	public String get_foto() {
 		return _foto;
 	}
-	public String get_foto_string() {		
-		if ( get_foto() != null) {
-			return get_foto().toString();
-		}		
-		return null;
+	public URL get_foto_URL() {		
+		URL url;
+		try {
+			url=new URL(get_foto());
+		} catch (MalformedURLException e) {
+			url=null;
+		}
+		return url;
 	}
-	public void set_foto(String _foto) {
-		this._foto=_foto;
-
+	public void set_foto(String foto) {
+		this._foto=foto;
 	}
+	
 	//***********************************
 	public double get_X() {
 		return _X;

@@ -61,28 +61,23 @@ public class ItemPresenter extends Activity implements OnClickListener{
 		b_mapa.setOnClickListener(this);
 
 
-		//Itempresenter obtiene los valores de los campos...
+		// Extrae el anuncio desde el item
 		Intent intent = getIntent();
-		anuncio = (Anuncio)intent.getSerializableExtra(Intent.ACTION_EDIT);
-		String nombre = getIntent().getStringExtra("nombre");
-		String descripcion = getIntent().getStringExtra("descripcion");
-		String direccion = getIntent().getStringExtra("direccion");
-		String email = getIntent().getStringExtra("email");
-		String web = getIntent().getStringExtra("web");
-		String telefono = getIntent().getStringExtra("telefono");
-		String foto = getIntent().getStringExtra("foto");
-		X = getIntent().getDoubleExtra("mapx",0);
-		Y = getIntent().getDoubleExtra("mapy",0);
+		anuncio = (Anuncio)intent.getSerializableExtra("anuncio");
 
-		//... y se los asigna a los EditText correspondientes
-		this.nombre.setText(nombre);
-		this.descripcion.setText(descripcion);
-		this.direccion.setText(direccion);
-		this.email.setText(email);
-		this.web.setText(web);
-		this.telefono.setText(telefono);
+		// Establece los valores de las coordenadas y la foto
+		String foto = anuncio.get_foto();
+		X = anuncio.get_X();
+		Y = anuncio.get_Y();
+
+		//Y asigna el resto a los EditText correspondientes
+		this.nombre.setText(		anuncio.get_nombre());
+		this.descripcion.setText(	anuncio.get_descripcion());
+		this.direccion.setText(		anuncio.get_email());
+		this.email.setText(			anuncio.get_email());
+		this.web.setText(			anuncio.get_web());
+		this.telefono.setText(		anuncio.get_tlf(0));
 		
-
 		//Si se ha introducido una direccion con la foto, se inicia su descarga en 2o plano
 		if (foto.length()>0)
         {

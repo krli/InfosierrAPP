@@ -229,8 +229,8 @@ public class BD_local_Acceso {
 		anuncioCV.put(TablaResultados.COL_DIRECCION,	anuncio.get_direccion() );
 		anuncioCV.put(TablaResultados.COL_DESC,			anuncio.get_descripcion() );
 		anuncioCV.put(TablaResultados.COL_EMAIL,		anuncio.get_email() );
-		anuncioCV.put(TablaResultados.COL_FOTO, 		anuncio.get_foto_string() );
-		anuncioCV.put(TablaResultados.COL_WEB,			anuncio.get_web_string() );
+		anuncioCV.put(TablaResultados.COL_FOTO, 		anuncio.get_foto() );
+		anuncioCV.put(TablaResultados.COL_WEB,			anuncio.get_web() );
 		anuncioCV.put(TablaResultados.COL_MAPX,			anuncio.get_X() );
 		anuncioCV.put(TablaResultados.COL_MAPY, 		anuncio.get_Y() );		
 		anuncioCV.put(TablaResultados.COL_TAGS,			anuncio.get_AllTags() );
@@ -254,7 +254,7 @@ public class BD_local_Acceso {
 	 * Procesa una fila de la tabla (objeto Cursor) y
 	 * lo convierte en un objeto java Anuncio
 	 */
-	private Anuncio cursorToAnuncio(Cursor cursor) {
+	public static Anuncio cursorToAnuncio(Cursor cursor) {
 		Anuncio anuncio = new Anuncio();
 
 		// Para cada atributo:
@@ -277,16 +277,10 @@ public class BD_local_Acceso {
 		anuncio.set_email(cursor.getString(i_email));
 		//------
 		int i_web = cursor.getColumnIndex(TablaResultados.COL_WEB);		
-		try {
-			anuncio.set_web(new URL(cursor.getString(i_web)));
-		} catch (MalformedURLException e) {
-			anuncio.set_web(null);
-		}
+		anuncio.set_web(cursor.getString(i_web));
 		//------
 		int i_foto = cursor.getColumnIndex(TablaResultados.COL_FOTO);
-
 		anuncio.set_foto((cursor.getString(i_foto)));
-
 		//------
 		int i_mapx = cursor.getColumnIndex(TablaResultados.COL_MAPX);		
 		anuncio.set_X(cursor.getDouble(i_mapx));
@@ -320,15 +314,11 @@ public class BD_local_Acceso {
 		anuncio1.set_descripcion("Anun1 descripciooon");
 		anuncio1.set_direccion("Calle imaginaria, N tal");
 		anuncio1.set_email("email@este.com");
-		try {
-			anuncio1.set_web(new URL("http://www.miweb.com"));
-		} catch (MalformedURLException e) {
-		}
+		anuncio1.set_web("http://www.miweb.com");
 		anuncio1.set_X(6.474167);
 		anuncio1.set_Y(37.893056);
 		anuncio1.set_tags(new String[]{"eti1", "eti2", "eti3","eti4"});
 		anuncio1.set_telefonos(new String[]{"987654321", "123456789"});	
-
 		anuncio1.set_foto("http://www.cristoferdelatorre.com/fondosdps/wallpapers/homer-alegre.jpg");
 		insertAnuncio(anuncio1);
 

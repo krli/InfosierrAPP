@@ -13,7 +13,9 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import es.ulpgc.IST.infosierrapp.R;
+import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
+import es.ulpgc.IST.infosierrapp.datos.local.BD_local_Acceso;
 import es.ulpgc.IST.infosierrapp.datos.local.TablaResultados;
 import es.ulpgc.IST.infosierrapp.main.MenuActivity;
 
@@ -138,16 +140,10 @@ public class ListPresenter extends MenuActivity {
 	 * @param cursor
 	 */
 	public void startActivity(Intent myIntent, Cursor cursor) {
-
-		myIntent.putExtra("nombre", cursor.getString(cursor.getColumnIndex(TablaResultados.COL_NOMBRE)));
-		myIntent.putExtra("descripcion", cursor.getString(cursor.getColumnIndex(TablaResultados.COL_DESC)));
-		myIntent.putExtra("direccion", cursor.getString(cursor.getColumnIndex(TablaResultados.COL_DIRECCION)));
-		myIntent.putExtra("email", cursor.getString(cursor.getColumnIndex(TablaResultados.COL_EMAIL)));
-		myIntent.putExtra("mapx", cursor.getDouble(cursor.getColumnIndex(TablaResultados.COL_MAPX)));
-		myIntent.putExtra("mapy", cursor.getDouble(cursor.getColumnIndex(TablaResultados.COL_MAPY)));
-		myIntent.putExtra("telefono", cursor.getString(cursor.getColumnIndex(TablaResultados.COL_TELEFONOS)));
-		myIntent.putExtra("web", cursor.getString(cursor.getColumnIndex(TablaResultados.COL_WEB)));
-		myIntent.putExtra("foto", cursor.getString(cursor.getColumnIndex(TablaResultados.COL_FOTO)));
+		
+		Anuncio anuncio = BD_local_Acceso.cursorToAnuncio(cursor);		
+		
+		myIntent.putExtra("anuncio", anuncio);
 
 		startActivity(myIntent);
 
