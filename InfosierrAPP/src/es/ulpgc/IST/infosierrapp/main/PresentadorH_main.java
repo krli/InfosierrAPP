@@ -30,6 +30,7 @@ public class PresentadorH_main extends PresentadorV_main {
 		Intent intent = new Intent(PresentadorH_main.this,
 				PresentadorV_main.class);
 		intent.setAction(INTENT_ACTION);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		// Guarda en el intent el contenido de la searchview
 		intent.putExtra(INTENT_CONTENT_WISEARCH, wi_search.getQuery());
     	

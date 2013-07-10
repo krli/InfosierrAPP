@@ -181,6 +181,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	Intent intent = new Intent(PresentadorV_main.this,
     			PresentadorH_main.class);
 		intent.setAction(INTENT_ACTION);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		// Guarda en el intent el contenido de la searchview
 		intent.putExtra(INTENT_CONTENT_WISEARCH, wi_search.getQuery());    	
     	return intent;
@@ -222,7 +223,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
    		/*** Cambio de orientación ***/
     		
     		// Establece el contenido de la searchview
-        	wi_search.setQuery( intent.getStringExtra("contenido_wi_search"),false);
+        	wi_search.setQuery( intent.getStringExtra(INTENT_CONTENT_WISEARCH),false);
     		
     	} else {
    		/*** No se hace nada ***/
