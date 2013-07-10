@@ -106,11 +106,12 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		b_suge6.setOnClickListener(this);
 		b_cancelar.setOnClickListener(this);
 		
+		
 		/* Configuraciones de layout */
+		//Botón buscar visible y progressbar oculta
 		b_buscar.setVisibility(View.VISIBLE);
 		ly_progreso.setVisibility(View.GONE);
-		// wi_progreso.setVisibility(View.GONE);
-		// wi_search.setSubmitButtonEnabled(true);
+		// fuentes
 		FuentesTTF.setFont(this, txt_subtitulo, Fuentes.segoe);
 		FuentesTTF.setFont(this, b_weather, Fuentes.segoe);
 		
@@ -118,10 +119,8 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 	    // Assumes current activity is the searchable activity
 	    wi_search.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-	    
-		
-		/* Recoge el Intent de llamada y gestiona la acción */
-	    //Toast.makeText(getApplicationContext(), "+++onCreate()", Toast.LENGTH_LONG).show();
+	    		
+		/* Reacciona según el intent de llamada */	    
 		gestionaIntent(getIntent());	
 	}
 	
@@ -131,12 +130,10 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	 *  y evitar así invocarla 2 veces
 	 */
 	@Override
-	protected void onNewIntent(Intent intent) {
-		
+	protected void onNewIntent(Intent intent) {		
 		if (intent != null) {
 			gestionaIntent(intent);
-		}
-		
+		}		
 	}
 
 	/**

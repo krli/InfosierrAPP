@@ -76,7 +76,7 @@ public class ItemPresenter extends Activity implements OnClickListener{
 		this.direccion.setText(		anuncio.get_email());
 		this.email.setText(			anuncio.get_email());
 		this.web.setText(			anuncio.get_web());
-		this.telefono.setText(		anuncio.get_tlf(0));
+		this.telefono.setText(		anuncio.get_AllTelefonos() );
 		
 		//Si se ha introducido una direccion con la foto, se inicia su descarga en 2o plano
 		if (foto.length()>0)
