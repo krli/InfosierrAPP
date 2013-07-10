@@ -80,7 +80,8 @@ public class ItemPresenter extends FragmentActivity implements OnClickListener{
 		this.web.setText(			anuncio.get_web());
 		this.telefono.setText(		anuncio.get_tlf(0) );
 
-		//Si hay direccion con la foto, se inicia su descarga en 2o plano
+		//Si se ha introducido una direccion con la foto, se inicia su descarga en 2o plano
+
 		if (foto.length()>0)
 		{
 			image.setTag(foto);
