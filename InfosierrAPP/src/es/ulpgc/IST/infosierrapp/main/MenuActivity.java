@@ -11,11 +11,21 @@ import android.view.MenuItem;
 import es.ulpgc.IST.infosierrapp.R;
 import android.widget.Toast;
 
-
+/**
+ * Clase padre para realizar una configuración básica de la 
+ * ActionBar. Todas las actividades que quieran mostrar el 
+ * mismo menú sólo tienen que heredar de esta. Para ampliarlo
+ * o modificarlo es suficiente con que sobreescriban los 
+ * métodos onCreateOptionsMenu y onOptionsItemSelected, 
+ * llamando al super para mantener la configuración que 
+ * se realiza aquí.
+ *
+ */
 public class MenuActivity extends Activity {
 	
+	// URL de la web para el item del menu ir a...
+	private static final String _infosierraWebURL="http://www.infosierra.es";
 	
-	private String _infosierraWebURL="http://www.infosierra.es";
 	
 	/*
 	 * Referencias a componentes del layout;
@@ -26,9 +36,6 @@ public class MenuActivity extends Activity {
 	/* Getters/Setters */
 	public String get_infosierraWebURL() {
 		return _infosierraWebURL;
-	}
-	protected void set_infosierraWebURL(String url) {
-		_infosierraWebURL=url;
 	}
 	
 	
@@ -48,24 +55,15 @@ public class MenuActivity extends Activity {
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		
-		
-		Toast.makeText(getApplicationContext(), 
-				"Creando Menu Padre", 
-				Toast.LENGTH_SHORT).show();
-		
+				
+		// Levanta el menú desde main_menu.xml
 	    MenuInflater inflater = getMenuInflater();
-	    //SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
 	    inflater.inflate(R.menu.main_menu, menu);
 	    
-		// activa el menu home para volver al main		
-		// action_bar.setDisplayShowHomeEnabled(true);
+		// Activa el home UP para volver al main		
 		action_bar.setDisplayHomeAsUpEnabled(true);
-		// modo navegación en pestañas
-		action_bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 	    	
 	    return super.onCreateOptionsMenu(menu);
-	    // return true;
 	}
 	
 	
@@ -77,26 +75,31 @@ public class MenuActivity extends Activity {
 
 		
 		switch (item.getItemId()) {
+		
 		case android.R.id.home:
 			// app icon in action bar clicked; go main activity
 			return goMain();
+			
 		case R.id.menu_web:
 			// se ha pulsado el boton para abrir infosierra.es			
 			return goWeb();
+			
 		case R.id.menu_exit:
 			// se ha pulsado el boton de salir
 			return goExit();
+			
 		case R.id.menu_opciones:
 			return goOpciones();
+			
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
 	
 	protected boolean goMain() {
 		Intent intent = new Intent(this, PresentadorV_main.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        // intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         return true;
 	}
@@ -118,7 +121,7 @@ public class MenuActivity extends Activity {
 	
 	protected boolean goOpciones() {
 		Toast.makeText(getApplicationContext(), 
-				"++ Opciones ++", 
+				"+ Menú de Opciones + (en obras)", 
 				Toast.LENGTH_SHORT).show();
 		return true;
 	}

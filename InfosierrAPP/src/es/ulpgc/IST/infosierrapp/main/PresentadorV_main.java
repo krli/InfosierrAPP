@@ -30,10 +30,15 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	 * Modelo de datos.
 	 */
 	protected Modelo_main modelo;
+	
 	/**
 	 * Clase buscador de datos que proporciona el historial de búsquedas 
 	 */
-	protected BuscadorDatos buscador; 
+	protected BuscadorDatos buscador;
+	
+	/**
+	 * Tarea asíncrona que se lanza en segundo plano para ejecutar la búsqueda
+	 */
 	protected TareaBusqueda busqueda;
 	
 	/*
