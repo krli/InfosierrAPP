@@ -37,12 +37,12 @@
 
     <!-- Shown above search results when we receive a search request. -->
     <plurals name="search_results">
-        <item quantity="one">%1$d result for \"%2$s\": </item>
-        <item quantity="other">%1$d results for \"%2$s\": </item>
+        <item quantity="one">%1$d resultado para \"%2$s\": </item>
+        <item quantity="other">%1$d resultados para \"%2$s\": </item>
     </plurals>
 
     <!-- Search failure message. -->
-    <string name="no_results">No results found for \"%s\"</string>
+    <string name="no_results">No se encontraron resultados para \"%s\"</string>
 
     <!-- General instructions in the main activity. -->
     <string name="search_instructions">Usa el campo de busqueda para buscar lo que desees</string>

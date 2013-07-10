@@ -1,15 +1,18 @@
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 
 import es.ulpgc.IST.infosierrapp.R;
 
-public class Presentador_map extends FragmentActivity  {
+/**
+ * Clase responsable de presentar el mapa
+ *
+ */
+public class Presentador_map extends Activity  {
 
 
 	/*
@@ -27,8 +30,7 @@ public class Presentador_map extends FragmentActivity  {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map);
-		Toast.makeText(this, "cargando mapa...", Toast.LENGTH_SHORT).show();
-
+		
 		/*Intent intent = getIntent();
 		nombre = intent.getExtras().getString("nombre");
 		X = intent.getExtras().getDouble("X",0);
