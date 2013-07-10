@@ -25,9 +25,14 @@ public class PresentadorH_main extends PresentadorV_main {
 	}
 
 	@Override
-	protected Intent getPresenter() {
+	protected Intent getIntentForChangePresenter() {
+    	// Destino: Presentador V
 		Intent intent = new Intent(PresentadorH_main.this,
 				PresentadorV_main.class);
+		intent.setAction(INTENT_ACTION);
+		// Guarda en el intent el contenido de la searchview
+		intent.putExtra(INTENT_CONTENT_WISEARCH, wi_search.getQuery());
+    	
 		return intent;
 	}
 

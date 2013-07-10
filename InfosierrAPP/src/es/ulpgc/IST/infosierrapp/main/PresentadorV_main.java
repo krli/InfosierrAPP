@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -28,6 +27,13 @@ import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF.Fuentes;
 public class PresentadorV_main extends MenuActivity implements OnClickListener, ListenerTareaBusqueda {
 	
 	/**
+	 * Valores de configuración del Intent para el
+	 * cambio entre este presentador y el horizontal 
+	 */
+	protected final String INTENT_ACTION="cambio_orientacion";
+	protected final String INTENT_CONTENT_WISEARCH="contenido_wisearch";
+	
+	/**
 	 * Clase buscador de datos que proporciona el historial de búsquedas 
 	 */
 	protected BuscadorDatos buscador;
@@ -40,8 +46,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	/*
 	 * Referencias a componentes del layout;
 	 */
-	private SearchView		wi_search;
-	private ProgressBar 	wi_progreso;
+	protected SearchView	wi_search;
 	private RelativeLayout	ly_progreso;
 	private Button			b_buscar;
 	private Button			b_weather;
@@ -52,7 +57,6 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	private Button			b_suge4;
 	private Button			b_suge5;
 	private Button			b_suge6;
-	private TextView		txt_titulo;
 	private TextView		txt_subtitulo;
 	
 	
@@ -76,7 +80,6 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		
 		/* Inicializa las refs al layout */
 		wi_search=(SearchView)findViewById(R.id.searchView1);
-		wi_progreso=(ProgressBar)findViewById(R.id.progressBar1);	
 		ly_progreso=(RelativeLayout)findViewById(R.id.lytProgreso2);
 		b_buscar=(Button)findViewById(R.id.B_buscar);
 		b_weather=(Button)findViewById(R.id.B_weather);
@@ -87,7 +90,6 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		b_suge4=(Button)findViewById(R.id.B_suge4);
 		b_suge5=(Button)findViewById(R.id.B_suge5);
 		b_suge6=(Button)findViewById(R.id.B_suge6);
-		txt_titulo=(TextView)findViewById(R.id.textTitulo);
 		txt_subtitulo=(TextView)findViewById(R.id.textSubtitulo);
 				
 		/* Registra los listeners */
@@ -161,7 +163,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
      */
     protected void changePresenter() {
     	// Get the next Controller
-    	Intent intent = getPresenter();    	
+    	Intent intent = getIntentForChangePresenter();    	
     	// Start the next and finish the current Controller
     	startActivity(intent);
     	finish();    	
@@ -174,9 +176,13 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
      * PresenH --> PresenV 
      * @return
      */
-    protected Intent getPresenter() {
+    protected Intent getIntentForChangePresenter() {
+    	// Destino: Presentador H
     	Intent intent = new Intent(PresentadorV_main.this,
     			PresentadorH_main.class);
+		intent.setAction(INTENT_ACTION);
+		// Guarda en el intent el contenido de la searchview
+		intent.putExtra(INTENT_CONTENT_WISEARCH, wi_search.getQuery());    	
     	return intent;
     }
 
@@ -196,16 +202,12 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
      */
     protected void gestionaIntent(Intent intent) {
 
-    	
-    	// Click en una sugerencia de búsqueda... (no soportado aún)
     	if (Intent.ACTION_VIEW.equals(intent.getAction())) {
-    		
-    		Toast.makeText(getApplicationContext(), 
-    				"Las sugerencias no funcionan aún",
-    				Toast.LENGTH_SHORT).show();
+   		/*** Click en una sugerencia de searchview... (no soportado aún)  ***/
 
-    		// Intro o click en Buscar --> Ejecuta la búsqueda
+
     	} else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+   		/*** Ejecutar una búsqueda ***/
 
     		// Extrae la cadena desde el Intent
     		String query_string = intent.getStringExtra(SearchManager.QUERY);
@@ -216,7 +218,14 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     			busqueda.execute(query_string);
     		}
     		
+    	} else if (INTENT_ACTION.equals(intent.getAction())) {
+   		/*** Cambio de orientación ***/
+    		
+    		// Establece el contenido de la searchview
+        	wi_search.setQuery( intent.getStringExtra("contenido_wi_search"),false);
+    		
     	} else {
+   		/*** No se hace nada ***/
 //    		Toast.makeText(getApplicationContext(), 
 //    				"gestionaIntent: No Hago Nada",
 //    				Toast.LENGTH_SHORT).show();
