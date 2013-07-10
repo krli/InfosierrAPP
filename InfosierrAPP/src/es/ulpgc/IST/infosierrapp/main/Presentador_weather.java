@@ -1,5 +1,6 @@
 package es.ulpgc.IST.infosierrapp.main;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +10,12 @@ import android.widget.TextView;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.main.FuentesTTF.Fuentes;
 
+/**
+ * Presentador para la actividad weather. Simplemente 
+ * tiene un componente webview que carga un html con un 
+ * applet desde eltiempo.es
+ *
+ */
 public class Presentador_weather extends MenuActivity implements OnClickListener {
 		
 	// Ubicación del fichero con el widget html para el tiempo
@@ -58,13 +65,18 @@ public class Presentador_weather extends MenuActivity implements OnClickListener
     
   
     /**
-     * Configura el widget que muestra el tiempo
+     * Configura el webview que muestra el tiempo
      */
-    private void wi_weather_config(){
-    	wi_webview.setClickable(false);
+    @SuppressLint("SetJavaScriptEnabled")
+	private void wi_weather_config(){
+    	// Modo de vista
     	wi_webview.getSettings().setLoadWithOverviewMode(true);
     	// wi_webview.getSettings().setUseWideViewPort(true);
-		wi_webview.getSettings().setJavaScriptEnabled(true);				
+		// Activa javascript para que funcione el widget
+    	wi_webview.getSettings().setJavaScriptEnabled(true);	
+		// Evita clicks y apertura del navegador externo
+		wi_webview.setClickable(false);
+		wi_webview.getSettings().setAllowContentAccess(false);
 		wi_webview.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url){
@@ -72,10 +84,12 @@ public class Presentador_weather extends MenuActivity implements OnClickListener
 				return true;
 			}
 		});
-		wi_webview.getSettings().setAllowContentAccess(false);
-		wi_webview.getSettings().setSupportZoom(false);
-        wi_webview.getSettings().setSaveFormData(false);
-        wi_webview.getSettings().setBuiltInZoomControls(false);
+		// Permite zoom para facilitar la vista
+		wi_webview.getSettings().setSupportZoom(true);
+		wi_webview.getSettings().setBuiltInZoomControls(true);
+        // Nada de formularios, etc...
+		wi_webview.getSettings().setSaveFormData(false);
+		//Y carga la web
 		wi_webview.loadUrl(WEATHER_HTML_FILE);
     }
 
@@ -84,7 +98,6 @@ public class Presentador_weather extends MenuActivity implements OnClickListener
      */
 	@Override
 	public void onClick(View view) {
-		int btn = view.getId();
 	
 	}
 
