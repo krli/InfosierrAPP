@@ -3,20 +3,127 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:orientation="vertical" >
+    android:orientation="horizontal"
+    android:weightSum="1" >
 
-    <EditText
-        android:id="@+id/txtNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:editable="false"
-        android:ems="10"
-        android:hint="Nombre"
-        android:textColorHint="@color/grisOscuro"
-        android:textSize="22dp"
-        android:textStyle="bold" >
+    <LinearLayout
+        android:layout_width="269dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:orientation="vertical"
+        android:weightSum="1" >
 
-        <requestFocus />
-    </EditText>
+        <TextView
+            android:id="@+id/lblPos"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.15"
+            android:gravity="right"
+            android:hint="ID"
+            android:paddingRight="5dp"
+            android:textSize="12dp"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/txtNombre"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.15"
+            android:editable="false"
+            android:hint="Nombre"
+            android:inputType="none"
+            android:textColorHint="@color/grisOscuro"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txtDireccion"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.15"
+            android:editable="false"
+            android:hint="Direccion"
+            android:inputType="none"
+            android:textColorHint="@color/grisOscuro"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/txtTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.15"
+            android:editable="false"
+            android:hint="Telefono"
+            android:inputType="none"
+            android:textColorHint="@color/grisOscuro"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/txtWeb"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.15"
+            android:editable="false"
+            android:hint="Web"
+            android:inputType="none"
+            android:textColorHint="@color/grisOscuro"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.15"
+            android:editable="false"
+            android:hint="Email"
+            android:inputType="none"
+            android:textColorHint="@color/grisOscuro"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/txtDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="0.25"
+            android:gravity="top"
+            android:hint="Descripcion"
+            android:inputType="none"
+            android:textColorHint="@color/grisOscuro"
+            android:textSize="12dp" />
+
+        <EditText
+            android:id="@+id/txtX"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0"
+            android:ems="10"
+            android:enabled="false"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/txtY"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0"
+            android:ems="10"
+            android:enabled="false"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

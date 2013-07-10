@@ -164,7 +164,10 @@ public class Anuncio implements Serializable {
 		}
 	}
 	public void set_AllTelefonos(String tlfs) {
+
+		set_telefonos(splitString(tlfs, N_TLFS));		
 		set_telefonos( splitString(tlfs, N_TLFS) );		
+
 	}
 	//***********************************
 	public String get_email() {

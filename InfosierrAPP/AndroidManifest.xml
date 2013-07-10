@@ -79,8 +79,11 @@
         </activity>
         <activity
             android:name=".maestrodetalle.ItemPresenter"
+            android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/detail_title" >
+            
         </activity>
+        
 
         <meta-data
             android:name="android.app.default_searchable"

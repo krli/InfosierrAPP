@@ -6,6 +6,7 @@ import java.net.URL;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -132,6 +133,11 @@ public class ItemPresenter extends Activity implements OnClickListener{
 
 	}
 
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	super.onConfigurationChanged(newConfig);
+	}
+	
 
 	/**
 	 * Cambia a la actividad que muestra 
@@ -199,7 +205,7 @@ public class ItemPresenter extends Activity implements OnClickListener{
 		case R.id.menu_email:
 			Intent emailintent = new Intent(Intent.ACTION_SEND);
 			emailintent.setType("plain/text");
-			emailintent.putExtra(Intent.EXTRA_EMAIL,this.email.getText());
+			emailintent.putExtra(Intent.EXTRA_EMAIL,""+this.email.getText());
 			emailintent.putExtra(Intent.EXTRA_SUBJECT, "RECOMENDACION INFOSIERRA");
 			emailintent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
 			startActivity(Intent.createChooser(emailintent, "Envialo por email..."));

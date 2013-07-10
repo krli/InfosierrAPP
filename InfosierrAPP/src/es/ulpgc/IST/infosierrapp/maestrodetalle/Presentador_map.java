@@ -36,8 +36,8 @@ public class Presentador_map extends Activity  {
 		X = intent.getExtras().getDouble("X",0);
 		Y = intent.getExtras().getDouble("Y",0);*/
 
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-				.getMap();
+		//mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+			//	.getMap();
 		/*
 		LatLng posicion = new LatLng(X, Y);
 		mMap.addMarker(new MarkerOptions().position(posicion).title(this.nombre));
