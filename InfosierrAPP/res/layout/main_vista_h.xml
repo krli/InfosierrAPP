@@ -68,7 +68,7 @@
         android:layout_height="match_parent"
         android:layout_width="0dip"
         android:layout_weight="0.4"
-       	android:layout_marginTop="10dp"
+       	android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:orientation="vertical"
         android:weightSum="1" >      
@@ -79,7 +79,7 @@
      	    android:text="@string/T_sugesH"	        
         	android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
-	        android:layout_weight="0.15"
+	        android:layout_weight="0.1"
 	        android:gravity="bottom|left"	        
 	        android:inputType="none" />
 
@@ -167,6 +167,24 @@
 			        android:layout_margin="1dp" />
     	    </LinearLayout>
     	    
+       		<RelativeLayout
+		         android:id="@+id/lytMenu"
+		         android:layout_width="match_parent"
+		         android:layout_height="0dip"
+		         android:layout_weight="0.15"
+		         android:layout_marginTop="2dp"                
+		         android:orientation="vertical" >	
+		         
+			 <Button
+			     android:id="@+id/B_weather"
+			     android:text="@string/B_weather" 
+			     style="@style/B_weather"
+			     android:layout_width="wrap_content"
+			     android:layout_height="wrap_content"
+			     android:layout_alignParentBottom="true"
+			     android:layout_centerHorizontal="true" />				 
+		</RelativeLayout>
+    	    
 
     </LinearLayout>
     
@@ -177,7 +195,7 @@
         android:layout_height="match_parent"
         android:layout_width="0dip"
         android:layout_weight="0.6"
-       	android:layout_marginTop="10dp"
+       	android:layout_marginTop="5dp"
         android:orientation="vertical"
         android:weightSum="1" >
  		
@@ -185,9 +203,9 @@
 	        android:id="@+id/lytBuscador"
 	        android:layout_width="match_parent"
 	        android:layout_height="0dip"
-	        android:layout_weight="0.4"
+	        android:layout_weight="0.45"
 	        android:orientation="vertical"
-	        android:visibility="visible" >
+	        android:layout_marginTop="10dp" >
 	    
 		    <TextView
 		        android:id="@+id/textSubtitulo"
@@ -214,9 +232,9 @@
          <LinearLayout
 	        android:id="@+id/lytProgreso"
 	        android:layout_width="match_parent"
-	        android:layout_weight="0.35"
+	        android:layout_weight="0.4"
 	        android:layout_height="0dip"
-	        android:layout_marginTop="10dp"            
+	        android:layout_marginTop="20dp"            
 	        android:orientation="vertical"
 	        android:visibility="visible" >
 		    
@@ -256,28 +274,7 @@
 		        android:visibility="visible" />
 	    	        
 		</LinearLayout>
-		
-         
-		<RelativeLayout
-	         android:id="@+id/lytMenu"
-	         android:layout_width="match_parent"
-	         android:layout_height="0dip"
-	         android:layout_weight="0.25"
-	         android:layout_marginTop="10dp"                
-	         android:orientation="vertical" >	
-		         
-			 <Button
-			     android:id="@+id/B_weather"
-			     android:text="@string/B_weather" 
-			     style="@style/B_weather"
-			     android:layout_width="wrap_content"
-			     android:layout_height="wrap_content"
-			     android:layout_alignParentBottom="true"
-			     android:layout_alignParentRight="true" />				 
-		</RelativeLayout>
-         
-          
-         
+
      </LinearLayout> 
      <!--   ****************   FIN Parte derecha ****************  -->   
     
