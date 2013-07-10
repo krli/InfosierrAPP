@@ -5,7 +5,11 @@
     android:background="@drawable/background"
     android:orientation="horizontal" >
 
-
+    <ImageView
+        android:id="@+id/imagen"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/icono" />
 
     <TextView
         android:id="@+id/txtNombre"

@@ -16,7 +16,6 @@ import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
 import es.ulpgc.IST.infosierrapp.datos.local.BD_local_Acceso;
-import es.ulpgc.IST.infosierrapp.datos.local.TablaResultados;
 import es.ulpgc.IST.infosierrapp.main.MenuActivity;
 
 
