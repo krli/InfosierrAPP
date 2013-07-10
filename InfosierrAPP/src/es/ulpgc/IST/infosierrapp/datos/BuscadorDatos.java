@@ -167,7 +167,7 @@ public class BuscadorDatos {
 		//Inicializa el adaptador.
 		//El 3 argumento es null porque el cursor aun no ha sido cargado por primera vez
 		//El ultimo argumento es 0 para prevenir el registro del Observer (CursorLoader lo hace directamente)
-		SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(context, R.layout.vista_v_item,
+		SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(context, R.layout.vista_item,
 				get_resultados_cursor(), from, to, 0);
 
 		// Devuelve el CursorAdapter a ListPresenter

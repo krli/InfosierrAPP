@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +28,7 @@ import es.ulpgc.IST.infosierrapp.datos.Anuncio;
  * Muestra la disposicion de la informacion
  *
  */
-public class ItemPresenter extends Activity implements OnClickListener{
+public class ItemPresenter extends FragmentActivity implements OnClickListener{
 
 	private EditText nombre;
 	private EditText direccion;
@@ -48,7 +49,7 @@ public class ItemPresenter extends Activity implements OnClickListener{
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.vista_v_detalle);
+		setContentView(R.layout.vista_detalle);
 
 		nombre = (EditText)findViewById(R.id.txtNombre);
 		direccion = (EditText)findViewById(R.id.txtDireccion);
@@ -58,7 +59,7 @@ public class ItemPresenter extends Activity implements OnClickListener{
 		descripcion = (EditText)findViewById(R.id.txtDescripcion);
 		image = (ImageView)findViewById(R.id.image);
 		b_mapa=(Button)findViewById(R.id.B_map);
-		
+
 		b_mapa.setOnClickListener(this);
 
 
@@ -77,14 +78,14 @@ public class ItemPresenter extends Activity implements OnClickListener{
 		this.direccion.setText(		anuncio.get_email());
 		this.email.setText(			anuncio.get_email());
 		this.web.setText(			anuncio.get_web());
-		this.telefono.setText(		anuncio.get_AllTelefonos() );
-		
-		//Si se ha introducido una direccion con la foto, se inicia su descarga en 2o plano
+		this.telefono.setText(		anuncio.get_tlf(0) );
+
+		//Si hay direccion con la foto, se inicia su descarga en 2o plano
 		if (foto.length()>0)
-        {
+		{
 			image.setTag(foto);
 			new DownloadImagesTask().execute(image);
-        }
+		}
 
 
 		//SI USAMOS UN CONTENT PROVIDER//
@@ -135,9 +136,9 @@ public class ItemPresenter extends Activity implements OnClickListener{
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-	super.onConfigurationChanged(newConfig);
+		super.onConfigurationChanged(newConfig);
 	}
-	
+
 
 	/**
 	 * Cambia a la actividad que muestra 
@@ -219,44 +220,44 @@ public class ItemPresenter extends Activity implements OnClickListener{
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	/** 
 	 * Clase que se encarga de ejecutar la descarga de la foto
 	 *
 	 */
-	
+
 	public class DownloadImagesTask extends AsyncTask<ImageView, Void, Bitmap> {
 
-	    ImageView imageView = null;
+		ImageView imageView = null;
 
-	    @Override
-	    protected Bitmap doInBackground(ImageView... imageViews) {
-	        this.imageView = imageViews[0];
-	        return download_Image((String)imageView.getTag());
-	    }
+		@Override
+		protected Bitmap doInBackground(ImageView... imageViews) {
+			this.imageView = imageViews[0];
+			return download_Image((String)imageView.getTag());
+		}
 
-	    @Override
-	    protected void onPostExecute(Bitmap result) {
-	        imageView.setImageBitmap(result);
-	    }
+		@Override
+		protected void onPostExecute(Bitmap result) {
+			imageView.setImageBitmap(result);
+		}
 
-	    private Bitmap download_Image(String url) {
+		private Bitmap download_Image(String url) {
 
-	        Bitmap bmp =null;
-	        try{
-	            URL ulrn = new URL(url);
-	            HttpURLConnection con = (HttpURLConnection)ulrn.openConnection();
-	            InputStream is = con.getInputStream();
-	            bmp = BitmapFactory.decodeStream(is);
-	            if (null != bmp)
-	                return bmp;
+			Bitmap bmp =null;
+			try{
+				URL ulrn = new URL(url);
+				HttpURLConnection con = (HttpURLConnection)ulrn.openConnection();
+				InputStream is = con.getInputStream();
+				bmp = BitmapFactory.decodeStream(is);
+				if (null != bmp)
+					return bmp;
 
-	            }catch(Exception e){}
-	        return bmp;
-	    }
+			}catch(Exception e){}
+			return bmp;
+		}
 	}
-	
-	
+
+
 
 
 
