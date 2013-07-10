@@ -100,7 +100,7 @@
 	         android:layout_height="match_parent"
 	         android:layout_marginTop="0dp"                
 	         android:orientation="horizontal"
-	         android:visibility="visible" >
+	         android:visibility="gone" >
 
 		   	<ProgressBar
 		   	    android:id="@+id/progressBar1"
@@ -115,7 +115,8 @@
 		        android:layout_alignParentTop="true"
 		        android:layout_alignParentRight="true"
 		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content" />
+		        android:layout_height="wrap_content"
+		        android:layout_marginBottom="10dp" />
    		</RelativeLayout>
     	
         <Button
@@ -125,7 +126,7 @@
 	        android:layout_gravity="top|center_horizontal"  
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:visibility="gone" />
+	        android:visibility="visible" />
     	        
 	</LinearLayout>
     
