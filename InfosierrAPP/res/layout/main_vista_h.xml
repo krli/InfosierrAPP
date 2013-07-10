@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:maxHeight="@dimen/logo_height"
-        android:layout_marginTop="10dp"            
+        android:layout_marginTop="0dp"            
         android:orientation="horizontal" >
         
         <TextView
@@ -58,7 +58,7 @@
         android:layout_weight="0.75"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="0dp"
         android:baselineAligned="false"            
         android:orientation="horizontal" >
     
@@ -203,7 +203,7 @@
 	        android:id="@+id/lytBuscador"
 	        android:layout_width="match_parent"
 	        android:layout_height="0dip"
-	        android:layout_weight="0.45"
+	        android:layout_weight="0.5"
 	        android:orientation="vertical"
 	        android:layout_marginTop="10dp" >
 	    

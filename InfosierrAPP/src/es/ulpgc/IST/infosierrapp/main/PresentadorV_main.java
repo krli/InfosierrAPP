@@ -166,7 +166,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	Intent intent = getIntentForChangePresenter();    	
     	// Start the next and finish the current Controller
     	startActivity(intent);
-    	finish();    	
+    	// finish(); ¿¿?? CAUSANTE DE LOS MALES    	
     }
     
     /**
@@ -206,9 +206,16 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	if (Intent.ACTION_VIEW.equals(intent.getAction())) {
    		/*** Click en una sugerencia de searchview... (no soportado aún)  ***/
 
+    		Toast.makeText(getApplicationContext(), 
+    				"gestInt: ACTION_VIEW",
+    				Toast.LENGTH_SHORT).show();
 
     	} else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
    		/*** Ejecutar una búsqueda ***/
+    		
+    		Toast.makeText(getApplicationContext(), 
+    				"gestInt: ACTION_SEARCH",
+    				Toast.LENGTH_SHORT).show();
 
     		// Extrae la cadena desde el Intent
     		String query_string = intent.getStringExtra(SearchManager.QUERY);
@@ -222,14 +229,18 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	} else if (INTENT_ACTION.equals(intent.getAction())) {
    		/*** Cambio de orientación ***/
     		
+    		Toast.makeText(getApplicationContext(), 
+    				"gestInt: CAMBIO ORI !!",
+    				Toast.LENGTH_SHORT).show();
+    		
     		// Establece el contenido de la searchview
         	wi_search.setQuery( intent.getStringExtra(INTENT_CONTENT_WISEARCH),false);
     		
     	} else {
    		/*** No se hace nada ***/
-//    		Toast.makeText(getApplicationContext(), 
-//    				"gestionaIntent: No Hago Nada",
-//    				Toast.LENGTH_SHORT).show();
+    		Toast.makeText(getApplicationContext(), 
+    				"gestInt: NADA",
+    				Toast.LENGTH_SHORT).show();
     	}
     	
     	// Actualiza los botones de sugerencias
