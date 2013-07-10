@@ -273,7 +273,7 @@ public class Anuncio implements Serializable {
 	 * @param maxParts el máximo de trozos que se deben extraer
 	 * @return un vector de Strings con los trozos separados
 	 */
-	private String[] splitString(String string, int maxParts) {		
+	private static String[] splitString(String string, int maxParts) {		
 
 		int substrings_counter = 0;		
 		int start_index = 0;
@@ -292,8 +292,8 @@ public class Anuncio implements Serializable {
 			// Si lo encuentra
 			if (next_separator_index > 0) {
 				// Extrae la etiqueta entre el anterior y el actual separador
-				set_tag(substrings_counter,
-						string.substring(start_index, next_separator_index));
+				resultado[substrings_counter]=
+						string.substring(start_index, next_separator_index);
 				// Actualiza el puntero de proceso
 				start_index=next_separator_index+1;
 				// Actualiza la cuenta
@@ -314,7 +314,7 @@ public class Anuncio implements Serializable {
 	 * @param vector de Strings a separar
 	 * @return String unión de las componentes del vector
 	 */
-	private String joinStrings(String[] vector) {
+	private  static String joinStrings(String[] vector) {
 		StringBuffer str = new StringBuffer();
 
 		if (vector == null) {
