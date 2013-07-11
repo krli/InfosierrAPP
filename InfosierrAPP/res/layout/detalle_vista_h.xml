@@ -24,7 +24,7 @@
             android:textSize="12dp"
             android:visibility="gone" />
 
-        <EditText
+        <TextView
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="0dip"
@@ -36,7 +36,7 @@
             android:textSize="16dp"
             android:textStyle="bold" />
 
-        <EditText
+        <TextView
             android:id="@+id/txtDireccion"
             android:layout_width="match_parent"
             android:layout_height="0dip"
@@ -47,7 +47,7 @@
             android:textColorHint="@color/grisOscuro"
             android:textSize="14dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/txtTelefono"
             android:layout_width="match_parent"
             android:layout_height="0dip"
@@ -55,10 +55,11 @@
             android:editable="false"
             android:hint="Telefono"
             android:inputType="none"
+            android:autoLink="phone"
             android:textColorHint="@color/grisOscuro"
             android:textSize="14dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/txtWeb"
             android:layout_width="match_parent"
             android:layout_height="0dip"
@@ -66,10 +67,11 @@
             android:editable="false"
             android:hint="Web"
             android:inputType="none"
+            android:autoLink="web"
             android:textColorHint="@color/grisOscuro"
             android:textSize="14dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="0dip"
@@ -77,10 +79,11 @@
             android:editable="false"
             android:hint="Email"
             android:inputType="none"
+            android:autoLink="email"
             android:textColorHint="@color/grisOscuro"
             android:textSize="14dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/txtDescripcion"
             android:layout_width="match_parent"
             android:layout_height="0dip"
@@ -91,7 +94,7 @@
             android:textColorHint="@color/grisOscuro"
             android:textSize="12dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/txtX"
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -100,7 +103,7 @@
             android:enabled="false"
             android:visibility="invisible" />
 
-        <EditText
+        <TextView
             android:id="@+id/txtY"
             android:layout_width="match_parent"
             android:layout_height="1dp"

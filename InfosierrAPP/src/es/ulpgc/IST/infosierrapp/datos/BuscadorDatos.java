@@ -158,14 +158,14 @@ public class BuscadorDatos {
 	public SimpleCursorAdapter getCursorAdapter(Context context){
 
 		// Especifica las columnas que se mostraran en el resultado
-		String[] from = new String[] { TablaResultados.COL_NOMBRE, 
+		String[] from = new String[] { TablaResultados.COL_NOMBRE, TablaResultados.COL_TAGS, 
 				TablaResultados.COL_DESC, TablaResultados.COL_DIRECCION,
 				TablaResultados.COL_EMAIL, TablaResultados.COL_TELEFONOS, 
 				TablaResultados.COL_WEB, TablaResultados.COL_MAPX, 
 				TablaResultados.COL_MAPY, TablaResultados.COL_FOTO};
 
 		// Especifica los correspondintes elementos del layout 
-		int[] to = new int[] { R.id.txtNombre, R.id.txtDescripcion, 
+		int[] to = new int[] { R.id.txtNombre, R.id.txtEtiquetas, R.id.txtDescripcion, 
 				R.id.txtDireccion, R.id.txtEmail, R.id.txtTelefono, 
 				R.id.txtWeb, R.id.txtX, R.id.txtY, R.id.image};
 

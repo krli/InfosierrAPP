@@ -250,7 +250,7 @@ public class BD_local_Acceso {
 		return inserted_ID;
 	}
 
-	
+
 
 
 
@@ -264,33 +264,107 @@ public class BD_local_Acceso {
 	public void rellenaUnPoco() {
 		open_db();
 
+		///////////////
+		//RESTAURANTES//
+		///////////////
 		Anuncio anuncio1 = new Anuncio();
-		anuncio1.set_nombre("Anuncio1 Nombre");
-		anuncio1.set_descripcion("Anun1 descripciooon");
-		anuncio1.set_direccion("Calle imaginaria, N tal");
-		anuncio1.set_email("email@este.com");
-		anuncio1.set_web("http://www.miweb.com");
+		anuncio1.set_nombre("Casa Pepa Restaurante");
+		anuncio1.set_descripcion("Desde aquí quiero presentarles el el Restaurante Casa Pepa. Inaugurado en el año 2000 lleva una década ofreciendo a las personas que pasan por aquí un servicio basado en la humildad en un trato cercano y familiar. Está ubicado en el casco antiguo del pueblo en uno de esos rincones tan pintorescos de la sierra donde se respira el silencio y la tranquilidad. A pocos metros pueden visitar la Plaza que posiblemente sea la mas hermosa de todo este entorno Serrano. LA PLAZA DE LA IGLESIA. Todos los platos que pueden degustar son de elaboración casera con excelentes productos autóctonos, desde los criados en las huertas hasta los productos silvestres (Setas, Tagazninas...) aunque la base principal sea el cerdo Ibérico (como pueden imaginar) acompañado por diferentes salsas o cremas. Casi toda nuestra variedad de platos pueden ser degustados desde tapas, raciones, pudiendo adecuar el plato al gusto del cliente. Desde aquí le invitamos que pasen a visitarnos y de camino aprovechen para conocer nuestro pueblo y sus costumbres que les causará una grata impresión. Gracias por visitar nuestra página y esperamos verles pronto por nuestra casa.");
+		anuncio1.set_direccion("C/ Portales, 10. 21210 Zufre (Huelva)");
+		anuncio1.set_email("frutu6@hotmail.com");
+		//anuncio1.set_web("http://www.miweb.com");
 		anuncio1.set_X(6.474167);
 		anuncio1.set_Y(37.893056);
-		anuncio1.set_tags(new String[]{"eti1", "eti2", "eti3","eti4"});
-		anuncio1.set_telefonos(new String[]{"600875781", "123456789"});	
-		anuncio1.set_foto("http://www.cristoferdelatorre.com/fondosdps/wallpapers/homer-alegre.jpg");
+		anuncio1.set_tags(new String[]{"bar", "restaurante", "cafeteria"});
+		anuncio1.set_telefonos(new String[]{"959198128", "680588108"});	
+		anuncio1.set_foto("http://www.infosierra.es/images/galerias_sectores/91/1328862476-mini.jpg");
 		insertAnuncio(anuncio1);
 
 		Anuncio anuncio2 = new Anuncio();
-		anuncio2.set_nombre("Nombre Anuncio2");
-		anuncio2.set_descripcion("Anunu2 desc");
-		insertAnuncio(anuncio2);		
+		anuncio2.set_nombre("Bar Cafeteria el Bari");
+		anuncio2.set_descripcion("Abierto todos los días de la semana. Cerveza y tapa por 1. Sábados medio día fiesta para todo el día incluyendo comilona. Sábados noche, por tu copa un chupito. Cubatas 3,5");
+		anuncio2.set_direccion("C/ San Juan Del Puerto, 50. 21290 Jabugo (Huelva)");
+		anuncio2.set_email("bar-elbiri@hotmail.com");
+		//anuncio2.set_web("http://www.miweb.com");
+		anuncio2.set_X(6.474167);
+		anuncio2.set_Y(37.893056);
+		anuncio2.set_tags(new String[]{"bar", "restaurante", "cafeteria"});
+		anuncio2.set_telefonos(new String[]{"639766842"});	
+		anuncio2.set_foto("http://www.infosierra.es/images/galerias_sectores/38/cafeteria_elbiri_1-mini.jpg");
+		insertAnuncio(anuncio2);
 
 		Anuncio anuncio3 = new Anuncio();
-		anuncio3.set_nombre("Nombre Anuncio3");
-		anuncio3.set_descripcion("Anunu3 desc");
+		anuncio3.set_nombre("Mesón Restaurante el Kiosko");
+		anuncio3.set_descripcion("Situado en Zufre en pleno Parque Natural Sierra de Aracena y Picos de Aroche, a 40 minutos de Sevilla. En nuestra cocina se pueden degustar platos típicos como las carrileras con seta y salsa agriculce, aliño de asadura con culantro, arroz caldoso de ibérico y setas. En temporada tenemos una gran variedad de setas a la plancha, en salsa y revueltos. Las carnes del cerdo ibérico ternera y cordero las pueden saborear a la brasa. El comedor cuenta con capacidad para 40 comensales ademas de una amplia terraza. Se hacen reservas, comidas para grupos.");
+		anuncio3.set_direccion("Paseo de los Alcaldes S/N21210 Zufre (Huelva)");
+		anuncio3.set_email("puertoja@gmail.com");
+		//anuncio3.set_web("http://www.miweb.com");
+		anuncio3.set_X(6.474167);
+		anuncio3.set_Y(37.893056);
+		anuncio3.set_tags(new String[]{"bar", "restaurante", "cafeteria"});
+		anuncio3.set_telefonos(new String[]{"959198226","615204398" });	
+		anuncio3.set_foto("http://www.infosierra.es/images/logo_sectores/73/comercial_73__logo.jpg");
 		insertAnuncio(anuncio3);
 
+
+		///////////////
+		//LIBRERIAS//
+		///////////////
 		Anuncio anuncio4 = new Anuncio();
-		anuncio4.set_nombre("Nombre_Anuncio4");
-		anuncio4.set_descripcion("Cuarto anuncio descripción");
-		insertAnuncio(anuncio4);	
+		anuncio4.set_nombre("Libreria del Rosario");
+		anuncio4.set_descripcion("Libreria en general, papelería, material de oficina, sellos de caucho y consumibles de ofimática");
+		anuncio4.set_direccion("C/ San Blas,5. 21200 Aracena (Huelva)");
+		anuncio4.set_email("libroaracena@yahoo.es");
+		//anuncio1.set_web("http://www.miweb.com");
+		anuncio4.set_X(6.474167);
+		anuncio4.set_Y(37.893056);
+		anuncio4.set_tags(new String[]{"libreria","papeleria"});
+		anuncio4.set_telefonos(new String[]{"959128005"});	
+		anuncio4.set_foto("http://www.infosierra.es/images/logo_sectores/17/comercial_17__logo.jpg");
+		insertAnuncio(anuncio4);
+
+		Anuncio anuncio5 = new Anuncio();
+		anuncio5.set_nombre("Libreria Estanco Loli");
+		anuncio5.set_descripcion("Libreria, papelería, encuadernaciones, fotocopias, todo tipo de materiales de oficina y escolar. Libros de Textos venta de labores de tabaco. Artículos de regalo.");
+		anuncio5.set_direccion("Plaza de la Constitución, 3. 21291 Galaroza (Huelva)");
+		anuncio5.set_email("libreriaestancololi@yahoo.es");
+		//anuncio2.set_web("http://www.miweb.com");
+		anuncio5.set_X(6.474167);
+		anuncio5.set_Y(37.893056);
+		anuncio5.set_tags(new String[]{"libreria", "estanco", "papeleria"});
+		anuncio5.set_telefonos(new String[]{"959123200", "620547002"});	
+		anuncio5.set_foto("http://www.infosierra.es/images/galerias_sectores/86/1328271749-mini.jpg");
+		insertAnuncio(anuncio5);
+
+
+		///////////////
+		//MÉDICOS//
+		///////////////
+		Anuncio anuncio6 = new Anuncio();
+		anuncio6.set_nombre("Centro de Salud de Aracena");
+		//anuncio6.set_descripcion("");
+		anuncio6.set_direccion("C/ Zulema S/N. 21200 Aracena (Huelva)");
+		//anuncio6.set_email("libroaracena@yahoo.es");
+		//anuncio1.set_web("http://www.miweb.com");
+		anuncio6.set_X(6.474167);
+		anuncio6.set_Y(37.893056);
+		anuncio6.set_tags(new String[]{"medico","salud"});
+		anuncio6.set_telefonos(new String[]{"959129613"});	
+		anuncio6.set_foto("http://www.infosierra.es/images/logo_telefonos_interes/33/1332947554_logo.jpg");
+		insertAnuncio(anuncio6);
+
+		Anuncio anuncio7 = new Anuncio();
+		anuncio7.set_nombre("Consultorio Médico de Valdelarco");
+		//anuncio7.set_descripcion("");
+		anuncio7.set_direccion("C/ Atocha nº 1. 21291 Valdelarco (Huelva)");
+		//anuncio7.set_email("libreriaestancololi@yahoo.es");
+		//anuncio2.set_web("http://www.miweb.com");
+		anuncio7.set_X(6.474167);
+		anuncio7.set_Y(37.893056);
+		anuncio7.set_tags(new String[]{"medico", "salud"});
+		anuncio7.set_telefonos(new String[]{"959124897"});	
+		anuncio6.set_foto("http://www.infosierra.es/images/logo_telefonos_interes/33/1332947554_logo.jpg");
+		insertAnuncio(anuncio7);	
 
 		close_db();
 

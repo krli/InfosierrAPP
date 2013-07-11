@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -13,17 +12,16 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
-import es.ulpgc.IST.infosierrapp.main.PresentadorH_main;
-import es.ulpgc.IST.infosierrapp.main.PresentadorV_main;
 
 /**
  * Presentador asignado a cada anuncio
@@ -32,12 +30,12 @@ import es.ulpgc.IST.infosierrapp.main.PresentadorV_main;
  */
 public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 
-	private EditText nombre;
-	private EditText direccion;
-	private EditText telefono;
-	private EditText email;
-	private EditText descripcion;
-	private EditText web;
+	private TextView nombre;
+	private TextView direccion;
+	private TextView telefono;
+	private TextView email;
+	private TextView descripcion;
+	private TextView web;
 	private ImageView image;
 	protected Anuncio anuncio;
 	private String action;
@@ -55,17 +53,21 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 		// Carga layout
 		loadView();
 
-		nombre = (EditText)findViewById(R.id.txtNombre);
-		direccion = (EditText)findViewById(R.id.txtDireccion);
-		telefono = (EditText)findViewById(R.id.txtTelefono);
-		email = (EditText)findViewById(R.id.txtEmail);
-		web = (EditText)findViewById(R.id.txtWeb);
-		descripcion = (EditText)findViewById(R.id.txtDescripcion);
+		nombre = (TextView)findViewById(R.id.txtNombre);
+		direccion = (TextView)findViewById(R.id.txtDireccion);
+		telefono = (TextView)findViewById(R.id.txtTelefono);
+		email = (TextView)findViewById(R.id.txtEmail);
+		web = (TextView)findViewById(R.id.txtWeb);
+		descripcion = (TextView)findViewById(R.id.txtDescripcion);
 		image = (ImageView)findViewById(R.id.image);
 		b_mapa=(Button)findViewById(R.id.B_map);
 
+		if (b_mapa!=null){
 		b_mapa.setOnClickListener(this);
-
+		}
+		
+		//activamos scroll para descripcion
+		descripcion.setMovementMethod(new ScrollingMovementMethod());
 
 		// Extrae el anuncio desde el item
 		Intent intent = getIntent();
@@ -280,7 +282,7 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 		case R.id.menu_email:
 			Intent emailintent = new Intent(Intent.ACTION_SEND);
 			emailintent.setType("plain/text");
-			emailintent.putExtra(Intent.EXTRA_EMAIL,""+this.email.getText());
+			emailintent.putExtra(Intent.EXTRA_EMAIL,"");
 			emailintent.putExtra(Intent.EXTRA_SUBJECT, "RECOMENDACION INFOSIERRA");
 			emailintent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
 			startActivity(Intent.createChooser(emailintent, "Envialo por email..."));

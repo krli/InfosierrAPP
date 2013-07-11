@@ -17,7 +17,7 @@
         android:textSize="16sp"
         android:visibility="gone" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtNombre"
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -29,7 +29,7 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtDireccion"
         android:layout_width="match_parent"
         android:layout_height="0dip"
@@ -38,54 +38,57 @@
         android:hint="Direccion"
         android:inputType="none"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtTelefono"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="0.15"
+        android:autoLink="phone"
         android:editable="false"
         android:hint="Telefono"
         android:inputType="none"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtWeb"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="0.15"
+        android:autoLink="web"
         android:editable="false"
         android:hint="Web"
         android:inputType="none"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtEmail"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="0.15"
-         android:editable="false"
-        android:inputType="none"		
+        android:autoLink="email"
+        android:editable="false"
         android:hint="Email"
+        android:inputType="none"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtDescripcion"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="0.20"
         android:gravity="top"
-         android:editable="false"
         android:hint="Descripcion"
-        android:inputType="none"
+        android:maxLines="3"
+        android:scrollbars="vertical"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtX"
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -95,7 +98,7 @@
         android:inputType="none"
         android:visibility="invisible" />
 
-    <EditText
+    <TextView
         android:id="@+id/txtY"
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -120,8 +123,7 @@
         <ImageView
             android:id="@+id/image"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
-
+            android:layout_height="fill_parent" />
     </LinearLayout>
 
 </LinearLayout>
