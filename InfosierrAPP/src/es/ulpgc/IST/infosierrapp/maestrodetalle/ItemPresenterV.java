@@ -81,7 +81,7 @@ public class ItemPresenterV extends DetalleMenuActivity implements OnClickListen
 		this.direccion.setText(		anuncio.get_direccion());
 		this.email.setText(			anuncio.get_email());
 		this.web.setText(			anuncio.get_web());
-		this.telefono.setText(		anuncio.get_tlf(0) );
+		this.telefono.setText(		anuncio.get_AllTelefonos() );
 
 		//Si se ha introducido una direccion con la foto, se inicia su descarga en 2o plano
 
