@@ -1,46 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <!--
-    <item
-            android:id="@+id/menu_new"
-            android:showAsAction="ifRoom"
-            android:title="@string/menu_new"/>
-   
-
-    <item
-            android:id="@+id/menu_save"
-            android:showAsAction="ifRoom"
-            android:title="@string/menu_save"/>
-
-    <item
-            android:id="@+id/menu_delete"
-            android:showAsAction="ifRoom"
-            android:title="@string/menu_delete"/>
-    -->
-
-    <item
-        android:id="@+id/menu_back"
-        android:showAsAction="ifRoom"
-        android:title="@string/menu_back"/>
     <item
         android:id="@+id/menu_llamar"
+        android:icon="@drawable/ic_menu_llamar"
         android:showAsAction="ifRoom"
         android:title="@string/menu_llamar"/>
     <item
-        android:id="@+id/menu_compartir"
-        android:showAsAction="ifRoom"
-        android:title="@string/menu_compartir"/>
-        <item
         android:id="@+id/menu_email"
+        android:icon="@drawable/ic_menu_mail"
         android:showAsAction="ifRoom"
         android:title="@string/menu_email"/>
-
-    <!--
     <item
-            android:id="@+id/menu_exit"
-            android:showAsAction="ifRoom"
-            android:title="@string/menu_exit"/>
-    -->
-
+        android:id="@+id/menu_compartir"
+        android:icon="@drawable/ic_menu_share"
+        android:showAsAction="ifRoom"        
+        android:title="@string/menu_compartir"/>
+    <item
+        android:id="@+id/menu_opciones"
+        android:icon="@drawable/ic_menu_opciones"
+        android:showAsAction="collapseActionView"
+        android:title="@string/menu_opciones"/>
+    <item
+        android:id="@+id/menu_exit"
+        android:icon="@drawable/ic_menu_exit"
+        android:showAsAction="collapseActionView"
+        android:title="@string/menu_exit"/>
 </menu>

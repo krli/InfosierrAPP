@@ -40,7 +40,7 @@ public class MenuActivity extends Activity {
 	
 	
 	/**
-	 * Inicio de la actividad.
+	 * Creación de la actividad.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +48,7 @@ public class MenuActivity extends Activity {
 
 		/* Inicializa las refs al layout */
 		action_bar = getActionBar();
-	}	
+	}
 	
 	/**
 	 *  Prepara la ActionBar en el arranque de la actividad.

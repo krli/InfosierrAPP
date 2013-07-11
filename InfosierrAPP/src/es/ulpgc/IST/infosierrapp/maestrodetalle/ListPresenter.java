@@ -140,31 +140,10 @@ public class ListPresenter extends MenuActivity {
 	public void startActivity(Intent myIntent, Cursor cursor) {
 		
 		Anuncio anuncio = Anuncio.cursorToAnuncio(cursor);		
-		
 		myIntent.putExtra("anuncio", anuncio);
-
 		startActivity(myIntent);
 
 	}
-
-
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menu_exit:
-			finish();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
 
 	@Override
 	public void finish(){
