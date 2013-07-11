@@ -15,7 +15,6 @@ import android.widget.TextView;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
-import es.ulpgc.IST.infosierrapp.datos.local.BD_local_Acceso;
 import es.ulpgc.IST.infosierrapp.main.MenuActivity;
 
 
@@ -140,7 +139,7 @@ public class ListPresenter extends MenuActivity {
 	 */
 	public void startActivity(Intent myIntent, Cursor cursor) {
 		
-		Anuncio anuncio = BD_local_Acceso.cursorToAnuncio(cursor);		
+		Anuncio anuncio = Anuncio.cursorToAnuncio(cursor);		
 		
 		myIntent.putExtra("anuncio", anuncio);
 

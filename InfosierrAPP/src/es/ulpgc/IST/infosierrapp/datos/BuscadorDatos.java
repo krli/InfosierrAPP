@@ -158,11 +158,16 @@ public class BuscadorDatos {
 	public SimpleCursorAdapter getCursorAdapter(Context context){
 
 		// Especifica las columnas que se mostraran en el resultado
-		String[] from = new String[] { TablaResultados.COL_NOMBRE, TablaResultados.COL_DESC, TablaResultados.COL_DIRECCION,
-				TablaResultados.COL_EMAIL, TablaResultados.COL_TELEFONOS, TablaResultados.COL_WEB, TablaResultados.COL_MAPX, TablaResultados.COL_MAPY, TablaResultados.COL_FOTO};
+		String[] from = new String[] { TablaResultados.COL_NOMBRE, 
+				TablaResultados.COL_DESC, TablaResultados.COL_DIRECCION,
+				TablaResultados.COL_EMAIL, TablaResultados.COL_TELEFONOS, 
+				TablaResultados.COL_WEB, TablaResultados.COL_MAPX, 
+				TablaResultados.COL_MAPY, TablaResultados.COL_FOTO};
 
 		// Especifica los correspondintes elementos del layout 
-		int[] to = new int[] { R.id.txtNombre, R.id.txtDescripcion, R.id.txtDireccion, R.id.txtEmail, R.id.txtTelefono, R.id.txtWeb, R.id.txtX, R.id.txtY, R.id.image};
+		int[] to = new int[] { R.id.txtNombre, R.id.txtDescripcion, 
+				R.id.txtDireccion, R.id.txtEmail, R.id.txtTelefono, 
+				R.id.txtWeb, R.id.txtX, R.id.txtY, R.id.image};
 
 		//crea el cursor adapter para las definiciones dadas y lo aplica a la ListView
 		//Inicializa el adaptador.

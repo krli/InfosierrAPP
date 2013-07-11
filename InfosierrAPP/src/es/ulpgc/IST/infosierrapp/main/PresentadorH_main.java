@@ -29,12 +29,12 @@ public class PresentadorH_main extends PresentadorV_main {
     	// Destino: Presentador V
 		Intent intent = new Intent(PresentadorH_main.this,
 				PresentadorV_main.class);
-		intent.setAction(INTENT_ACTION);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		intent.setAction(INTENT_ACTION);		
 		// Guarda en el intent el contenido de la searchview
+		// ojo: es tipo CharSequence		
 		intent.putExtra(INTENT_CONTENT_WISEARCH, wi_search.getQuery());
     	
 		return intent;
 	}
-
+	
 }

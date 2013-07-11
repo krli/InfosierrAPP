@@ -90,7 +90,7 @@ public class BD_local_Acceso {
 			// cada entrada en un Anuncio y añadiéndolo a la lista
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast()) {
-				Anuncio anuncio = cursorToAnuncio(cursor);
+				Anuncio anuncio = Anuncio.cursorToAnuncio(cursor);
 				anuncios.add(anuncio);
 				cursor.moveToNext();
 			}
@@ -158,7 +158,7 @@ public class BD_local_Acceso {
 			// cada entrada en un Anuncio y añadiéndolo a la lista
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast()) {
-				Anuncio anuncio = cursorToAnuncio(cursor);
+				Anuncio anuncio = Anuncio.cursorToAnuncio(cursor);
 				anuncios.add(anuncio);
 				cursor.moveToNext();
 			}
@@ -250,52 +250,7 @@ public class BD_local_Acceso {
 		return inserted_ID;
 	}
 
-	/**
-	 * Procesa una fila de la tabla (objeto Cursor) y
-	 * lo convierte en un objeto java Anuncio
-	 */
-	public static Anuncio cursorToAnuncio(Cursor cursor) {
-		Anuncio anuncio = new Anuncio();
-
-		// Para cada atributo:
-		// 1. Obtiene el índice de la columna
-		// 2. Extrae y establece el valor del atributo
-		//------		
-		int i_id = cursor.getColumnIndex(TablaResultados.COL_ID);
-		anuncio.set_id(cursor.getLong(i_id));
-		//------
-		int i_nombre = cursor.getColumnIndex(TablaResultados.COL_NOMBRE);
-		anuncio.set_nombre(cursor.getString(i_nombre));
-		//------
-		int i_dir = cursor.getColumnIndex(TablaResultados.COL_DIRECCION);
-		anuncio.set_direccion(cursor.getString(i_dir));
-		//------
-		int i_desc = cursor.getColumnIndex(TablaResultados.COL_DESC);
-		anuncio.set_descripcion(cursor.getString(i_desc));
-		//------
-		int i_email = cursor.getColumnIndex(TablaResultados.COL_EMAIL);
-		anuncio.set_email(cursor.getString(i_email));
-		//------
-		int i_web = cursor.getColumnIndex(TablaResultados.COL_WEB);		
-		anuncio.set_web(cursor.getString(i_web));
-		//------
-		int i_foto = cursor.getColumnIndex(TablaResultados.COL_FOTO);
-		anuncio.set_foto((cursor.getString(i_foto)));
-		//------
-		int i_mapx = cursor.getColumnIndex(TablaResultados.COL_MAPX);		
-		anuncio.set_X(cursor.getDouble(i_mapx));
-		//------
-		int i_mapy = cursor.getColumnIndex(TablaResultados.COL_MAPY);
-		anuncio.set_Y(cursor.getDouble(i_mapy));
-		//------
-		int i_tlfs = cursor.getColumnIndex(TablaResultados.COL_TELEFONOS);
-		anuncio.set_AllTelefonos(cursor.getString(i_tlfs));
-		//------
-		int i_tags = cursor.getColumnIndex(TablaResultados.COL_TAGS);
-		anuncio.set_AllTags(cursor.getString(i_tags));
-
-		return anuncio;
-	}
+	
 
 
 
