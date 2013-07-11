@@ -11,10 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.method.ScrollingMovementMethod;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,7 +25,7 @@ import es.ulpgc.IST.infosierrapp.datos.Anuncio;
  * Muestra la disposicion de la informacion
  *
  */
-public class ItemPresenterV extends MenuFragmentActivity implements OnClickListener{
+public class ItemPresenterV extends DetalleMenuActivity implements OnClickListener{
 
 	private TextView nombre;
 	private TextView direccion;
@@ -226,9 +223,9 @@ public class ItemPresenterV extends MenuFragmentActivity implements OnClickListe
 		Intent intent = new Intent(ItemPresenterV.this,
 				Presentador_map.class);   
 		//Le pasa al Presentador del mapa el nombre y las coordenadas del anuncio
-		/*intent.putExtra("nombre", this.nombre.getText());
+		intent.putExtra("nombre", this.nombre.getText().toString());
 		intent.putExtra("X", this.X);
-		intent.putExtra("Y", this.Y);*/
+		intent.putExtra("Y", this.Y);
 		startActivity(intent); 
 	}
 

@@ -16,23 +16,10 @@ import es.ulpgc.IST.infosierrapp.R;
  * Muestra la disposicion de la informacion
  *
  */
-public class ItemPresenterH extends ItemPresenterV {
+public class ItemPresenterH extends ItemPresenterV  {
 	private GoogleMap 		mMap;
 
-	protected void onCreate(){
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-				.getMap();
-		
-		
-		
-		LatLng posicion = new LatLng(X, Y);
-		mMap.addMarker(new MarkerOptions().position(posicion).title(this.nombre_string));
-		// Mueve la camara a la posicion
-		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posicion, 15));
-		// Anima la camara.
-		mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);	
-		
-	}
+
 	
     protected void checkOrientation() {      
       Configuration config = getResources().getConfiguration();
@@ -52,6 +39,17 @@ public class ItemPresenterH extends ItemPresenterV {
 
     protected void loadView() {
         setContentView(R.layout.detalle_vista_h);
+		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+		        .getMap();
+		
+		
+		
+		mMap.addMarker(new MarkerOptions().position(new LatLng(X,Y)).title(nombre_string));
+		// Mueve la camara a la posicion
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(X,Y), 15));
+		// Anima la camara.
+		mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);	
+		
     }
     
     /* ************************************************* */

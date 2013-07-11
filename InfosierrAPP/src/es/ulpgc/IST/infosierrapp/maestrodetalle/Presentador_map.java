@@ -1,5 +1,6 @@
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -15,7 +16,7 @@ import es.ulpgc.IST.infosierrapp.R;
  * Clase responsable de presentar el mapa
  *
  */
-public class Presentador_map extends android.support.v4.app.FragmentActivity  {
+public class Presentador_map extends Activity  {
 
 
 	/*
@@ -34,22 +35,21 @@ public class Presentador_map extends android.support.v4.app.FragmentActivity  {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map);
 		
-		/*Intent intent = getIntent();
-		this.nombre = intent.getExtras().getString("nombre");
-		this.X = intent.getExtras().getDouble("X",0);
-		this.Y = intent.getExtras().getDouble("Y",0);
+		Intent intent = getIntent();
+		this.nombre = intent.getStringExtra("nombre");
+		this.X = intent.getDoubleExtra("X",0);
+		this.Y = intent.getDoubleExtra("Y",0);
 
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-				.getMap();
+		        .getMap();
 		
 		
 		
-		LatLng posicion = new LatLng(X, Y);
-		mMap.addMarker(new MarkerOptions().position(posicion).title(this.nombre));
+		mMap.addMarker(new MarkerOptions().position(new LatLng(X,Y)).title(this.nombre));
 		// Mueve la camara a la posicion
-		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posicion, 15));
+		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(X,Y), 15));
 		// Anima la camara.
-		mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);	*/
+		mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);	
 
 	}
 

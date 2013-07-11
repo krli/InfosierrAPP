@@ -270,8 +270,8 @@ public class BD_local_Acceso {
 		anuncio1.set_direccion("C/ Portales, 10. 21210 Zufre (Huelva)");
 		anuncio1.set_email("frutu6@hotmail.com");
 		//anuncio1.set_web("http://www.miweb.com");
-		anuncio1.set_X(6.474167);
-		anuncio1.set_Y(37.893056);
+		anuncio1.set_X(37.833056);
+		anuncio1.set_Y(-6.340833);
 		anuncio1.set_tags(new String[]{"bar", "restaurante", "cafeteria"});
 		anuncio1.set_telefonos(new String[]{"959198128", "680588108"});	
 		anuncio1.set_foto("http://www.infosierra.es/images/galerias_sectores/91/1328862476-mini.jpg");
@@ -389,8 +389,53 @@ public class BD_local_Acceso {
 		anuncio9.set_Y(37.893056);
 		anuncio9.set_tags(new String[]{"taller", "recambios"});
 		anuncio9.set_telefonos(new String[]{"959126797", "677848456"});	
-		anuncio8.set_foto("http://www.infosierra.es/images/logo_telefonos_interes/33/1332947554_logo.jpg");
+		anuncio9.set_foto("http://www.infosierra.es/images/logo_telefonos_interes/33/1332947554_logo.jpg");
 		insertAnuncio(anuncio9);	
+		
+		///////////////
+		//FONTANERIA//
+		///////////////
+		Anuncio anuncio10 = new Anuncio();
+		anuncio10.set_nombre("Construcciones y Reformas Bejarano");
+		anuncio10.set_descripcion("Construcción de nuevas viviendas y reformas en general. Casas en estilo rural, moderno, ... Acabado completo con fontanería, electricidad, pintura, calefacción, carpintería, ... Profesionales con más de 20 años de experiencia en el sector. Pida presupuestos sin compromiso");
+		anuncio10.set_direccion("C/ Cielo, 15. 21291 Galaroza (Huelva)");
+		anuncio10.set_email("construccionesbejarano@gmail.com");
+		//anuncio1.set_web("http://www.miweb.com");
+		anuncio10.set_X(6.474167);
+		anuncio10.set_Y(37.893056);
+		anuncio10.set_tags(new String[]{"construccion","fontaneria", "reformas"});
+		anuncio10.set_telefonos(new String[]{"685981589","647699020" });	
+		anuncio10.set_foto("http://www.infosierra.es/images/logo_sectores/116/comercial_116__logo.jpg");
+		insertAnuncio(anuncio10);
+
+		Anuncio anuncio11 = new Anuncio();
+		anuncio11.set_nombre("Construcciones y Más");
+		anuncio11.set_descripcion("Construcción de obras mayores y menores, pequeñas reparaciones, reparaciones de problemas eléctricos y fontanería, asi como instalaciones nuevas, reparaciones de todo tipo de electrodomésticos, termos, law, ... Venta de termos nuevos y de segunda mano, así como electrodomésticos. Pinturas de exterior e interior, puertas para chimeneas,... ¡Le resolvemos los problemas del hogar!");
+		anuncio11.set_direccion("c/ El Mirador, nº 3. 21200 Aracena (Huelva)");
+		anuncio11.set_email("juasima@hotmail.com");
+		anuncio11.set_web("http://www.silva-marques.es/");
+		anuncio11.set_X(6.474167);
+		anuncio11.set_Y(37.893056);
+		anuncio11.set_tags(new String[]{"construccion", "fontaneria", "reformas"});
+		anuncio11.set_telefonos(new String[]{"678223693", "959127496"});	
+		anuncio11.set_foto("http://www.infosierra.es/images/logo_sectores/151/comercial_151__logo.jpg");
+		insertAnuncio(anuncio11);
+		
+		///////////////
+		//TRANSPORTES//
+		///////////////
+		Anuncio anuncio12 = new Anuncio();
+		anuncio12.set_nombre("Transdehesa, S.L.");
+		anuncio12.set_descripcion("Transporte en general. Venta de subproductos para el ganado. Compra y venta de Leña");
+		anuncio12.set_direccion("C/ Iglesia, 3. 21260 Santa Olalla (Huelva)");
+		anuncio12.set_email("franciscocmcarranza@hotmail.com");
+		//anuncio1.set_web("http://www.miweb.com");
+		anuncio12.set_X(6.474167);
+		anuncio12.set_Y(37.893056);
+		anuncio12.set_tags(new String[]{"transportes"});
+		anuncio12.set_telefonos(new String[]{"954229891","686005053" });	
+		anuncio12.set_foto("http://www.infosierra.es/images/logo_sectores/46/comercial_46__logo.jpg");
+		insertAnuncio(anuncio12);
 
 		close_db();
 
