@@ -34,26 +34,49 @@ public class Presentador_map extends MenuActivity  {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map);
-		
+
 		Intent intent = getIntent();
 		this.nombre = intent.getStringExtra("nombre");
 		this.X = intent.getDoubleExtra("X",0);
 		this.Y = intent.getDoubleExtra("Y",0);
 
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-		        .getMap();
-		
-		
-		
+		setUpMapIfNeeded();
+	}
+
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		setUpMapIfNeeded();
+	}
+
+
+	/**
+	 *Inicializa el mapa si es posible hacerlo
+	 */
+	private void setUpMapIfNeeded() {
+		// Confirma que no tenemos inicializado el mapa
+		if (mMap == null) {
+			// Intenta obtener el mapa
+			mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+					.getMap();
+			// Chequea si hemos obtenido el mapa satisfactoriamente
+			if (mMap != null) {
+				setUpMap();
+			}
+		}
+	}
+	
+    /**
+     * Aqui añadimos marcadores, camaras, etc
+     */
+    private void setUpMap() {
 		mMap.addMarker(new MarkerOptions().position(new LatLng(X,Y)).title(this.nombre));
 		// Mueve la camara a la posicion
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(X,Y), 15));
 		// Anima la camara.
 		mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);	
 
-	}
-
-
-
+    }
 
 }
