@@ -40,10 +40,11 @@ public class ItemPresenterV extends MenuFragmentActivity implements OnClickListe
 	protected Anuncio anuncio;
 	private String action;
 	private Button b_mapa;
+	protected String nombre_string;
 
 	//coordenadas
-	private double X;
-	private double Y;
+	protected double X;
+	protected double Y;
 
 
 
@@ -75,8 +76,8 @@ public class ItemPresenterV extends MenuFragmentActivity implements OnClickListe
 
 		// Establece los valores de las coordenadas y la foto
 		String foto = anuncio.get_foto();
-		X = anuncio.get_X();
-		Y = anuncio.get_Y();
+		this.X = anuncio.get_X();
+		this.Y = anuncio.get_Y();
 
 		//Y asigna el resto a los EditText correspondientes
 		this.nombre.setText(		anuncio.get_nombre());
@@ -85,6 +86,7 @@ public class ItemPresenterV extends MenuFragmentActivity implements OnClickListe
 		this.email.setText(			anuncio.get_email());
 		this.web.setText(			anuncio.get_web());
 		this.telefono.setText(		anuncio.get_tlf(0) );
+		this.nombre_string=anuncio.get_nombre();
 
 		//Si se ha introducido una direccion con la foto, se inicia su descarga en 2o plano
 
@@ -227,7 +229,7 @@ public class ItemPresenterV extends MenuFragmentActivity implements OnClickListe
 		/*intent.putExtra("nombre", this.nombre.getText());
 		intent.putExtra("X", this.X);
 		intent.putExtra("Y", this.Y);*/
-		startActivity(intent);   	
+		startActivity(intent); 
 	}
 
 

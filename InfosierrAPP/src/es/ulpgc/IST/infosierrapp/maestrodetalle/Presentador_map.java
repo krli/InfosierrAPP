@@ -34,15 +34,17 @@ public class Presentador_map extends android.support.v4.app.FragmentActivity  {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map);
 		
-		Intent intent = getIntent();
-		nombre = intent.getExtras().getString("nombre");
-		X = intent.getExtras().getDouble("X",0);
-		Y = intent.getExtras().getDouble("Y",0);
+		/*Intent intent = getIntent();
+		this.nombre = intent.getExtras().getString("nombre");
+		this.X = intent.getExtras().getDouble("X",0);
+		this.Y = intent.getExtras().getDouble("Y",0);
 
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 				.getMap();
 		
-		/*LatLng posicion = new LatLng(X, Y);
+		
+		
+		LatLng posicion = new LatLng(X, Y);
 		mMap.addMarker(new MarkerOptions().position(posicion).title(this.nombre));
 		// Mueve la camara a la posicion
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posicion, 15));

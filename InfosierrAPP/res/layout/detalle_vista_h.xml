@@ -52,10 +52,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="0.15"
+            android:autoLink="phone"
             android:editable="false"
             android:hint="Telefono"
             android:inputType="none"
-            android:autoLink="phone"
             android:textColorHint="@color/grisOscuro"
             android:textSize="14dp" />
 
@@ -64,10 +64,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="0.15"
+            android:autoLink="web"
             android:editable="false"
             android:hint="Web"
             android:inputType="none"
-            android:autoLink="web"
             android:textColorHint="@color/grisOscuro"
             android:textSize="14dp" />
 
@@ -76,10 +76,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="0.15"
+            android:autoLink="email"
             android:editable="false"
             android:hint="Email"
             android:inputType="none"
-            android:autoLink="email"
             android:textColorHint="@color/grisOscuro"
             android:textSize="14dp" />
 
@@ -116,7 +116,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-
+            <fragment
+                
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                class="com.google.android.gms.maps.SupportMapFragment" />
         </LinearLayout>
     </LinearLayout>
 
