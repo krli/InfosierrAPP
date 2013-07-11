@@ -84,10 +84,16 @@ public class Anuncio implements Serializable {
 		set_nombre(SIN_VALOR);
 		set_direccion(SIN_VALOR);
 		set_telefonos(new String[N_TLFS]);
+		for(int i=0;i<N_TLFS;i++) {
+			set_tlf(i, SIN_VALOR);
+		}
 		set_email(SIN_VALOR);
 		set_web(SIN_VALOR);
 		set_descripcion(SIN_VALOR);
 		set_tags(new String[N_TAGS]);
+		for(int i=0;i<N_TAGS;i++) {
+			set_tag(i, SIN_VALOR);
+		}
 		set_foto(SIN_VALOR);
 		set_X(0);
 		set_Y(0);
