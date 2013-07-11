@@ -279,7 +279,7 @@ public class BD_local_Acceso {
 
 		Anuncio anuncio2 = new Anuncio();
 		anuncio2.set_nombre("Bar Cafeteria el Bari");
-		anuncio2.set_descripcion("Abierto todos los días de la semana. Cerveza y tapa por 1. Sábados medio día fiesta para todo el día incluyendo comilona. Sábados noche, por tu copa un chupito. Cubatas 3,5");
+		anuncio2.set_descripcion("Abierto todos los días de la semana. Cerveza y tapa por 1€. Sábados medio día fiesta para todo el día incluyendo comilona. Sábados noche, por tu copa un chupito. Cubatas 3,5");
 		anuncio2.set_direccion("C/ San Juan Del Puerto, 50. 21290 Jabugo (Huelva)");
 		anuncio2.set_email("bar-elbiri@hotmail.com");
 		//anuncio2.set_web("http://www.miweb.com");
