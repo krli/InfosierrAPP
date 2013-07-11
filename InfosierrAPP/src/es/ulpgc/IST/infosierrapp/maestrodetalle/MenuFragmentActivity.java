@@ -81,11 +81,13 @@ public class MenuFragmentActivity extends FragmentActivity{
 		return true;
 	}
 	protected boolean goMain() {
-		Intent intent = new Intent(this, PresentadorV_main.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        return true;
+		// Intent intent = new Intent(this, PresentadorV_main.class);
+		// intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);		
+        // startActivity(intent);
+        // finish();
+        // return true;
+		finish();
+		return true;
 	}	
 	protected boolean goExit() {
 		Intent intent = new Intent(Intent.ACTION_MAIN);
