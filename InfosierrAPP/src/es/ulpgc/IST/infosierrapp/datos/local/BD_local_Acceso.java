@@ -360,8 +360,37 @@ public class BD_local_Acceso {
 		anuncio7.set_Y(37.893056);
 		anuncio7.set_tags(new String[]{"medico", "salud"});
 		anuncio7.set_telefonos(new String[]{"959124897"});	
-		anuncio6.set_foto("http://www.infosierra.es/images/logo_telefonos_interes/33/1332947554_logo.jpg");
+		anuncio7.set_foto("http://www.infosierra.es/images/logo_telefonos_interes/33/1332947554_logo.jpg");
 		insertAnuncio(anuncio7);	
+		
+		///////////////
+		//TALLERES//
+		///////////////
+		Anuncio anuncio8 = new Anuncio();
+		anuncio8.set_nombre("Talleres y Recambios Fernandez");
+		anuncio8.set_descripcion("Taller de reparación electromecánico de automóviles. Servicios neumáticos, alineamiento de dirección, reparación de aire acondicionado, diagnosis, electricidad y mecánica en general. Amplio horario de trabajo. Calidad y buen precio.");
+		anuncio8.set_direccion("C/ Silos, 13 y 16. 21200 Aracena (Huelva)");
+		anuncio8.set_email("talleres.fernandez@yahoo.es");
+		//anuncio1.set_web("http://www.miweb.com");
+		anuncio8.set_X(6.474167);
+		anuncio8.set_Y(37.893056);
+		anuncio8.set_tags(new String[]{"taller","recambios"});
+		anuncio8.set_telefonos(new String[]{"959128839"});	
+		anuncio8.set_foto("http://www.infosierra.es/images/logo_sectores/125/comercial_125__logo.jpg");
+		insertAnuncio(anuncio8);
+
+		Anuncio anuncio9 = new Anuncio();
+		anuncio9.set_nombre("Autorecambios Iglesias");
+		anuncio9.set_descripcion("Recambios y accesorios del automóvil, bicicletas, maquinarias agrícolas. Motosierras Motocultores Desbrozadoras Motobombas Visítenos. Junto a la carretera Sevilla-Lisboa.");
+		anuncio9.set_direccion("C/ Arrieros, 10 bajo. 21200 Aracena (Huelva)");
+		anuncio9.set_email("rafael.iglesias21@hotmail.com");
+		//anuncio2.set_web("http://www.miweb.com");
+		anuncio9.set_X(6.474167);
+		anuncio9.set_Y(37.893056);
+		anuncio9.set_tags(new String[]{"taller", "recambios"});
+		anuncio9.set_telefonos(new String[]{"959126797", "677848456"});	
+		anuncio8.set_foto("http://www.infosierra.es/images/logo_telefonos_interes/33/1332947554_logo.jpg");
+		insertAnuncio(anuncio9);	
 
 		close_db();
 
