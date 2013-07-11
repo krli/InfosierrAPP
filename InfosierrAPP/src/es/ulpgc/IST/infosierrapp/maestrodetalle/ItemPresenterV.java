@@ -37,14 +37,13 @@ public class ItemPresenterV extends DetalleMenuActivity implements OnClickListen
 	protected Anuncio anuncio;
 	private String action;
 	private Button b_mapa;
-	protected String nombre_string;
 
 	//coordenadas
-	protected double X;
-	protected double Y;
+	private double X;
+	private double Y;
 
 
-
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -61,7 +60,7 @@ public class ItemPresenterV extends DetalleMenuActivity implements OnClickListen
 		b_mapa=(Button)findViewById(R.id.B_map);
 
 		if (b_mapa!=null){
-		b_mapa.setOnClickListener(this);
+			b_mapa.setOnClickListener(this);
 		}
 		
 		//activamos scroll para descripcion
@@ -83,7 +82,6 @@ public class ItemPresenterV extends DetalleMenuActivity implements OnClickListen
 		this.email.setText(			anuncio.get_email());
 		this.web.setText(			anuncio.get_web());
 		this.telefono.setText(		anuncio.get_tlf(0) );
-		this.nombre_string=anuncio.get_nombre();
 
 		//Si se ha introducido una direccion con la foto, se inicia su descarga en 2o plano
 
