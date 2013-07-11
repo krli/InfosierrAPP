@@ -16,15 +16,10 @@
     <TextView
         android:id="@+id/txtNombre"
         android:layout_width="match_parent"
-<<<<<<< HEAD
-        android:layout_height="60dp"
-        android:textSize="30dp"
-=======
+        android:textSize="24sp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
-        android:textSize="22sp"
->>>>>>> branch 'master' of https://github.com/krli/InfosierrAPP.git
         android:textStyle="bold" />
 
 </LinearLayout>
