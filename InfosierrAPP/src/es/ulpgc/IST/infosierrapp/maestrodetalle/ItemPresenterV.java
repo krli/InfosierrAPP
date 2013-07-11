@@ -79,7 +79,7 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 		//Y asigna el resto a los EditText correspondientes
 		this.nombre.setText(		anuncio.get_nombre());
 		this.descripcion.setText(	anuncio.get_descripcion());
-		this.direccion.setText(		anuncio.get_email());
+		this.direccion.setText(		anuncio.get_direccion());
 		this.email.setText(			anuncio.get_email());
 		this.web.setText(			anuncio.get_web());
 		this.telefono.setText(		anuncio.get_tlf(0) );
