@@ -160,38 +160,5 @@ public class BuscadorDatos {
 		return dbLocal.buscarEnTags(query_string);
 	}
 
-	/**
-	 * TODO: Esto parece más propio de la configuración del 
-	 * layout del maestro-detalle ¿¿ Sacar de aquí y meter 
-	 * directamente allí ??
-	 * 
-	 * @param context
-	 * @return
-	 */
-	public SimpleCursorAdapter getCursorAdapter(Context context){
-
-		// Especifica las columnas que se mostraran en el resultado
-		String[] from = new String[] { TablaResultados.COL_NOMBRE, TablaResultados.COL_TAGS, 
-				TablaResultados.COL_DESC, TablaResultados.COL_DIRECCION,
-				TablaResultados.COL_EMAIL, TablaResultados.COL_TELEFONOS, 
-				TablaResultados.COL_WEB, TablaResultados.COL_MAPX, 
-				TablaResultados.COL_MAPY, TablaResultados.COL_FOTO};
-
-		// Especifica los correspondintes elementos del layout 
-		int[] to = new int[] { R.id.txtNombre, R.id.txtEtiquetas, R.id.txtDescripcion, 
-				R.id.txtDireccion, R.id.txtEmail, R.id.txtTelefono, 
-				R.id.txtWeb, R.id.txtX, R.id.txtY, R.id.image};
-
-		//crea el cursor adapter para las definiciones dadas y lo aplica a la ListView
-		//Inicializa el adaptador.
-		//El 3 argumento es null porque el cursor aun no ha sido cargado por primera vez
-		//El ultimo argumento es 0 para prevenir el registro del Observer (CursorLoader lo hace directamente)
-		SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(context, R.layout.vista_item,
-				get_resultados_cursor(), from, to, 0);
-
-		// Devuelve el CursorAdapter a ListPresenter
-		return cursorAdapter;
-
-	}
 
 }

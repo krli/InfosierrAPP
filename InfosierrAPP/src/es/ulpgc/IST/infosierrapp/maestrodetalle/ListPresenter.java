@@ -2,6 +2,7 @@
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
+import es.ulpgc.IST.infosierrapp.datos.local.TablaResultados;
 import es.ulpgc.IST.infosierrapp.main.MenuActivity;
 
 
@@ -46,8 +49,14 @@ public class ListPresenter extends MenuActivity {
 
 
 		// Obtiene el cursor que BuscadorDatos ha obtenido con los resultados
-		// Cursor cursor = buscadorDatos.get_resultados_cursor();		
-		Cursor cursor = buscadorDatos.buscarEnLocal(buscadorDatos.get_cadena_busqueda());
+		// Cursor cursor = buscadorDatos.get_resultados_cursor();
+		
+		String query = buscadorDatos.get_cadena_busqueda();
+		Toast.makeText(getApplicationContext(),
+				"Buscando: "+query, Toast.LENGTH_SHORT).show();
+		
+		Cursor cursor = buscadorDatos.buscarEnLocal(query);
+		
 		startManagingCursor(cursor);
 
 
@@ -67,7 +76,7 @@ public class ListPresenter extends MenuActivity {
 
 
 			// Obtiene el CursorAdapter definido y creado por BuscadorDatos
-			cursorAdapter=buscadorDatos.getCursorAdapter(this);
+			cursorAdapter=getCursorAdapter(cursor);
 
 			// Asocia el adaptador con la vista
 			mListView.setAdapter(cursorAdapter);
@@ -129,6 +138,40 @@ public class ListPresenter extends MenuActivity {
 			cursor.close();
 		}
 		super.finish();
+	}
+	
+	/**
+	 * TODO: Esto parece más propio de la configuración del 
+	 * layout del maestro-detalle ¿¿ Sacar de aquí y meter 
+	 * directamente allí ??
+	 * 
+	 * @param context
+	 * @return
+	 */
+	private SimpleCursorAdapter getCursorAdapter(Cursor cursor){
+
+		// Especifica las columnas que se mostraran en el resultado
+		String[] from = new String[] { TablaResultados.COL_NOMBRE, TablaResultados.COL_TAGS, 
+				TablaResultados.COL_DESC, TablaResultados.COL_DIRECCION,
+				TablaResultados.COL_EMAIL, TablaResultados.COL_TELEFONOS, 
+				TablaResultados.COL_WEB, TablaResultados.COL_MAPX, 
+				TablaResultados.COL_MAPY, TablaResultados.COL_FOTO};
+
+		// Especifica los correspondintes elementos del layout 
+		int[] to = new int[] { R.id.txtNombre, R.id.txtEtiquetas, R.id.txtDescripcion, 
+				R.id.txtDireccion, R.id.txtEmail, R.id.txtTelefono, 
+				R.id.txtWeb, R.id.txtX, R.id.txtY, R.id.image};
+
+		//crea el cursor adapter para las definiciones dadas y lo aplica a la ListView
+		//Inicializa el adaptador.
+		//El 3 argumento es null porque el cursor aun no ha sido cargado por primera vez
+		//El ultimo argumento es 0 para prevenir el registro del Observer (CursorLoader lo hace directamente)
+		SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this, R.layout.vista_item,
+				cursor, from, to, 0);
+
+		// Devuelve el CursorAdapter a ListPresenter
+		return cursorAdapter;
+
 	}
 
 

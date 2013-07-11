@@ -146,12 +146,16 @@ public class BD_local_Acceso {
 		//Abre la conexón con la BD
 		open_db();
 
-		// Realiza la búsqueda		
-		Cursor cursor = database.query(TablaResultados.TABLE_NAME,
-				TablaResultados.ALL_COLUMNS, 
-				TablaResultados.COL_TAGS + " MATCH ?",
-				new String[] {"*"+query+"*"},
-				null, null, null);
+		// Realiza la búsqueda
+		Cursor cursor = null;
+		try {
+			cursor = database.query(
+					TablaResultados.TABLE_NAME,
+					TablaResultados.ALL_COLUMNS, 
+					TablaResultados.COL_TAGS + " LIKE "+"'%"+query+"%'",
+					null, null, null, null);
+		}catch (SQLException e) {			
+		}
 
 		// Si hay resultados...
 		if (cursor != null) {
@@ -191,12 +195,15 @@ public class BD_local_Acceso {
 		//Abre la conexón con la BD
 		open_db();		
 
-		// Hace la búsqueda
-		Cursor cursor = database.query(TablaResultados.TABLE_NAME,
-				TablaResultados.ALL_COLUMNS, 
-				TablaResultados.COL_TAGS + " MATCH ?",
-				new String[] {"*"+query+"*"},
-				null, null, null);
+		Cursor cursor = null;
+		try {
+			cursor = database.query(
+					TablaResultados.TABLE_NAME,
+					TablaResultados.ALL_COLUMNS, 
+					TablaResultados.COL_TAGS + " LIKE "+"'%"+query+"%'",
+					null, null, null, null);
+		}catch (SQLException e) {			
+		}
 
 		// Devuelve el cursor
 		return cursor;
