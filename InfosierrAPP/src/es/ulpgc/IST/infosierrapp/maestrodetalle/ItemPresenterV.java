@@ -255,7 +255,6 @@ public class ItemPresenterV extends DetalleMenuActivity implements OnClickListen
 		Intent intent = new Intent(Intent.ACTION_CALL);
 		intent.setData(Uri.parse("tel:"+this.telefono.getText()));
 		startActivity(intent);
-		finish();
 		return true;
 	}
 	protected boolean goCompartir() {
