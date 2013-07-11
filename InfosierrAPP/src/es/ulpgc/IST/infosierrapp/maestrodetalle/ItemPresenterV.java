@@ -139,6 +139,26 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 
 	}
 	
+	/**
+	 * onCreate() -> onStart() -> onResume() -> Actividad
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// Verifica la orientación
+		checkOrientation();
+	}
+	
+	/**
+	 * Se llamará si hay algún cambio en las configuraciones del teléfono, como
+	 * por ejemplo, un cambio de orientación.
+	 */
+	@Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Verifica la orientación
+        checkOrientation();    
+    }
 	
 	/* *************************************************
 	 * Los siguientes 4 métodos gestionan el cambio de 
