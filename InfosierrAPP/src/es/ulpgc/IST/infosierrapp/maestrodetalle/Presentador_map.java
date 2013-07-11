@@ -1,8 +1,13 @@
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import es.ulpgc.IST.infosierrapp.R;
 
@@ -29,21 +34,21 @@ public class Presentador_map extends android.support.v4.app.FragmentActivity  {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map);
 		
-		/*Intent intent = getIntent();
+		Intent intent = getIntent();
 		nombre = intent.getExtras().getString("nombre");
 		X = intent.getExtras().getDouble("X",0);
-		Y = intent.getExtras().getDouble("Y",0);*/
+		Y = intent.getExtras().getDouble("Y",0);
 
-		//mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-			//	.getMap();
-		/*
-		LatLng posicion = new LatLng(X, Y);
+		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				.getMap();
+		
+		/*LatLng posicion = new LatLng(X, Y);
 		mMap.addMarker(new MarkerOptions().position(posicion).title(this.nombre));
 		// Mueve la camara a la posicion
 		mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posicion, 15));
 		// Anima la camara.
-		mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);	
-*/
+		mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);	*/
+
 	}
 
 
