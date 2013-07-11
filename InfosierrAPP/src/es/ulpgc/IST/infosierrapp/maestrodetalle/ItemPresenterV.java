@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 import es.ulpgc.IST.infosierrapp.main.PresentadorH_main;
@@ -30,7 +31,7 @@ import es.ulpgc.IST.infosierrapp.main.PresentadorV_main;
  * Muestra la disposicion de la informacion
  *
  */
-public class ItemPresenterV extends FragmentActivity implements OnClickListener{
+public class ItemPresenterV extends MenuFragmentActivity implements OnClickListener{
 
 	private EditText nombre;
 	private EditText direccion;
@@ -64,7 +65,9 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 		image = (ImageView)findViewById(R.id.image);
 		b_mapa=(Button)findViewById(R.id.B_map);
 
-		b_mapa.setOnClickListener(this);
+		if (b_mapa!=null) {
+			b_mapa.setOnClickListener(this);
+		}
 
 
 		// Extrae el anuncio desde el item
@@ -86,8 +89,7 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 
 		//Si se ha introducido una direccion con la foto, se inicia su descarga en 2o plano
 
-		if (foto.length()>0)
-		{
+		if (foto.length()>0) {
 			image.setTag(foto);
 			new DownloadImagesTask().execute(image);
 		}
@@ -237,13 +239,6 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 		super.finish();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.detail_menu, menu);
-		return true;
-	}
-
-
 	/**
 	 * Reacciona a los eventos de click
 	 */
@@ -257,43 +252,36 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 			break;   
 		}
 	}
-
-
+	
+	/*** Sobreescribe los métodos para el menú ***/
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-
-		case R.id.menu_llamar:
-			Intent intent = new Intent(Intent.ACTION_CALL);
-			intent.setData(Uri.parse("tel:"+this.telefono.getText()));
-			startActivity(intent);
-			finish();
-			return true;
-		case R.id.menu_compartir:
-			Intent sendIntent = new Intent();
-			sendIntent.setAction(Intent.ACTION_SEND);
-			sendIntent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
-			sendIntent.setType("text/plain");
-			startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
-			return true;
-
-		case R.id.menu_email:
-			Intent emailintent = new Intent(Intent.ACTION_SEND);
-			emailintent.setType("plain/text");
-			emailintent.putExtra(Intent.EXTRA_EMAIL,""+this.email.getText());
-			emailintent.putExtra(Intent.EXTRA_SUBJECT, "RECOMENDACION INFOSIERRA");
-			emailintent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
-			startActivity(Intent.createChooser(emailintent, "Envialo por email..."));
-			return true;
-
-		case R.id.menu_back:
-			action = Intent.ACTION_DEFAULT;
-			finish();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
+	protected boolean goLlamar() {
+		Intent intent = new Intent(Intent.ACTION_CALL);
+		intent.setData(Uri.parse("tel:"+this.telefono.getText()));
+		startActivity(intent);
+		return true;
 	}
+	@Override
+	protected boolean goCompartir() {
+		Intent sendIntent = new Intent();
+		sendIntent.setAction(Intent.ACTION_SEND);
+		sendIntent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
+		sendIntent.setType("text/plain");
+		startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
+		return true;
+	}
+	@Override
+	protected boolean goEmail(){
+		Intent emailintent = new Intent(Intent.ACTION_SEND);
+		emailintent.setType("plain/text");
+		emailintent.putExtra(Intent.EXTRA_EMAIL,""+this.email.getText());
+		emailintent.putExtra(Intent.EXTRA_SUBJECT, "Recomendación InfosierrAPP");
+		emailintent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
+		startActivity(Intent.createChooser(emailintent, "Envialo por email..."));
+		return true;
+	}
+	
+		
 
 	/** 
 	 * Clase que se encarga de ejecutar la descarga de la foto
