@@ -36,12 +36,15 @@ public class HerramientasStrings {
 				resultado[substrings_counter]=
 						string.substring(start_index, next_separator_index);
 				// Actualiza el puntero de proceso
-				start_index=next_separator_index+1;
+				start_index=next_separator_index+SEPARATOR.length();
 				// Actualiza la cuenta
 				substrings_counter++;					
-			} else { // No hay más separadores, FIN.
+			} else { // No hay más separadores, coge la última substring y FIN.
 				flag_fin=true;
-			}				
+				resultado[substrings_counter]=string.substring(start_index,
+																string.length());
+				substrings_counter++;
+			}
 		}
 
 		return resultado;
@@ -67,7 +70,7 @@ public class HerramientasStrings {
 			}
 		}
 
-		// Devuelve la String generada eliminando el último separador		
+		// Devuelve la String generada eliminando el último separator		
 		return str.substring(0, str.lastIndexOf(SEPARATOR) );		
 	}
 
