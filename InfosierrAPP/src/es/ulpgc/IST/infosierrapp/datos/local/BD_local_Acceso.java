@@ -273,7 +273,7 @@ public class BD_local_Acceso {
 		anuncio1.set_X(6.474167);
 		anuncio1.set_Y(37.893056);
 		anuncio1.set_tags(new String[]{"eti1", "eti2", "eti3","eti4"});
-		anuncio1.set_tlf(1,"600875781");	
+		anuncio1.set_telefonos(new String[]{"600875781", "123456789"});	
 		anuncio1.set_foto("http://www.cristoferdelatorre.com/fondosdps/wallpapers/homer-alegre.jpg");
 		insertAnuncio(anuncio1);
 

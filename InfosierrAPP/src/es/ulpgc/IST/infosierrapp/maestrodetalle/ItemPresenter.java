@@ -135,10 +135,6 @@ public class ItemPresenter extends FragmentActivity implements OnClickListener{
 
 	}
 
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-	}
 
 
 	/**
