@@ -14,7 +14,7 @@
         android:gravity="right"
         android:hint="ID"
         android:paddingRight="5dp"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:visibility="gone" />
 
     <EditText
@@ -26,7 +26,7 @@
         android:hint="Nombre"
         android:inputType="none"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <EditText
@@ -38,7 +38,7 @@
         android:hint="Direccion"
         android:inputType="none"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="22dp" />
+        android:textSize="22sp" />
 
     <EditText
         android:id="@+id/txtTelefono"
@@ -49,7 +49,7 @@
         android:hint="Telefono"
         android:inputType="none"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="22dp" />
+        android:textSize="22sp" />
 
     <EditText
         android:id="@+id/txtWeb"
@@ -60,29 +60,28 @@
         android:hint="Web"
         android:inputType="none"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="22dp" />
+        android:textSize="22sp" />
 
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="0.15"
-        android:editable="false"
+        android:inputType="none"		
         android:hint="Email"
-        android:inputType="none"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="22dp" />
+        android:textSize="22sp" />
 
     <EditText
         android:id="@+id/txtDescripcion"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.25"
+        android:layout_weight="0.20"
         android:gravity="top"
         android:hint="Descripcion"
         android:inputType="none"
         android:textColorHint="@color/grisOscuro"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/txtX"
@@ -91,6 +90,7 @@
         android:layout_weight="0"
         android:ems="10"
         android:enabled="false"
+        android:inputType="none"
         android:visibility="invisible" />
 
     <EditText
@@ -100,6 +100,7 @@
         android:layout_weight="0"
         android:ems="10"
         android:enabled="false"
+        android:inputType="none"
         android:visibility="invisible" />
 
     <LinearLayout
