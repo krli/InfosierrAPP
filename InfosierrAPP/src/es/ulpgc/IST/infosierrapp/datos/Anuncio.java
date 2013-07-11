@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.Arrays;
 import android.database.Cursor;
 import es.ulpgc.IST.infosierrapp.datos.local.TablaResultados;
+import es.ulpgc.IST.infosierrapp.recursos.HerramientasStrings;
 
 
 /**
@@ -22,10 +23,7 @@ public class Anuncio implements Serializable {
 	// Número de etiquetas para un anuncio
 	public static final int N_TAGS = 4;
 	// Números de teléfono
-	public static final int N_TLFS = 2;
-	// Separador para múltiples strings concatenadas
-	public static final String SEPARATOR= "#";
-	
+	public static final int N_TLFS = 2;	
 	// Valor por defecto para campos no establecidos
 	public static final String SIN_VALOR="<no establecido>";
 
@@ -94,7 +92,7 @@ public class Anuncio implements Serializable {
 		for(int i=0;i<N_TAGS;i++) {
 			set_tag(i, SIN_VALOR);
 		}
-		set_foto(SIN_VALOR);
+		set_foto(null);
 		set_X(0);
 		set_Y(0);
 		set_id(NO_ID);
@@ -206,7 +204,7 @@ public class Anuncio implements Serializable {
 		return _telefonos;
 	}
 	public String get_AllTelefonos() {
-		return joinStrings(get_telefonos());
+		return HerramientasStrings.joinStrings(get_telefonos());
 	}
 	public void set_tlf(int n, String tlf) {
 		if (n < N_TLFS) {
@@ -221,7 +219,7 @@ public class Anuncio implements Serializable {
 		}
 	}
 	public void set_AllTelefonos(String tlfs) {
-		set_telefonos( splitString(tlfs, N_TLFS) );
+		set_telefonos( HerramientasStrings.splitString(tlfs, N_TLFS) );
 	}
 	//***********************************
 	public String get_email() {
@@ -265,7 +263,7 @@ public class Anuncio implements Serializable {
 		return _tags;
 	}
 	public String get_AllTags() {
-		return joinStrings(get_tags());
+		return HerramientasStrings.joinStrings(get_tags());
 	}	
 	public void set_tag(int n, String tag) {
 		if (n < N_TAGS) {
@@ -280,7 +278,7 @@ public class Anuncio implements Serializable {
 		}
 	}
 	public void set_AllTags(String tags) {		
-		set_tags( splitString(tags, N_TAGS));
+		set_tags( HerramientasStrings.splitString(tags, N_TAGS));
 	}
 	//***********************************
 	public String get_foto() {
@@ -320,70 +318,6 @@ public class Anuncio implements Serializable {
 		this._id = id;
 	}
 	//************************************
-
-
-	/**
-	 * Trocea una cadena en subcadenas separadas por SEPARATOR,
-	 * y en un máximo de maxParts trozos. Complementario
-	 * a joinStrings().
-	 * @param string la cadena a descomponer
-	 * @param maxParts el máximo de trozos que se deben extraer
-	 * @return un vector de Strings con los trozos separados
-	 */
-	private static String[] splitString(String string, int maxParts) {		
-
-		int substrings_counter = 0;		
-		int start_index = 0;
-		int next_separator_index = 0;
-		boolean flag_fin=false;
-		String resultado[] = new String[maxParts];
-
-		// Comprob argumentos
-		if(string == null){
-			return null;
-		}		
-		// Recorremos la string 
-		while ( ( ! flag_fin ) && (substrings_counter < maxParts) ){
-			// Busca el siguiente separador
-			next_separator_index = string.indexOf(SEPARATOR, start_index);			
-			// Si lo encuentra
-			if (next_separator_index > 0) {
-				// Extrae la etiqueta entre el anterior y el actual separador
-				resultado[substrings_counter]=
-						string.substring(start_index, next_separator_index);
-				// Actualiza el puntero de proceso
-				start_index=next_separator_index+1;
-				// Actualiza la cuenta
-				substrings_counter++;					
-			} else { // No hay más separadores, FIN.
-				flag_fin=true;
-			}				
-		}
-
-		return resultado;
-	}
-
-	/**
-	 * Une un vector de Strings en una única String 
-	 * separándolas mediante SEPARATOR. 
-	 * Complementario a splitStrings.
-	 * 
-	 * @param vector de Strings a separar
-	 * @return String unión de las componentes del vector
-	 */
-	private  static String joinStrings(String[] vector) {
-		StringBuffer str = new StringBuffer();
-
-		if (vector == null) {
-			return null;
-		}
-
-		for (int i=0; i<vector.length;i++) {
-			str.append(vector[i] + SEPARATOR);
-		}	
-		return str.toString();		
-	}
-
 
 	public String toString() {		
 		return get_nombre() + "\n" + get_descripcion();
