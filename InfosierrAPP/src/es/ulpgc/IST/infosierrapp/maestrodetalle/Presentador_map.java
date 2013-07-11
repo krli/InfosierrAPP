@@ -1,10 +1,8 @@
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 
 import es.ulpgc.IST.infosierrapp.R;
 
@@ -12,7 +10,7 @@ import es.ulpgc.IST.infosierrapp.R;
  * Clase responsable de presentar el mapa
  *
  */
-public class Presentador_map extends Activity  {
+public class Presentador_map extends android.support.v4.app.FragmentActivity  {
 
 
 	/*
