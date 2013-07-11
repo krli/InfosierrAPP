@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:layout_marginTop="2dp" >
 
     <ImageView
         android:id="@+id/imagen"
@@ -14,8 +15,13 @@
     <TextView
         android:id="@+id/txtNombre"
         android:layout_width="match_parent"
+<<<<<<< HEAD
         android:layout_height="60dp"
         android:textSize="30dp"
+=======
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+>>>>>>> branch 'master' of https://github.com/krli/InfosierrAPP.git
         android:textStyle="bold" />
 
 </LinearLayout>
