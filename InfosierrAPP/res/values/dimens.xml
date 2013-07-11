@@ -4,6 +4,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     
+    <dimen name="main_h_margin">10dp</dimen>
+    <dimen name="main_v_margin">10dp</dimen>
+    
+    
     <dimen name="logo_height">122px</dimen>
     <dimen name="logo_width">400px</dimen>
 

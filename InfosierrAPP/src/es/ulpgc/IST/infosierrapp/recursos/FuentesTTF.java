@@ -1,4 +1,4 @@
-package es.ulpgc.IST.infosierrapp.main;
+package es.ulpgc.IST.infosierrapp.recursos;
 
 import android.content.Context;
 import android.graphics.Typeface;

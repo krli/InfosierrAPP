@@ -1,6 +1,3 @@
-/**
- * 
- */
 package es.ulpgc.IST.infosierrapp.main;
 
 
@@ -9,8 +6,8 @@ import android.content.res.Configuration;
 import es.ulpgc.IST.infosierrapp.R;
 
 /**
- * @author krlo
- *
+ * Presentador para la versión horizontal de la actividad main.
+ * El único cambio es el layout.
  */
 public class PresentadorH_main extends PresentadorV_main {
 	
@@ -28,10 +25,16 @@ public class PresentadorH_main extends PresentadorV_main {
 	}
 
 	@Override
-	protected Intent getPresenter() {
+	protected Intent getIntentForChangePresenter() {
+    	// Destino: Presentador V
 		Intent intent = new Intent(PresentadorH_main.this,
 				PresentadorV_main.class);
+		intent.setAction(INTENT_ACTION);		
+		// Guarda en el intent el contenido de la searchview
+		// ojo: es tipo CharSequence		
+		intent.putExtra(INTENT_CONTENT_WISEARCH, wi_search.getQuery());
+    	
 		return intent;
 	}
-
+	
 }

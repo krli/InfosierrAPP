@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -22,14 +21,17 @@ import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
 import es.ulpgc.IST.infosierrapp.datos.ListenerTareaBusqueda;
 import es.ulpgc.IST.infosierrapp.datos.TareaBusqueda;
 import es.ulpgc.IST.infosierrapp.maestrodetalle.ListPresenter;
-import es.ulpgc.IST.infosierrapp.main.FuentesTTF.Fuentes;
+import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF;
+import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF.Fuentes;
 
 public class PresentadorV_main extends MenuActivity implements OnClickListener, ListenerTareaBusqueda {
 	
 	/**
-	 * Modelo de datos.
+	 * Valores de configuración del Intent para el
+	 * cambio entre este presentador y el horizontal 
 	 */
-	protected Modelo_main modelo;
+	protected final String INTENT_ACTION="cambio_orientacion";
+	protected final String INTENT_CONTENT_WISEARCH="contenido_wisearch";
 	
 	/**
 	 * Clase buscador de datos que proporciona el historial de búsquedas 
@@ -44,8 +46,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	/*
 	 * Referencias a componentes del layout;
 	 */
-	private SearchView		wi_search;
-	private ProgressBar 	wi_progreso;
+	protected SearchView	wi_search;
 	private RelativeLayout	ly_progreso;
 	private Button			b_buscar;
 	private Button			b_weather;
@@ -56,12 +57,11 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	private Button			b_suge4;
 	private Button			b_suge5;
 	private Button			b_suge6;
-	private TextView		txt_titulo;
 	private TextView		txt_subtitulo;
 	
 	
 	/**
-	 * Inicio de la actividad.
+	 * Creación de la actividad.
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,19 +69,15 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 				
 		/* Comprobaciones de arranque */
 		// Inicio.loquesea();
-		// Verifica la orientación
-		checkOrientation();
 		
 		/* Carga el layout */
 		loadView();
 		
-		/* Recupera el modelo desde el singleton */
-		modelo = Modelo_main.getModel();
+		/* Engancha con el buscador  */
 		buscador = BuscadorDatos.getBuscador(getApplicationContext());
 		
 		/* Inicializa las refs al layout */
 		wi_search=(SearchView)findViewById(R.id.searchView1);
-		wi_progreso=(ProgressBar)findViewById(R.id.progressBar1);	
 		ly_progreso=(RelativeLayout)findViewById(R.id.lytProgreso2);
 		b_buscar=(Button)findViewById(R.id.B_buscar);
 		b_weather=(Button)findViewById(R.id.B_weather);
@@ -92,7 +88,6 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		b_suge4=(Button)findViewById(R.id.B_suge4);
 		b_suge5=(Button)findViewById(R.id.B_suge5);
 		b_suge6=(Button)findViewById(R.id.B_suge6);
-		txt_titulo=(TextView)findViewById(R.id.textTitulo);
 		txt_subtitulo=(TextView)findViewById(R.id.textSubtitulo);
 				
 		/* Registra los listeners */
@@ -135,7 +130,18 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 			gestionaIntent(intent);
 		}		
 	}
-
+	
+	
+	/**
+	 * onCreate() -> onStart() -> onResume() -> Actividad
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// Verifica la orientación
+		checkOrientation();
+	}
+	
 	/**
 	 * Se llamará si hay algún cambio en las configuraciones del teléfono, como
 	 * por ejemplo, un cambio de orientación.
@@ -143,12 +149,94 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	@Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
-        // Si ha habido un giro...
+        // Verifica la orientación
         checkOrientation();    
     }
-		
-    
+      
+    /**
+     * Reacciona a los eventos de click
+     */
+	@Override
+	public void onClick(View view) {
+		int btn = view.getId();
+    	switch (btn) {
+    	case R.id.B_buscar:
+    		// Se ha pulsado buscar... activa la búsqueda
+    		wi_search.setQuery(wi_search.getQuery(), true);    		
+    		break;    		
+    	case R.id.B_weather:
+    		goToWeather();
+    		break;    		
+    	case R.id.B_suge1:
+    		wi_search.setQuery(b_suge1.getText(), true);
+    		break;
+    	case R.id.B_suge2:
+    		wi_search.setQuery(b_suge2.getText(), true);
+    		break;
+    	case R.id.B_suge3:
+    		wi_search.setQuery(b_suge3.getText(), true);
+    		break;
+    	case R.id.B_suge4:
+    		wi_search.setQuery(b_suge4.getText(), true);
+    		break;
+    	case R.id.B_suge5:
+    		wi_search.setQuery(b_suge5.getText(), true);
+    		break;
+    	case R.id.B_suge6:
+    		wi_search.setQuery(b_suge6.getText(), true);
+    		break;
+    	case R.id.B_cancelar:
+    		cancelarBusqueda();
+    		break;
+    	}
+	}
+	
+    /**
+	 * Activa el item menu_borrar_busquedas
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Primero configura el menu de MenuActivity
+		super.onCreateOptionsMenu(menu);
+		// Activa el item
+		MenuItem item = menu.findItem(R.id.menu_borrar_busquedas);		
+		if (item !=null) {
+			item.setEnabled(true);
+			item.setVisible(true);
+		}		
+		return true;
+	}
+	
+	/**
+	 * Configura el click en menu_borrar_busquedas
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_borrar_busquedas:
+			do_limpiar_sugerencias();
+			return true;
+			
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	/**
+	 * Sobreescribe el método goMain de MenuActivity
+	 * para no hacer nada (ya estamos en Main)
+	 */
+	@Override
+	protected boolean goMain() {
+		return true;
+	}
+	
+	/* *************************************************
+	 * Los siguientes 4 métodos gestionan el cambio de 
+	 * layout con la orientación. Los 3 primeros debenrán
+	 * ser sobreescritos por el presentador que herede
+	 * ************************************************* */
+	
 	/**
 	 * Verifica que la orientación del dispositivo concuerda con
 	 * la del presentador en uso. Si no es así fuerza el cambio
@@ -160,18 +248,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
       	changePresenter();
       } 
     }
-    
-    /**
-     * Cambia de presentador
-     */
-    protected void changePresenter() {
-    	// Get the next Controller
-    	Intent intent = getPresenter();    	
-    	// Start the next and finish the current Controller
-    	startActivity(intent);
-    	finish();    	
-    }
-    
+
     /**
      * Devuelve un intent para cambiar al presentador que
      * corresponda:
@@ -179,12 +256,26 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
      * PresenH --> PresenV 
      * @return
      */
-    protected Intent getPresenter() {
+    protected Intent getIntentForChangePresenter() {
+    	// Destino: Presentador H
     	Intent intent = new Intent(PresentadorV_main.this,
     			PresentadorH_main.class);
+		intent.setAction(INTENT_ACTION);	
+		// Guarda en el intent el contenido de la searchview
+		// ojo: es tipo CharSequence		
+		intent.putExtra(INTENT_CONTENT_WISEARCH, wi_search.getQuery());
     	return intent;
     }
-
+    /**
+     * Cambia de presentador
+     */
+    protected void changePresenter() {
+    	// Get the next Controller
+    	Intent intent = getIntentForChangePresenter();    	
+    	// Start the next and finish the current Controller
+    	startActivity(intent);
+    	finish();
+    }
     /**
      * Carga el layout.
      */
@@ -192,6 +283,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
         setContentView(R.layout.main_vista_v);
     }
     
+    /* ************************************************* */
 
     /**
      * Gestiona el intent que se recibe en el arranque o la llamada
@@ -199,18 +291,13 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
      * 
      * @param intent
      */
-    protected void gestionaIntent(Intent intent) {
+    private void gestionaIntent(Intent intent) {
 
-    	
-    	// Click en una sugerencia de búsqueda... (no soportado aún)
     	if (Intent.ACTION_VIEW.equals(intent.getAction())) {
+   		/*** Click en una sugerencia de searchview... (no soportado aún)  ***/
     		
-    		Toast.makeText(getApplicationContext(), 
-    				"Las sugerencias no funcionan aún",
-    				Toast.LENGTH_SHORT).show();
-
-    		// Intro o click en Buscar --> Ejecuta la búsqueda
     	} else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+   		/*** Ejecutar una búsqueda ***/
 
     		// Extrae la cadena desde el Intent
     		String query_string = intent.getStringExtra(SearchManager.QUERY);
@@ -221,17 +308,19 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     			busqueda.execute(query_string);
     		}
     		
+    	} else if (INTENT_ACTION.equals(intent.getAction())) {
+   		/*** Cambio de orientación ***/
+    		// Mantiene el contenido de la searchview
+    		wi_search.setQuery( intent.getCharSequenceExtra(INTENT_CONTENT_WISEARCH), false);
+    		
     	} else {
-//    		Toast.makeText(getApplicationContext(), 
-//    				"gestionaIntent: No Hago Nada",
-//    				Toast.LENGTH_SHORT).show();
+   		/*** No se hace nada ***/
     	}
     	
-    	// Actualiza los botones de sugerencias
+    	// Y siempre actualiza los botones de sugerencias
     	actualizaSugerencias();
-
     }
-	
+    
     /**
      * Cambia a la actividad que muestra los resultados de
      * la búsqueda.
@@ -319,47 +408,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	if (busqueda !=null) {
 			busqueda.cancel(true);
 		}    	
-    }
-    
-    
-    
-    /**
-     * Reacciona a los eventos de click
-     */
-	@Override
-	public void onClick(View view) {
-		int btn = view.getId();
-    	switch (btn) {
-    	case R.id.B_buscar:
-    		// Se ha pulsado buscar... activa la búsqueda
-    		wi_search.setQuery(wi_search.getQuery(), true);    		
-    		break;    		
-    	case R.id.B_weather:
-    		goToWeather();
-    		break;    		
-    	case R.id.B_suge1:
-    		wi_search.setQuery(b_suge1.getText(), true);
-    		break;
-    	case R.id.B_suge2:
-    		wi_search.setQuery(b_suge2.getText(), true);
-    		break;
-    	case R.id.B_suge3:
-    		wi_search.setQuery(b_suge3.getText(), true);
-    		break;
-    	case R.id.B_suge4:
-    		wi_search.setQuery(b_suge4.getText(), true);
-    		break;
-    	case R.id.B_suge5:
-    		wi_search.setQuery(b_suge5.getText(), true);
-    		break;
-    	case R.id.B_suge6:
-    		wi_search.setQuery(b_suge6.getText(), true);
-    		break;
-    	case R.id.B_cancelar:
-    		cancelarBusqueda();
-    		break;
-    	}
-	}
+    }    
 	
 	/**
 	 * Activa/desactiva la progress bar
@@ -375,40 +424,11 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	b_buscar.setVisibility(View.VISIBLE);
 	}    
     
-    /**
-	 * Activa el item borrar historial.
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Primero configura el menu de MenuActivity
-		super.onCreateOptionsMenu(menu);
-		// Activa el item
-		MenuItem item = menu.findItem(R.id.menu_borrar_busquedas);		
-		if (item !=null) {
-			item.setEnabled(true);
-			item.setVisible(true);
-		}		
-		return true;
-	}
-	
 	/**
-	 * Comportamiento de menu_borrar_busquedas
+	 * Limpia los botones de sugerencias, mostrando previamente
+	 * un diálogo de confirmación.
 	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menu_borrar_busquedas:
-			do_limpiar_sugerencias();
-			return true;
-			
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-    
-	
-	private void do_limpiar_sugerencias() {
-		
+	private void do_limpiar_sugerencias() {		
 		//Crea un simple diálogo SI/NO para confirmar
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setTitle("Restableciendo sugerencias...");
@@ -424,6 +444,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	builder.setNegativeButton("No", null);
     	builder.show();		
 	}
+	
 	
 	
     /**********************************************************************

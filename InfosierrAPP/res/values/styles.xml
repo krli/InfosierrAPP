@@ -31,7 +31,15 @@
         <item name="android:typeface">serif</item>
         <item name="android:textStyle">italic</item>
         <item name="android:textIsSelectable">false</item>
-    </style>    
+    </style>
+    
+	<style name="T_sugesH">        
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:typeface">serif</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>  
     
     <style name="S_buscar">
         <item name="android:background">@drawable/sv_buscar</item>
@@ -91,11 +99,11 @@
     <style name="B_weather">
         <item name="android:background">@drawable/b_weather</item>        
         <item name="android:textColor">@color/white</item>        
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textStyle">italic</item>
         <item name="android:typeface">serif</item>
-		<item name="android:paddingLeft">20dp</item>
-		<item name="android:paddingRight">20dp</item>
+		<item name="android:paddingLeft">10dp</item>
+		<item name="android:paddingRight">10dp</item>
 		<item name="android:paddingTop">0dp</item>		
 		<item name="android:paddingBottom">0dp</item>       
 		<item name="android:gravity">center_vertical|center_horizontal</item>
