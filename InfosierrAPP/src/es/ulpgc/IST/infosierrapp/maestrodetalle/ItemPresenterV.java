@@ -22,6 +22,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
+import es.ulpgc.IST.infosierrapp.main.PresentadorH_main;
+import es.ulpgc.IST.infosierrapp.main.PresentadorV_main;
 
 /**
  * Presentador asignado a cada anuncio
@@ -37,7 +39,7 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 	private EditText descripcion;
 	private EditText web;
 	private ImageView image;
-	private Anuncio anuncio;
+	protected Anuncio anuncio;
 	private String action;
 	private Button b_mapa;
 
@@ -49,7 +51,9 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.vista_v_detalle);
+		
+		// Carga layout
+		loadView();
 
 		nombre = (EditText)findViewById(R.id.txtNombre);
 		direccion = (EditText)findViewById(R.id.txtDireccion);
@@ -134,6 +138,59 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 		//
 
 	}
+	
+	
+	/* *************************************************
+	 * Los siguientes 4 métodos gestionan el cambio de 
+	 * layout con la orientación. Los 3 primeros debenrán
+	 * ser sobreescritos por el presentador que herede
+	 * ************************************************* */
+	
+	/**
+	 * Verifica que la orientación del dispositivo concuerda con
+	 * la del presentador en uso. Si no es así fuerza el cambio
+	 * al otro presentador.
+	 */
+    protected void checkOrientation() {      
+      Configuration config = getResources().getConfiguration();
+      if (config.orientation != Configuration.ORIENTATION_PORTRAIT) {
+      	changePresenter();
+      } 
+    }
+
+    /**
+     * Devuelve un intent para cambiar al presentador que
+     * corresponda:
+     * PresenV --> PresenH
+     * PresenH --> PresenV 
+     * @return
+     */
+    protected Intent getIntentForChangePresenter() {
+    	// Destino: Presentador H
+    	Intent intent = new Intent(ItemPresenterV.this,
+    			ItemPresenterH.class);
+		// Guarda en el intent el anuncio 
+		intent.putExtra("anuncio", anuncio);
+    	return intent;
+    }
+    /**
+     * Carga el layout.
+     */
+    protected void loadView() {
+        setContentView(R.layout.detalle_vista_v);
+    }
+    /**
+     * Cambia de presentador
+     */
+    protected void changePresenter() {
+    	// Get the next Controller
+    	Intent intent = getIntentForChangePresenter();    	
+    	// Start the next and finish the current Controller
+    	startActivity(intent);
+    	finish();
+    }
+    
+    /* ************************************************* */
 
 
 
