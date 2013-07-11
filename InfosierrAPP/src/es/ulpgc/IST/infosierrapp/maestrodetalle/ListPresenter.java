@@ -1,8 +1,5 @@
-
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
-
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
@@ -26,8 +22,9 @@ import es.ulpgc.IST.infosierrapp.main.MenuActivity;
 public class ListPresenter extends MenuActivity {
 
 	private Cursor cursor=null;
-	private SimpleCursorAdapter cursorAdapter;
+	private SimpleCursorAdapter cursorAdapter=null;
 	private BuscadorDatos buscadorDatos;
+	private String cadena_busqueda=null;
 	private TextView mTextView;
 	private ListView mListView;
 
@@ -40,44 +37,42 @@ public class ListPresenter extends MenuActivity {
 		setContentView(R.layout.vista_maestro);
 
 
-
+		// Engancha con el buscador
 		buscadorDatos = BuscadorDatos.getBuscador(getApplicationContext());
+		// Obtiene la cadena que ha lanzado la búsqueda
+		cadena_busqueda = buscadorDatos.get_cadena_busqueda();
 
+		// Componentes del layout
 		mTextView = (TextView) findViewById(R.id.text);
-		mListView = (ListView)findViewById(R.id.list);
+		mListView = (ListView) findViewById(R.id.list);
 
 
 
 		// Obtiene el cursor que BuscadorDatos ha obtenido con los resultados
-		// Cursor cursor = buscadorDatos.get_resultados_cursor();
+		// cursor = buscadorDatos.get_resultados_cursor();		
+		// TODO: por ahora hacemos una búsqueda en la db local		
+		cursor = buscadorDatos.buscarEnLocal(cadena_busqueda);
 		
-		String query = buscadorDatos.get_cadena_busqueda();
-		Toast.makeText(getApplicationContext(),
-				"Buscando: "+query, Toast.LENGTH_SHORT).show();
-		
-		Cursor cursor = buscadorDatos.buscarEnLocal(query);
-		
+		// TODO: implementar los loaders 
 		startManagingCursor(cursor);
-
-
 
 
 		if (cursor == null) {
 			// No hay resultados. "No se encontraron resultados para: <cadena>"
-			 mTextView.setText(getString(R.string.no_results, new Object[] {buscadorDatos.get_cadena_busqueda()}));
+			 mTextView.setText(getString(R.string.no_results, new Object[] {cadena_busqueda}));
 			
 		} else {
 
 			// Muestra el numero de resultados
 			int count = cursor.getCount();
 			String countString = getResources().getQuantityString(R.plurals.search_results,
-					count, new Object[] {count, buscadorDatos.get_cadena_busqueda()});
+					count, new Object[] {count, cadena_busqueda});
 			mTextView.setText(countString);
 
 
 			// Obtiene el CursorAdapter definido y creado por BuscadorDatos
 			cursorAdapter=getCursorAdapter(cursor);
-
+			
 			// Asocia el adaptador con la vista
 			mListView.setAdapter(cursorAdapter);
 
@@ -101,49 +96,54 @@ public class ListPresenter extends MenuActivity {
 			mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> a, View v, int pos, long id){
-
-					// Aparece el nombre almacenado.
-					//					String nombre = 
-					//							cursor.getString(cursor.getColumnIndexOrThrow(TablaResultados.COL_NOMBRE));
-					//					Toast.makeText(getApplicationContext(),
-					//							nombre, Toast.LENGTH_SHORT).show();
-
-
-					Intent myIntent = new Intent(ListPresenter.this, ItemPresenterV.class);
-
-					// Obtiene el CursorAdapter definido y creado por BuscadorDatos
-					Cursor cursor = (Cursor) cursorAdapter.getItem(pos);
-					startActivity(myIntent, cursor);
+					// Pasa a mostrar el detalle del item en la posición pos
+					goToDetalle(pos);
 				}
 			});
 		}
 	}
 
+	
 	/**
-	 * Pasa los valores de los campos obtenidos por el cursor al ItemPresenter
-	 * @param myIntent
-	 * @param cursor
+	 * Pasa a la actividad detalle(ItemPresenter)
+	 * para mostrar un Anuncio
+	 * @param pos
 	 */
-	public void startActivity(Intent myIntent, Cursor cursor) {
-		
-		Anuncio anuncio = Anuncio.cursorToAnuncio(cursor);		
-		myIntent.putExtra("anuncio", anuncio);
-		startActivity(myIntent);
-
+	private void goToDetalle(int pos) {
+		// Prepara el intent para el cambio de actividad
+		Intent intent = new Intent(ListPresenter.this, ItemPresenterV.class);
+		// Extrae el anuncio de la posición pos
+		Cursor cursor = (Cursor) cursorAdapter.getItem(pos);
+		// Convierte el cursor a un objeto anuncio
+		Anuncio anuncio = Anuncio.cursorToAnuncio(cursor);	
+		// Y lo guarda en el intent
+		intent.putExtra("anuncio", anuncio);
+		startActivity(intent);
 	}
+	
 
 	@Override
-	public void finish(){
+	public void finish(){		
+		super.finish();
+		closeCursor();
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		closeCursor();		
+	}
+	
+	
+	private void closeCursor() {
 		if (cursor != null) {
 			cursor.close();
 		}
-		super.finish();
 	}
 	
+	
 	/**
-	 * TODO: Esto parece más propio de la configuración del 
-	 * layout del maestro-detalle ¿¿ Sacar de aquí y meter 
-	 * directamente allí ??
+	 * Adapta el cursor para mostrar sólo los campos deseados en la lista
 	 * 
 	 * @param context
 	 * @return
