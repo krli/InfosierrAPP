@@ -5,6 +5,8 @@ public class HerramientasStrings {
 	// Separador para múltiples strings concatenadas
 	public static final String SEPARATOR= ", ";
 	
+	public static final int MAX_QUERY_CHARS=4;
+	
 
 	/**
 	 * Trocea una cadena en subcadenas separadas por SEPARATOR,
@@ -72,6 +74,35 @@ public class HerramientasStrings {
 
 		// Devuelve la String generada eliminando el último separator		
 		return str.substring(0, str.lastIndexOf(SEPARATOR) );		
+	}
+	
+	/**
+	 * Quita a una cadena los espacios iniciales y finales,
+	 * las vocales acentuadas, escribe en minúsculas...
+	 * 
+	 * @param orig cadena que se quiere limpiar
+	 * @return cadena adaptada
+	 */
+	public static String adaptarCadenaParaBusqueda(String orig) {
+		String result = null;		
+		if (orig != null) {
+			result = orig.toLowerCase();
+			result = result.trim();
+			result = result.replace('á', 'a');
+			result = result.replace('é', 'e');
+			result = result.replace('í', 'i');
+			result = result.replace('ó', 'o');
+			result = result.replace('ú', 'u');
+			
+			/* Y nos quedamos con los  primeros caracteres para que 
+			 * las búsquedas tipo fontanero, fontanería, fontaneros...
+			 * tengan éxito			  
+			 */
+			if ( result.length() > MAX_QUERY_CHARS ) {
+				result = result.substring(0, MAX_QUERY_CHARS);
+			}			
+		}		
+		return result;
 	}
 
 }

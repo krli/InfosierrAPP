@@ -58,7 +58,6 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 		}
 		String query_string = param[0];
 		
-		
 		/** Búsqueda **/
 		
 		publishProgress(ListenerTareaBusqueda.MIN_PROGRESS);

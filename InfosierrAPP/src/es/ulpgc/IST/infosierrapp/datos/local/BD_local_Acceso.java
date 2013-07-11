@@ -9,6 +9,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
+import es.ulpgc.IST.infosierrapp.recursos.HerramientasStrings;
 
 
 /**
@@ -134,7 +135,10 @@ public class BD_local_Acceso {
 	 * @param query_string la cadena que se quiere buscar
 	 * @return lista de resultados o null si no se encuentra nada o hay error
 	 */
-	public List<Anuncio> buscarPorTags(String query_string ){
+	public List<Anuncio> buscarPorTags(String query_string){
+		
+		// Limpia la cadena para mejorar resultados
+		String query = HerramientasStrings.adaptarCadenaParaBusqueda(query_string);
 
 		// Lista a devolver
 		List<Anuncio> anuncios = new ArrayList<Anuncio>();
@@ -142,11 +146,11 @@ public class BD_local_Acceso {
 		//Abre la conexón con la BD
 		open_db();
 
-		// Hace la búsqueda
+		// Realiza la búsqueda		
 		Cursor cursor = database.query(TablaResultados.TABLE_NAME,
 				TablaResultados.ALL_COLUMNS, 
 				TablaResultados.COL_TAGS + " MATCH ?",
-				new String[] {"*"+query_string+"*"},
+				new String[] {"*"+query+"*"},
 				null, null, null);
 
 		// Si hay resultados...
@@ -181,14 +185,17 @@ public class BD_local_Acceso {
 	 */
 	public Cursor buscarEnTags(String query_string) {
 
+		// Limpia la cadena para mejorar resultados
+		String query = HerramientasStrings.adaptarCadenaParaBusqueda(query_string);
+				
 		//Abre la conexón con la BD
-		open_db();
+		open_db();		
 
 		// Hace la búsqueda
 		Cursor cursor = database.query(TablaResultados.TABLE_NAME,
 				TablaResultados.ALL_COLUMNS, 
 				TablaResultados.COL_TAGS + " MATCH ?",
-				new String[] {"*"+query_string+"*"},
+				new String[] {"*"+query+"*"},
 				null, null, null);
 
 		// Devuelve el cursor

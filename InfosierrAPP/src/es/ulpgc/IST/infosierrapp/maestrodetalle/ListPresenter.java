@@ -5,8 +5,6 @@ package es.ulpgc.IST.infosierrapp.maestrodetalle;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -39,27 +37,6 @@ public class ListPresenter extends MenuActivity {
 		setContentView(R.layout.vista_maestro);
 
 
-		////////////////////////		
-		//SI USAMOS ARRAY ADAPTER//
-		////////////////////////
-
-		//ListView mlistView = (ListView) findViewById(R.id.list);
-		/*ListView mlistView = getListView();
-
-				BDlocal=new BD_local_Acceso(this);
-				List <Anuncio> anuncios = BDlocal.getResultados();
-
-				ArrayAdapter<Anuncio> adapter = new ArrayAdapter <Anuncio> (this,es.ulpgc.IST.infosierrapp.R.layout.vista_v_item,anuncios);
-				setListAdapter(adapter);
-
-
-				mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-					@Override
-					public void onItemClick(AdapterView<?> a, View v, int pos, long id){
-						startActivity((Anuncio) a.getAdapter().getItem(pos));
-					}
-				});*/
-
 
 		buscadorDatos = BuscadorDatos.getBuscador(getApplicationContext());
 
@@ -69,7 +46,8 @@ public class ListPresenter extends MenuActivity {
 
 
 		// Obtiene el cursor que BuscadorDatos ha obtenido con los resultados
-		Cursor cursor = buscadorDatos.get_resultados_cursor();
+		// Cursor cursor = buscadorDatos.get_resultados_cursor();		
+		Cursor cursor = buscadorDatos.buscarEnLocal(buscadorDatos.get_cadena_busqueda());
 		startManagingCursor(cursor);
 
 

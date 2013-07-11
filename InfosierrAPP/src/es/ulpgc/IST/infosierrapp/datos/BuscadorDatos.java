@@ -149,6 +149,16 @@ public class BuscadorDatos {
 	public Cursor get_resultados_cursor() {		
 		return dbLocal.get_all_cursor();
 	}
+	
+	/**
+	 * TODO
+	 * Método temporal para hacer las búsquedas en la base de datos local
+	 * @param query
+	 * @return
+	 */
+	public Cursor buscarEnLocal(String query_string) {
+		return dbLocal.buscarEnTags(query_string);
+	}
 
 	/**
 	 * TODO: Esto parece más propio de la configuración del 

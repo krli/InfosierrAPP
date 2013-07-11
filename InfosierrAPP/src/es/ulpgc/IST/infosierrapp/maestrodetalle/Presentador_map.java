@@ -1,6 +1,5 @@
 package es.ulpgc.IST.infosierrapp.maestrodetalle;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,12 +10,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import es.ulpgc.IST.infosierrapp.R;
+import es.ulpgc.IST.infosierrapp.main.MenuActivity;
 
 /**
  * Clase responsable de presentar el mapa
  *
  */
-public class Presentador_map extends Activity  {
+public class Presentador_map extends MenuActivity  {
 
 
 	/*
