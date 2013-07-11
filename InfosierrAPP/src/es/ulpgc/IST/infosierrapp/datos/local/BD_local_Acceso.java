@@ -1,10 +1,7 @@
 package es.ulpgc.IST.infosierrapp.datos.local;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

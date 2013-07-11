@@ -48,7 +48,14 @@ public class BuscadorDatos {
 		queries_history = new HistorialBusquedas(HISTORY_SIZE);		
 		// Conexiones con BDs
 		dbLocal=new BD_local_Acceso(context);
-		// dbRemota=new DatosInfosierra_Acceso();
+		// dbRemota=new DatosInfosierra_Acceso();		
+		
+		/* TODO
+		 * Para probar sin BD remota: 
+		 * Vaciamos la dbLocal y la rellenamos para pruebas
+		 */
+		dbLocal.borrarResultados();		
+		dbLocal.rellenaUnPoco();
 		
 		
 	}
@@ -100,10 +107,6 @@ public class BuscadorDatos {
 		
 		// Paso 3:
 		// TODO
-			
-		// Por ahora vaciamos la dbLocal y la rellenamos para pruebas
-		dbLocal.borrarResultados();		
-		dbLocal.rellenaUnPoco();
 
 	}
 	
