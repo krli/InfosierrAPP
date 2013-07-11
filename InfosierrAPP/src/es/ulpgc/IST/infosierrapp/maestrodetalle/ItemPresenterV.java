@@ -28,7 +28,7 @@ import es.ulpgc.IST.infosierrapp.datos.Anuncio;
  * Muestra la disposicion de la informacion
  *
  */
-public class ItemPresenterV extends FragmentActivity implements OnClickListener{
+public class ItemPresenterV extends MenuFragmentActivity implements OnClickListener{
 
 	private TextView nombre;
 	private TextView direccion;
@@ -239,13 +239,6 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 		super.finish();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.detail_menu, menu);
-		return true;
-	}
-
-
 	/**
 	 * Reacciona a los eventos de click
 	 */
@@ -260,42 +253,33 @@ public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 		}
 	}
 
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-
-		case R.id.menu_llamar:
-			Intent intent = new Intent(Intent.ACTION_CALL);
-			intent.setData(Uri.parse("tel:"+this.telefono.getText()));
-			startActivity(intent);
-			finish();
-			return true;
-		case R.id.menu_compartir:
-			Intent sendIntent = new Intent();
-			sendIntent.setAction(Intent.ACTION_SEND);
-			sendIntent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
-			sendIntent.setType("text/plain");
-			startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
-			return true;
-
-		case R.id.menu_email:
-			Intent emailintent = new Intent(Intent.ACTION_SEND);
-			emailintent.setType("plain/text");
-			emailintent.putExtra(Intent.EXTRA_EMAIL,"");
-			emailintent.putExtra(Intent.EXTRA_SUBJECT, "RECOMENDACION INFOSIERRA");
-			emailintent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
-			startActivity(Intent.createChooser(emailintent, "Envialo por email..."));
-			return true;
-
-		case R.id.menu_back:
-			action = Intent.ACTION_DEFAULT;
-			finish();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
+	/*** Sobreescribe los métodos del menú ***/
+	protected boolean goLlamar() {
+		Intent intent = new Intent(Intent.ACTION_CALL);
+		intent.setData(Uri.parse("tel:"+this.telefono.getText()));
+		startActivity(intent);
+		finish();
+		return true;
 	}
+	protected boolean goCompartir() {
+		Intent sendIntent = new Intent();
+		sendIntent.setAction(Intent.ACTION_SEND);
+		sendIntent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
+		sendIntent.setType("text/plain");
+		startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
+		return true;
+	}
+	protected boolean goEmail(){
+		Intent emailintent = new Intent(Intent.ACTION_SEND);
+		emailintent.setType("plain/text");
+		emailintent.putExtra(Intent.EXTRA_EMAIL,"");
+		emailintent.putExtra(Intent.EXTRA_SUBJECT, "RECOMENDACION INFOSIERRA");
+		emailintent.putExtra(Intent.EXTRA_TEXT, "Te recomiendo visitar "+this.nombre.getText());
+		startActivity(Intent.createChooser(emailintent, "Envialo por email..."));
+		return true;
+	}
+	
+	
 
 	/** 
 	 * Clase que se encarga de ejecutar la descarga de la foto

@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import es.ulpgc.IST.infosierrapp.R;
-import es.ulpgc.IST.infosierrapp.main.PresentadorV_main;
 
 public class MenuFragmentActivity extends FragmentActivity{
 	
