@@ -84,9 +84,14 @@
             android:label="@string/presentador_map" >
         </activity>
         <activity
-            android:name=".maestrodetalle.ItemPresenter"
-            android:label="@string/detail_title" >
-            
+            android:name=".maestrodetalle.ItemPresenterV"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/detail_title" >            
+        </activity>
+        <activity
+            android:name=".maestrodetalle.ItemPresenterH"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/detail_title" >            
         </activity>
         
 
