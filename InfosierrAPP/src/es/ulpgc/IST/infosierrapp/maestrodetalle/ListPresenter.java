@@ -122,7 +122,7 @@ public class ListPresenter extends MenuActivity {
 					//							nombre, Toast.LENGTH_SHORT).show();
 
 
-					Intent myIntent = new Intent(ListPresenter.this, ItemPresenter.class);
+					Intent myIntent = new Intent(ListPresenter.this, ItemPresenterV.class);
 
 					// Obtiene el CursorAdapter definido y creado por BuscadorDatos
 					Cursor cursor = (Cursor) cursorAdapter.getItem(pos);

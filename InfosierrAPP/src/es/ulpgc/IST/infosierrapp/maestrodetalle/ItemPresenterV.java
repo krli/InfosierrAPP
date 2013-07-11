@@ -28,7 +28,7 @@ import es.ulpgc.IST.infosierrapp.datos.Anuncio;
  * Muestra la disposicion de la informacion
  *
  */
-public class ItemPresenter extends FragmentActivity implements OnClickListener{
+public class ItemPresenterV extends FragmentActivity implements OnClickListener{
 
 	private EditText nombre;
 	private EditText direccion;
@@ -49,7 +49,7 @@ public class ItemPresenter extends FragmentActivity implements OnClickListener{
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.vista_detalle);
+		setContentView(R.layout.vista_v_detalle);
 
 		nombre = (EditText)findViewById(R.id.txtNombre);
 		direccion = (EditText)findViewById(R.id.txtDireccion);
@@ -142,7 +142,7 @@ public class ItemPresenter extends FragmentActivity implements OnClickListener{
 	 * el mapa
 	 */
 	private void goToMap(){
-		Intent intent = new Intent(ItemPresenter.this,
+		Intent intent = new Intent(ItemPresenterV.this,
 				Presentador_map.class);   
 		//Le pasa al Presentador del mapa el nombre y las coordenadas del anuncio
 		/*intent.putExtra("nombre", this.nombre.getText());
