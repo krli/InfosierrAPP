@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="2dp"
-    android:background="@drawable/background"
-    android:minHeight="60dp"
+    android:background="@drawable/background_vista_item"
+	android:clipChildren="true"
+    android:minHeight="80dp"
     android:orientation="horizontal" >
 
     <ImageView
         android:id="@+id/imagen"
+        android:contentDescription="logo anuncio"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/icono" />
+        android:layout_gravity="center_vertical|left"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ic_action_photo" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+        android:weightSum="1">
 
         <TextView
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.6"
             android:gravity="center_vertical"
-            android:textSize="20sp"
+            android:textIsSelectable="false"
+            android:textAlignment="textStart"
+            android:maxLines="2"
+            android:textColor="@color/white"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtEtiquetas"
+            android:id="@+id/txtDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:layout_marginTop="1dp"
             android:gravity="center_vertical"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textAlignment="textStart"
+            android:textIsSelectable="false"
+            android:textColor="@color/white"
+            android:maxLines="2"
+            android:textSize="12sp"
+            android:textStyle="normal" />
 
     </LinearLayout>
 

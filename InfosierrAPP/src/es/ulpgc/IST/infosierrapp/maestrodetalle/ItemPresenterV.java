@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.Anuncio;
+import es.ulpgc.IST.infosierrapp.recursos.HerramientasStrings;
 
 /**
  * Presentador asignado a cada anuncio
@@ -81,7 +82,8 @@ public class ItemPresenterV extends DetalleMenuActivity implements OnClickListen
 		this.direccion.setText(		anuncio.get_direccion());
 		this.email.setText(			anuncio.get_email());
 		this.web.setText(			anuncio.get_web());
-		this.telefono.setText(		anuncio.get_AllTelefonos() );
+		this.telefono.setText(		HerramientasStrings.vectorToString(
+									anuncio.get_telefonos()));
 
 		//Si se ha introducido una direccion con la foto, se inicia su descarga en 2o plano
 

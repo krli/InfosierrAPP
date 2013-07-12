@@ -40,28 +40,25 @@ public class ListPresenter extends MenuActivity {
 		// Engancha con el buscador
 		buscadorDatos = BuscadorDatos.getBuscador(getApplicationContext());
 		// Obtiene la cadena que ha lanzado la búsqueda
-		cadena_busqueda = buscadorDatos.get_cadena_busqueda();
+		cadena_busqueda = buscadorDatos.get_query_string();
 
 		// Componentes del layout
 		mTextView = (TextView) findViewById(R.id.text);
 		mListView = (ListView) findViewById(R.id.list);
 
-
-
-		// Obtiene el cursor que BuscadorDatos ha obtenido con los resultados
-		// cursor = buscadorDatos.get_resultados_cursor();		
-		// TODO: por ahora hacemos una búsqueda en la db local		
-		cursor = buscadorDatos.buscarEnLocal(cadena_busqueda);
-		
-		// TODO: implementar los loaders 
-		startManagingCursor(cursor);
-
+		// Obtiene el cursor desde BuscadorDatos con los resultados
+		cursor = buscadorDatos.get_resultados_cursor();		
 
 		if (cursor == null) {
 			// No hay resultados. "No se encontraron resultados para: <cadena>"
 			 mTextView.setText(getString(R.string.no_results, new Object[] {cadena_busqueda}));
 			
 		} else {
+			
+			// TODO: implementar los loaders
+			// Y este método no hace del todo falta porque ya gestionamos
+			// nosotros la apertura y el cierre de los cursores
+			startManagingCursor(cursor);
 
 			// Muestra el numero de resultados
 			int count = cursor.getCount();
@@ -70,7 +67,7 @@ public class ListPresenter extends MenuActivity {
 			mTextView.setText(countString);
 
 
-			// Obtiene el CursorAdapter definido y creado por BuscadorDatos
+			// Obtiene el CursorAdapter
 			cursorAdapter=getCursorAdapter(cursor);
 			
 			// Asocia el adaptador con la vista
@@ -121,25 +118,12 @@ public class ListPresenter extends MenuActivity {
 		startActivity(intent);
 	}
 	
-
-	@Override
-	public void finish(){		
-		super.finish();
-		closeCursor();
-	}
-	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		closeCursor();		
+		buscadorDatos.liberar_busqueda();		
 	}
-	
-	
-	private void closeCursor() {
-		if (cursor != null) {
-			cursor.close();
-		}
-	}
+
 	
 	
 	/**
@@ -151,14 +135,14 @@ public class ListPresenter extends MenuActivity {
 	private SimpleCursorAdapter getCursorAdapter(Cursor cursor){
 
 		// Especifica las columnas que se mostraran en el resultado
-		String[] from = new String[] { TablaResultados.COL_NOMBRE, TablaResultados.COL_TAGS, 
+		String[] from = new String[] { TablaResultados.COL_NOMBRE,
 				TablaResultados.COL_DESC, TablaResultados.COL_DIRECCION,
 				TablaResultados.COL_EMAIL, TablaResultados.COL_TELEFONOS, 
 				TablaResultados.COL_WEB, TablaResultados.COL_MAPX, 
 				TablaResultados.COL_MAPY, TablaResultados.COL_FOTO};
 
 		// Especifica los correspondintes elementos del layout 
-		int[] to = new int[] { R.id.txtNombre, R.id.txtEtiquetas, R.id.txtDescripcion, 
+		int[] to = new int[] { R.id.txtNombre, R.id.txtDescripcion, 
 				R.id.txtDireccion, R.id.txtEmail, R.id.txtTelefono, 
 				R.id.txtWeb, R.id.txtX, R.id.txtY, R.id.image};
 
