@@ -1,135 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:padding="@dimen/md_margin"
     android:background="@drawable/background"
     android:orientation="horizontal"
-    android:weightSum="1" >
+    android:weightSum="1"
+	tools:ignore="ContentDescription" >
 
-    <LinearLayout
-        android:layout_width="269dp"
+    <LinearLayout        
         android:layout_height="match_parent"
-        android:background="@drawable/background"
+        android:layout_width="0dip"
+        android:layout_weight="0.55"
         android:orientation="vertical"
         android:weightSum="1" >
 
-        <TextView
-            android:id="@+id/lblPos"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="0.15"
-            android:gravity="right"
-            android:hint="ID"
-            android:paddingRight="5dp"
-            android:textSize="12dp"
-            android:visibility="gone" />
+       <RelativeLayout
+        android:id="@+id/lytNombre"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_marginTop="0dp"
+        android:layout_weight="0.20"
+        android:background="@drawable/background_vista_item"
+        android:orientation="horizontal" >
 
         <TextView
             android:id="@+id/txtNombre"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="0.15"
-            android:editable="false"
-            android:hint="Nombre"
+            android:layout_height="match_parent"
+            android:gravity="left|center"
+            android:hint="@string/detalle_hint_nombre"
             android:inputType="none"
-            android:textColorHint="@color/grisOscuro"
-            android:textSize="16dp"
+            android:paddingLeft="2dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="16sp"
             android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lytDir"
+        style="@style/Lyt_Detalle"
+        android:layout_height="0dip"
+        android:layout_weight="0.20" >
+
+        <ImageView
+            android:id="@+id/imgdir"
+            style="@style/Img_Detalle"
+            android:src="@drawable/ic_action_locate" />
 
         <TextView
             android:id="@+id/txtDireccion"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="0.2"
-            android:editable="false"
-            android:hint="Direccion"
-            android:inputType="none"
-            android:textColorHint="@color/grisOscuro"
-            android:textSize="14dp" />
+            style="@style/T_Detalle"
+            android:layout_toRightOf="@+id/imgdir"
+            android:hint="@string/detalle_hint_dir" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lytTlf"
+        style="@style/Lyt_Detalle"
+        android:layout_height="0dip"
+        android:layout_weight="0.10" >
+
+        <ImageView
+            android:id="@+id/imgtlf"
+            style="@style/Img_Detalle"
+            android:src="@drawable/ic_menu_llamar" />
 
         <TextView
             android:id="@+id/txtTelefono"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="0.15"
+            style="@style/T_Detalle"
+            android:layout_toRightOf="@+id/imgtlf"
             android:autoLink="phone"
-            android:editable="false"
-            android:hint="Telefono"
-            android:inputType="none"
-            android:textColorHint="@color/grisOscuro"
-            android:textSize="14dp" />
+            android:hint="@string/detalle_hint_tlf" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lytWeb"
+        style="@style/Lyt_Detalle"
+        android:layout_height="0dip"
+        android:layout_weight="0.10" >
+
+        <ImageView
+            android:id="@+id/imgweb"
+            style="@style/Img_Detalle"
+            android:src="@drawable/ic_menu_web" />
 
         <TextView
             android:id="@+id/txtWeb"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="0.15"
+            style="@style/T_Detalle"
+            android:layout_toRightOf="@+id/imgweb"
             android:autoLink="web"
-            android:editable="false"
-            android:hint="Web"
-            android:inputType="none"
-            android:textColorHint="@color/grisOscuro"
-            android:textSize="14dp" />
+            android:hint="@string/detalle_hint_web" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lytEmail"
+        style="@style/Lyt_Detalle"
+        android:layout_height="0dip"
+        android:layout_weight="0.10" >
+
+        <ImageView
+            android:id="@+id/imgmail"
+            style="@style/Img_Detalle"
+            android:src="@drawable/ic_action_mail" />
 
         <TextView
             android:id="@+id/txtEmail"
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="0.15"
+            style="@style/T_Detalle"
+            android:layout_toRightOf="@+id/imgmail"
             android:autoLink="email"
-            android:editable="false"
-            android:hint="Email"
-            android:inputType="none"
-            android:textColorHint="@color/grisOscuro"
-            android:textSize="14dp" />
+            android:hint="@string/detalle_hint_email" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lytDesc"
+        style="@style/Lyt_Detalle"
+        android:layout_height="0dip"
+        android:layout_weight="0.30" >
+
+        <ImageView
+            android:id="@+id/imgdesc"
+            style="@style/Img_Detalle"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="false"
+            android:src="@drawable/ic_action_about" />
 
         <TextView
             android:id="@+id/txtDescripcion"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="0.2"
-            android:gravity="top"
-            android:hint="Descripcion"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/imgdesc"
+            android:gravity="left|top"
+            android:hint="@string/detalle_hint_desc"
             android:inputType="none"
-            android:textColorHint="@color/grisOscuro"
-            android:textSize="12dp" />
+            android:textIsSelectable="true"
+            android:paddingTop="2dp"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/txtX"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="0"
-            android:ems="10"
-            android:enabled="false"
-            android:visibility="invisible" />
+    <TextView
+        android:id="@+id/txtX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:inputType="none"
+        android:textSize="12sp"
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/txtY"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="0"
-            android:ems="10"
-            android:enabled="false"
-            android:visibility="invisible" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/txtY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:inputType="none"
+        android:textSize="12sp"
+        android:visibility="gone" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+    <TextView
+        android:id="@+id/lblPos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:inputType="none"
+        android:textSize="12sp"
+        android:visibility="gone" />
+	</LinearLayout>
+	
+    <RelativeLayout
+        android:layout_height="match_parent"
+		android:layout_width="0dip"
+        android:layout_weight="0.45"
+        android:layout_marginLeft="5dp"
+        android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/image"
+            android:contentDescription="@string/detalle_img_desc"
+            android:src="@drawable/ic_content_picture"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="0.5" />
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"            
+            android:layout_marginBottom="5dp"
+            android:adjustViewBounds="true"            
+            android:fadingEdgeLength="5dp"
+            android:maxHeight="120dp"
+            android:scaleType="fitCenter" />
 
         <fragment
             android:id="@+id/map"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"            
             class="com.google.android.gms.maps.MapFragment" />
-    </LinearLayout>
+        
+    </RelativeLayout>
 
 </LinearLayout>

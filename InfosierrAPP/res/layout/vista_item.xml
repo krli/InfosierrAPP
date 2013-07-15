@@ -16,7 +16,7 @@
         android:layout_gravity="center_vertical|left"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:src="@drawable/ic_action_photo" />
+        android:src="@drawable/ic_navigation_next_item" />
 
     <LinearLayout
         android:layout_width="match_parent"

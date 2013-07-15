@@ -7,15 +7,23 @@
     <string name="B_cancelar">Parar</string>
     <string name="T_titulo">El buscador de la Sierra de Aracena, Picos de Aroche y sus alrededores&#8230;</string>
     <string name="T_subtitulo">¿Qué quieres buscar?</string>
-    <string name="T_sugesH">Algunas sugerencias...</string>    
+    <string name="T_sugesH">Algunas sugerencias&#8230;</string>    
     <string name="ET_buscar">ej: Restaurantes</string>
     <string name="SV_hint">ej: Librerías</string>
     <string name="SV_label">@string/app_name</string>
     <string name="B_weather">¿Qué tiempo hace?</string>
-     <string name="B_map">Ver en mapa</string>
+    <string name="B_map">Ver en el mapa</string>
     <string name="T_weather">El tiempo en la sierra&#8230;</string>
     <string name="master_title">Resultados</string>
     <string name="detail_title">Detalle</string>
+    <string name="detalle_hint_nombre">Nombre</string>
+    <string name="detalle_hint_dir">Dirección</string>
+    <string name="detalle_hint_email">Email</string>
+    <string name="detalle_hint_tlf">Teléfonos</string>
+    <string name="detalle_hint_web">Web</string>
+    <string name="detalle_hint_desc">Descripción</string>
+    <string name="detalle_img_desc">Logo</string>
+    
     <string name="presentador_map">Mapa</string>
     <string name="menu_exit">Salir</string>
     <string name="menu_opciones">Opciones</string>

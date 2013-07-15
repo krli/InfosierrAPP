@@ -1,125 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:padding="@dimen/md_margin"
     android:orientation="vertical"
-    android:weightSum="1" >
+    android:padding="@dimen/md_margin"
+    android:weightSum="1"
+    tools:ignore="ContentDescription" >
 
-    <TextView
-        android:id="@+id/lblPos"
+    <RelativeLayout
+        android:id="@+id/lytNombre"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.15"
-        android:gravity="right"
-        android:hint="ID"
-        android:paddingRight="5dp"
-        android:textSize="16sp"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/txtNombre"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.15"        
-        android:hint="Nombre"
-        android:inputType="none"
-        android:textColorHint="@color/grisOscuro"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/txtDireccion"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.15"        
-        android:hint="Direccion"
-        android:inputType="none"
-        android:textColorHint="@color/grisOscuro"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/txtTelefono"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.15"
-        android:autoLink="phone"        
-        android:hint="Telefono"
-        android:inputType="none"
-        android:textColorHint="@color/grisOscuro"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/txtWeb"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.15"
-        android:autoLink="web"        
-        android:hint="Web"
-        android:inputType="none"
-        android:textColorHint="@color/grisOscuro"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/txtEmail"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.15"
-        android:autoLink="email"        
-        android:hint="Email"
-        android:inputType="none"
-        android:textColorHint="@color/grisOscuro"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/txtDescripcion"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
+        android:layout_marginTop="0dp"
         android:layout_weight="0.20"
-        android:gravity="top"
-        android:hint="Descripcion"
-        android:maxLines="3"
-        android:scrollbars="vertical"
-        android:textColorHint="@color/grisOscuro"
-        android:textSize="16sp" />
+        android:background="@drawable/background_vista_item"
+        android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/txtX"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="0"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="none"
-        android:visibility="invisible" />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/detalle_img_desc"
+            android:fadingEdgeLength="5dp"
+            android:maxHeight="80dp"
+            android:maxWidth="80dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_content_picture" />
 
-    <TextView
-        android:id="@+id/txtY"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="0"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="none"
-        android:visibility="invisible" />
+        <TextView
+            android:id="@+id/txtNombre"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/image"
+            android:gravity="center|left"
+            android:hint="@string/detalle_hint_nombre"
+            android:inputType="none"
+            android:paddingTop="5dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/lytDir"
+        style="@style/Lyt_Detalle"
+        android:layout_height="0dip"
+        android:layout_weight="0.15" >
+
+        <ImageView
+            android:id="@+id/imgdir"
+            style="@style/Img_Detalle"
+            android:src="@drawable/ic_action_locate" />
+
+        <TextView
+            android:id="@+id/txtDireccion"
+            style="@style/T_Detalle"
+            android:layout_toRightOf="@+id/imgdir"
+            android:hint="@string/detalle_hint_dir" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lytTlf"
+        style="@style/Lyt_Detalle"
+        android:layout_height="0dip"
+        android:layout_weight="0.10" >
+
+        <ImageView
+            android:id="@+id/imgtlf"
+            style="@style/Img_Detalle"
+            android:src="@drawable/ic_menu_llamar" />
+
+        <TextView
+            android:id="@+id/txtTelefono"
+            style="@style/T_Detalle"
+            android:layout_toRightOf="@+id/imgtlf"
+            android:autoLink="phone"
+            android:hint="@string/detalle_hint_tlf" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lytWeb"
+        style="@style/Lyt_Detalle"
+        android:layout_height="0dip"
+        android:layout_weight="0.10" >
+
+        <ImageView
+            android:id="@+id/imgweb"
+            style="@style/Img_Detalle"
+            android:src="@drawable/ic_menu_web" />
+
+        <TextView
+            android:id="@+id/txtWeb"
+            style="@style/T_Detalle"
+            android:layout_toRightOf="@+id/imgweb"
+            android:autoLink="web"
+            android:hint="@string/detalle_hint_web" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lytEmail"
+        style="@style/Lyt_Detalle"
+        android:layout_height="0dip"
+        android:layout_weight="0.10" >
+
+        <ImageView
+            android:id="@+id/imgmail"
+            style="@style/Img_Detalle"
+            android:src="@drawable/ic_action_mail" />
+
+        <TextView
+            android:id="@+id/txtEmail"
+            style="@style/T_Detalle"
+            android:layout_toRightOf="@+id/imgmail"
+            android:autoLink="email"
+            android:hint="@string/detalle_hint_email" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lytDesc"
+        style="@style/Lyt_Detalle"
+        android:layout_height="0dip"
+        android:layout_weight="0.25" >
+
+        <ImageView
+            android:id="@+id/imgdesc"
+            style="@style/Img_Detalle"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="false"
+            android:src="@drawable/ic_action_about" />
+
+        <TextView
+            android:id="@+id/txtDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/imgdesc"
+            android:gravity="left|top"
+            android:hint="@string/detalle_hint_desc"
+            android:inputType="none"
+            android:paddingTop="5dp"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lytMap"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="0dip"
+        android:layout_marginTop="2dp"
+        android:layout_weight="0.10"
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/B_map"
             style="@style/B_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="2dp"
             android:text="@string/B_map" />
+    </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/txtX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:inputType="none"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/txtY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:inputType="none"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/lblPos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:inputType="none"
+        android:textSize="12sp"
+        android:visibility="gone" />
 
 </LinearLayout>
