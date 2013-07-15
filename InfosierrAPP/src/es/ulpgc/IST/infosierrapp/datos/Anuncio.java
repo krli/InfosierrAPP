@@ -16,15 +16,22 @@ import es.ulpgc.IST.infosierrapp.recursos.HerramientasStrings;
  */
 public class Anuncio implements Serializable {
 
-	// autogen
 	private static final long serialVersionUID = -1003039284438735824L;
-
+	// valor para inicializar el campo ID
 	public static final int NO_ID = 0;
-	// Número de etiquetas para un anuncio
+	/**
+	 *  Número máximo de etiquetas de un anuncio
+	 */
 	public static final int N_TAGS = 4;
-	// Números de teléfono
+	/**
+	 *  Cantidad máxima de números de teléfono que
+	 *  contiene un anuncio
+	 */
 	public static final int N_TLFS = 2;	
-	// Valor por defecto para campos no establecidos
+	/**
+	 *  Valor por defecto para campos no
+	 *  establecidos
+	 */
 	public static final String SIN_VALOR="<no establecido>";
 
 	/**
@@ -37,6 +44,7 @@ public class Anuncio implements Serializable {
 	private String		_direccion;    
 	/**
 	 * Números de teléfono
+	 * @see N_TLFS
 	 */
 	private String[]	_telefonos;  
 	/**
@@ -54,6 +62,7 @@ public class Anuncio implements Serializable {
 	/**
 	 * Etiquetas descriptivas que definen en qué búsquedas
 	 * aparecerá el negocio
+	 * @see Anuncio.N_TAGS
 	 */
 	private String[]	_tags;
 	/**
@@ -179,7 +188,8 @@ public class Anuncio implements Serializable {
 	}
 	
 
-	/********* GETTERS / SETTERS *********/
+	/* ******** GETTERS / SETTERS ******** */
+	
 	public String get_nombre() {
 		return _nombre;
 	}

@@ -14,11 +14,10 @@ import es.ulpgc.IST.infosierrapp.datos.Anuncio;
 /**
  * Clase DAO (Data Access Object) (o Facade) que gestionará
  * el acceso a la base de datos: abstrae a la aplicación del
- * del manejo de la BD. Accede, busca, modifica y convierte los
+ * manejo de la BD. Accede, busca, modifica y convierte los
  * datos en objetos java (Anuncio).
  * 
- * Una alternativa a esta clase es un ContentProvider: más nuevo,
- * más eficiente y mejor. Poco a poco.
+ * Una alternativa a esta clase es un ContentProvider.
  * 
  * @author krlo
  */
@@ -32,9 +31,9 @@ public class BD_local_Acceso {
 	private BD_local_SQLiteHelper dbHelper = null;
 
 	/**
-	 * Constructor
-	 * Inicializa el helper 
-	 * @param context
+	 * Constructor: inicializa el helper
+	 *  
+	 * @param context contexto de la aplicación
 	 */
 	public BD_local_Acceso(Context context) {
 		dbHelper = BD_local_SQLiteHelper.getHelper(context);

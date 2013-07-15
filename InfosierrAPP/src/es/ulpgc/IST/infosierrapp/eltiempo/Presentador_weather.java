@@ -16,15 +16,16 @@ import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF;
 import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF.Fuentes;
 
 /**
- * Presentador para la actividad weather. Simplemente 
- * tiene un componente webview que carga un html con un 
+ * Presentador para la actividad weather. Contiene 
+ * un componente webview que carga un html con un 
  * applet desde eltiempo.es
  *
  */
 public class Presentador_weather extends MenuActivity implements ListenerTareaAsync {
 		
-	// Ubicación de los ficheros con el widget html para el tiempo
+	/** Ubicación del fichero HTML con el widget formato vertical */
 	public final String WEATHER_HTML_FILE_V="file:///android_asset/tiempo_sierra_v.html";
+	/** Ubicación del fichero HTML con el widget formato horizontal */
 	public final String WEATHER_HTML_FILE_H="file:///android_asset/tiempo_sierra_h.html";
 	
 	/*
@@ -107,8 +108,8 @@ public class Presentador_weather extends MenuActivity implements ListenerTareaAs
 
 	
 	/**
-	 * Se llamará si hay algún cambio en las configuraciones del teléfono, como
-	 * por ejemplo, un cambio de orientación.
+	 * Se llamará si hay algún cambio en las configuraciones
+	 * del teléfono, como por ejemplo, un cambio de orientación.
 	 */
 	@Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -132,12 +133,12 @@ public class Presentador_weather extends MenuActivity implements ListenerTareaAs
 		}      
 	}
 
-	@Override
+
+	@Override	
 	public void tareaIniciada() {
 		wi_webview.setVisibility(View.GONE);
 	    pbar.setVisibility(View.VISIBLE);		
 	}
-
 	@Override
 	public void tareaFinalizada(boolean result) {
 		if (result) {

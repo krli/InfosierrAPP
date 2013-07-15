@@ -19,11 +19,12 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class BD_local_SQLiteHelper extends SQLiteOpenHelper {
 
-	// Nombre y versión de la BD
+	/** Nombre del fichero database */ 
 	private static final String 	DATABASE_NAME = "infosierraResults.db";
+	/** Versión de la DB */
 	private static final int		DATABASE_VERSION = 1;
 		
-	/* Objeto singleton */
+	/** Objeto singleton */
 	private static BD_local_SQLiteHelper instance = null;
 	
 	/**
@@ -45,8 +46,8 @@ public class BD_local_SQLiteHelper extends SQLiteOpenHelper {
 
 	/** 
 	 * Devuelve el helper ("constructor singleton")
-	 * @param context
-	 * @return 
+	 * @param context contexto de la APP
+	 * @return objeto único BD_local_SQLiteHelper
 	 */
 	public static BD_local_SQLiteHelper getHelper(Context context) {
 		if(instance == null){

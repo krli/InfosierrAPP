@@ -6,12 +6,12 @@ import android.util.Log;
 
 public class TablaResultados implements BaseColumns{
 	
-	// Etiqueta para logs
+	/** Etiqueta para logs */
 	public static final String LOG_TAG="TablaResultados";
 	
-	// Nombre de la tabla
+	/** Nombre de la tabla */
 	public static final String	TABLE_NAME = "resultados";	
-	// Columnas de la tabla
+	/** Columnas de la tabla */
 	public static final String 	COL_ID =		BaseColumns._ID;	
 	public static final String	COL_NOMBRE =	"nombre";
 	public static final String	COL_DIRECCION =	"direccion";
@@ -33,7 +33,7 @@ public class TablaResultados implements BaseColumns{
 	// guardar la img directamente en lugar de la url??
     
 	
-	// Forma la cadena SQL para creación de la tabla en la db
+	/** Cadena SQL para creación de la tabla en la db */
 	private static final String SQL_CREATE = "CREATE TABLE "
 			+ TABLE_NAME + "( " 
 			+ COL_ID 		+ " INTEGER PRIMARY KEY, "
@@ -48,13 +48,15 @@ public class TablaResultados implements BaseColumns{
 			+ COL_MAPX		+ " REAL, "
 			+ COL_MAPY		+ " REAL"
 			+ " );";
-	// Forma la cadena SQL que se ejecutará en caso de actualización de la db	
+	/** Cadena SQL que se ejecutará en caso de actualización de la DB.
+	 * */
 	private static final String SQL_UPGRADE = "DROP TABLE IF EXISTS " + TABLE_NAME;
 	
 	
 	/**
 	 *  Ese método será llamado desde el onCreate del helper para la creación
-	 *  de la db.
+	 *  de la db. Ejecuta la cadena SQL SQL_CREATE
+	 *  @see SQL_CREATE 
 	 * @param database
 	 */
 	public static void onCreate(SQLiteDatabase database) {
@@ -63,9 +65,11 @@ public class TablaResultados implements BaseColumns{
 	
 	/**
 	 *  Ese método será llamado desde el onUpgrade del helper para
-	 *  la actualización de la db. Borra la antigua 
-	 * (OJO: se pierden los datos) y se crea la versión nueva vacía.
+	 *  la actualización de la db. Ejecuta la cadena SQL SQL_UPGRADE:
+	 *  borra la antigua DB (OJO: se pierden los datos) y se crea la
+	 *  versión nueva vacía.
 	 * 
+	 * @see SQL_UPGRADE 
 	 * @param database
 	 * @param oldVersion
 	 * @param newVersion
