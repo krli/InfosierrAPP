@@ -95,7 +95,6 @@
 	        <Button
 		        android:id="@+id/B_suge1"	        
 		        style="@style/B_suge"	  
-		        android:text="@string/B_suge1"
 				android:layout_weight="0.5"	            
 		        android:layout_width="0dip"
 		        android:layout_height="match_parent"
@@ -103,7 +102,6 @@
 	        <Button
 		        android:id="@+id/B_suge2"	        
 		        style="@style/B_suge"	  
-		        android:text="@string/B_suge2"
 				android:layout_weight="0.5"	            
 		        android:layout_width="0dip"
 		        android:layout_height="match_parent"
@@ -123,7 +121,6 @@
 		        <Button
 			        android:id="@+id/B_suge3"	        
 			        style="@style/B_suge"
-			        android:text="@string/B_suge3"
 					android:layout_weight="0.5"	            
 			        android:layout_width="0dip"
 			        android:layout_height="match_parent"
@@ -132,7 +129,6 @@
 		        <Button
 			        android:id="@+id/B_suge4"	        
 			        style="@style/B_suge"	  
-			        android:text="@string/B_suge4"
 					android:layout_weight="0.5"	            
 			        android:layout_width="0dip"
 			        android:layout_height="match_parent"
@@ -152,7 +148,6 @@
 		        <Button
 			        android:id="@+id/B_suge5"	        
 			        style="@style/B_suge"	  
-			        android:text="@string/B_suge5"
 					android:layout_weight="0.5"	            
 			        android:layout_width="0dip"
 			        android:layout_height="match_parent"
@@ -160,7 +155,6 @@
 		         <Button
 			        android:id="@+id/B_suge6"	        
 			        style="@style/B_suge"
-			        android:text="@string/B_suge6"
 					android:layout_weight="0.5"	            
 			        android:layout_width="0dip"
 			        android:layout_height="match_parent"

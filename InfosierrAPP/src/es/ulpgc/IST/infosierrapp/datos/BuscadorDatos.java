@@ -24,14 +24,19 @@ public class BuscadorDatos {
 	/**
 	 * Historial con las última búsquedas realizadas
 	 */
-	private static final int 	HISTORY_SIZE = 10;
-	private HistorialBusquedas 	queries_history;
+	private static final int 	HISTORIAL_SIZE = 10;
+	private HistorialBusquedas 	historial;
 	
 	/**
 	 * Cursor o lista con los resultados de última búsqueda
 	 */
 	private Cursor 			_resultados_cursor;
 	private List<Anuncio> 	_resultados_lista;
+	
+	/**
+	 * Cadena de búsqueda para los resultados almacenados
+	 */
+	private String			_resultados_string;
 
 	/**
 	 * Objeto singleton.		
@@ -51,23 +56,25 @@ public class BuscadorDatos {
 	
 	// Constructor privado (usar getBuscador() )
 	private BuscadorDatos(Context context) {
-		// Historial de búsquedas
-		queries_history = new HistorialBusquedas(HISTORY_SIZE);		
-		// Conexiones con BDs
-		dbLocal=new BD_local_Acceso(context);
-		// dbRemota=new DatosInfosierra_Acceso();
 		
-		// Inicializa resultados
+		/* Conexiones con BDs */
+		dbLocal=new BD_local_Acceso(context);
+		// TODO dbRemota=new DatosInfosierra_Acceso();
+		
+		/* Inicializa resultados */
 		set_resultados_cursor(null);
 		set_resultados_lista(null);
+		set_resultados_string(null);
+		
+		/* Historial de búsquedas */
+		historial = new HistorialBusquedas(HISTORIAL_SIZE);
 		
 		/* TODO
 		 * Para probar sin BD remota: 
 		 * Vaciamos la dbLocal y la rellenamos para pruebas
 		 */
 		dbLocal.borrarTablaResultados();		
-		rellenaDbLocal();
-		
+		rellenaDbLocal();	
 		
 	}
 
@@ -94,21 +101,23 @@ public class BuscadorDatos {
 		this._resultados_lista = lista;
 	}
 	// Devuelve la última cadena buscada
-	public String get_query_string() {
-		return queries_history.getLast();
+	public String get_resultados_string() {
+		return this._resultados_string;
 	}
+	private void set_resultados_string(String resultados_string) {
+		this._resultados_string=resultados_string;
+	}
+	
 	// Devuelve las últimas "num" entradas del historial
 	public String[] get_historial(int num) {
-		return queries_history.getLastN(num);
-	}
-	// Devuelve el historial de búsqueda completo
-	public String[] get_historial() {
-		return queries_history.getHistory();
+		return historial.getLastN(num);
+	}	
+	public void add_to_historial(String cadena) {
+		historial.add(cadena);
 	}
 	public void limpiar_historial() {
-		queries_history.clearHistory();
+		historial.limpiarHistorial();
 	}
-
 	
 	/**
 	 * Busca en la base de datos completa (infosierra)
@@ -119,33 +128,37 @@ public class BuscadorDatos {
 	public void buscar(String query_string) {
 				
 		/*
-		 * 1. Comprobar que la búsqueda no es la misma que la
-		 * anterior, y si lo es, omitir los pasos siguientes
+		 * 1. Comprobar si la búsqueda es la misma que la anterior
+		 * almacenada. Si lo es omite los pasos siguientes.
 		 */
 		if (query_string == null) {
 			return;
-		}		
-		if (query_string.equals(queries_history.getLast())) {
-			//TODO Por ahora forzamos buscar siempre, pues no se usa la bd remota
-			// return;
+		}
+		if ( query_string.equals( get_resultados_string()) ) {
+			return;
 		}
 		
-		/* 2. Actualiza el historial */
-		queries_history.add(query_string);
+		/* 2. Limpia la búsqueda anterior */
+		liberar_busqueda(); 
 		
-		/* 3.  Limpia la cadena para mejorar resultados */
+		/* 3. Actualiza el historial y la búsqueda actual */
+		set_resultados_string(query_string);
+		historial.add(query_string);
+				
+		/* 4.  Limpia la cadena para mejorar resultados */
 		String query = HerramientasStrings.adaptarCadenaParaBusqueda(query_string);
 		
-		/* 4. Realiza la búsqueda en la DB Remota */
+		/* 5. Realiza la búsqueda en la DB Remota */
 		//TODO
 		
-		/* 5. Guarda los resultados en la local */
+		/* 6. Guarda los resultados en la local */
 		//TODO
 				
 		/* 
 		 * TODO 
 		 * Por ahora solo hacemos una búsqueda en la db local
 		 */
+		
 		set_resultados_cursor( dbLocal.buscarEnTags_cursor(query) );
 		// Si se trabaja con listas...
 		// set_resultados_lista( dbLocal.buscarEnTags_lista(query) );
@@ -164,7 +177,8 @@ public class BuscadorDatos {
 		if (get_resultados_lista() != null) {
 			get_resultados_lista().clear();
 			set_resultados_lista(null);
-		}		
+		}
+		set_resultados_string(null);
 		dbLocal.close_db();
 	}
 	

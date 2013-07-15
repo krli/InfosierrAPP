@@ -40,7 +40,7 @@ public class ListPresenter extends MenuActivity {
 		// Engancha con el buscador
 		buscadorDatos = BuscadorDatos.getBuscador(getApplicationContext());
 		// Obtiene la cadena que ha lanzado la búsqueda
-		cadena_busqueda = buscadorDatos.get_query_string();
+		cadena_busqueda = buscadorDatos.get_resultados_string();
 
 		// Componentes del layout
 		mTextView = (TextView) findViewById(R.id.text);
@@ -58,7 +58,7 @@ public class ListPresenter extends MenuActivity {
 			// TODO: implementar los loaders
 			// Y este método no hace del todo falta porque ya gestionamos
 			// nosotros la apertura y el cierre de los cursores
-			startManagingCursor(cursor);
+			//startManagingCursor(cursor);
 
 			// Muestra el numero de resultados
 			int count = cursor.getCount();
@@ -117,14 +117,6 @@ public class ListPresenter extends MenuActivity {
 		intent.putExtra("anuncio", anuncio);
 		startActivity(intent);
 	}
-	
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		buscadorDatos.liberar_busqueda();		
-	}
-
-	
 	
 	/**
 	 * Adapta el cursor para mostrar sólo los campos deseados en la lista

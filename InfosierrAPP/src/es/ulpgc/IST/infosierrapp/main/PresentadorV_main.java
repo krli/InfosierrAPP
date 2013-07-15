@@ -18,13 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import es.ulpgc.IST.infosierrapp.R;
 import es.ulpgc.IST.infosierrapp.datos.BuscadorDatos;
-import es.ulpgc.IST.infosierrapp.datos.ListenerTareaBusqueda;
+import es.ulpgc.IST.infosierrapp.datos.ListenerTareaAsync;
 import es.ulpgc.IST.infosierrapp.datos.TareaBusqueda;
+import es.ulpgc.IST.infosierrapp.eltiempo.Presentador_weather;
 import es.ulpgc.IST.infosierrapp.maestrodetalle.ListPresenter;
 import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF;
 import es.ulpgc.IST.infosierrapp.recursos.FuentesTTF.Fuentes;
 
-public class PresentadorV_main extends MenuActivity implements OnClickListener, ListenerTareaBusqueda {
+public class PresentadorV_main extends MenuActivity implements OnClickListener, ListenerTareaAsync {
 	
 	/**
 	 * Valores de configuración del Intent para el
@@ -32,6 +33,18 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	 */
 	protected final String INTENT_ACTION="cambio_orientacion";
 	protected final String INTENT_CONTENT_WISEARCH="contenido_wisearch";
+	
+	/**
+	 * Número de botones de sugerencia
+	 */
+	protected final int N_SUGERENCIAS=6;
+	
+	/**
+	 * Sugerencias por defecto para los botones
+	 */
+	public static final String[] DEF_SUGERENCIAS = {"Talleres", "Restaurantes",
+			"Fontanería", "Médico",
+			"Transportes", "Librerías" };
 	
 	/**
 	 * Clase buscador de datos que proporciona el historial de búsquedas 
@@ -51,12 +64,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	private Button			b_buscar;
 	private Button			b_weather;
 	private Button			b_cancelar;
-	private Button			b_suge1;	
-	private Button			b_suge2;
-	private Button			b_suge3;
-	private Button			b_suge4;
-	private Button			b_suge5;
-	private Button			b_suge6;
+	private Button[] 		b_sugerencias;
 	private TextView		txt_subtitulo;
 	
 	
@@ -73,34 +81,29 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		/* Carga el layout */
 		loadView();
 		
-		/* Engancha con el buscador  */
-		buscador = BuscadorDatos.getBuscador(getApplicationContext());
-		
 		/* Inicializa las refs al layout */
 		wi_search=(SearchView)findViewById(R.id.searchView1);
 		ly_progreso=(RelativeLayout)findViewById(R.id.lytProgreso2);
+		txt_subtitulo=(TextView)findViewById(R.id.textSubtitulo);
 		b_buscar=(Button)findViewById(R.id.B_buscar);
 		b_weather=(Button)findViewById(R.id.B_weather);
-		b_cancelar=(Button)findViewById(R.id.B_cancelar);
-		b_suge1=(Button)findViewById(R.id.B_suge1);
-		b_suge2=(Button)findViewById(R.id.B_suge2);
-		b_suge3=(Button)findViewById(R.id.B_suge3);
-		b_suge4=(Button)findViewById(R.id.B_suge4);
-		b_suge5=(Button)findViewById(R.id.B_suge5);
-		b_suge6=(Button)findViewById(R.id.B_suge6);
-		txt_subtitulo=(TextView)findViewById(R.id.textSubtitulo);
+		b_cancelar=(Button)findViewById(R.id.B_cancelar);		
+		// Botones de sugerencias...
+		b_sugerencias = new Button[N_SUGERENCIAS];
+		b_sugerencias[0]=(Button)findViewById(R.id.B_suge1);
+		b_sugerencias[1]=(Button)findViewById(R.id.B_suge2);
+		b_sugerencias[2]=(Button)findViewById(R.id.B_suge3);
+		b_sugerencias[3]=(Button)findViewById(R.id.B_suge4);
+		b_sugerencias[4]=(Button)findViewById(R.id.B_suge5);
+		b_sugerencias[5]=(Button)findViewById(R.id.B_suge6);
 				
 		/* Registra los listeners */
 		b_buscar.setOnClickListener(this);
 		b_weather.setOnClickListener(this);
-		b_suge1.setOnClickListener(this);
-		b_suge2.setOnClickListener(this);
-		b_suge3.setOnClickListener(this);
-		b_suge4.setOnClickListener(this);
-		b_suge5.setOnClickListener(this);
-		b_suge6.setOnClickListener(this);
-		b_cancelar.setOnClickListener(this);
-		
+		b_cancelar.setOnClickListener(this);		
+		for (int k=0; k<b_sugerencias.length; k++) {
+			b_sugerencias[k].setOnClickListener(this);
+		}
 		
 		/* Configuraciones de layout */
 		//Botón buscar visible y progressbar oculta
@@ -108,14 +111,16 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		ly_progreso.setVisibility(View.GONE);
 		// fuentes
 		FuentesTTF.setFont(this, txt_subtitulo, Fuentes.segoe);
-		FuentesTTF.setFont(this, b_weather, Fuentes.segoe);
-		
+		FuentesTTF.setFont(this, b_weather, Fuentes.segoe);		
 		// Get the SearchView and set the searchable configuration
 	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 	    // Assumes current activity is the searchable activity
 	    wi_search.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+	    
+		/* Engancha con el buscador  */
+		buscador = BuscadorDatos.getBuscador(getApplicationContext());
 	    		
-		/* Reacciona según el intent de llamada */	    
+		/* Y reacciona según el intent de llamada */	    
 		gestionaIntent(getIntent());	
 	}
 	
@@ -140,7 +145,21 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		super.onResume();
 		// Verifica la orientación
 		checkOrientation();
+    	// Actualiza los botones de sugerencias
+    	actualizaSugerencias();
 	}
+	
+	/**
+	 * Actividad -> onPause() -> onStop() -> onDestroy()
+	 */
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		// Si se sale de la APP libera la búsqueda
+		// y desconecta la bd
+		buscador.liberar_busqueda();
+	}
+	
 	
 	/**
 	 * Se llamará si hay algún cambio en las configuraciones del teléfono, como
@@ -168,22 +187,22 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     		goToWeather();
     		break;    		
     	case R.id.B_suge1:
-    		wi_search.setQuery(b_suge1.getText(), true);
+    		wi_search.setQuery(b_sugerencias[0].getText(), true);
     		break;
     	case R.id.B_suge2:
-    		wi_search.setQuery(b_suge2.getText(), true);
+    		wi_search.setQuery(b_sugerencias[1].getText(), true);
     		break;
     	case R.id.B_suge3:
-    		wi_search.setQuery(b_suge3.getText(), true);
+    		wi_search.setQuery(b_sugerencias[2].getText(), true);
     		break;
     	case R.id.B_suge4:
-    		wi_search.setQuery(b_suge4.getText(), true);
+    		wi_search.setQuery(b_sugerencias[3].getText(), true);
     		break;
     	case R.id.B_suge5:
-    		wi_search.setQuery(b_suge5.getText(), true);
+    		wi_search.setQuery(b_sugerencias[4].getText(), true);
     		break;
     	case R.id.B_suge6:
-    		wi_search.setQuery(b_suge6.getText(), true);
+    		wi_search.setQuery(b_sugerencias[5].getText(), true);
     		break;
     	case R.id.B_cancelar:
     		cancelarBusqueda();
@@ -222,15 +241,6 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		}
 	}
 	
-	/**
-	 * Sobreescribe el método goMain de MenuActivity
-	 * para no hacer nada (ya estamos en Main)
-	 */
-	@Override
-	protected boolean goMain() {
-		return true;
-	}
-	
 	/* *************************************************
 	 * Los siguientes 4 métodos gestionan el cambio de 
 	 * layout con la orientación. Los 3 primeros debenrán
@@ -267,6 +277,12 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	return intent;
     }
     /**
+     * Carga el layout.
+     */
+    protected void loadView() {
+        setContentView(R.layout.main_vista_v);
+    }
+    /**
      * Cambia de presentador
      */
     protected void changePresenter() {
@@ -275,14 +291,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     	// Start the next and finish the current Controller
     	startActivity(intent);
     	finish();
-    }
-    /**
-     * Carga el layout.
-     */
-    protected void loadView() {
-        setContentView(R.layout.main_vista_v);
-    }
-    
+    }    
     /* ************************************************* */
 
     /**
@@ -306,7 +315,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     		busqueda = new TareaBusqueda(buscador, this);
     		if (busqueda !=null) {
     			busqueda.execute(query_string);
-    		}
+    		}    		
     		
     	} else if (INTENT_ACTION.equals(intent.getAction())) {
    		/*** Cambio de orientación ***/
@@ -315,10 +324,8 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     		
     	} else {
    		/*** No se hace nada ***/
-    	}
-    	
-    	// Y siempre actualiza los botones de sugerencias
-    	actualizaSugerencias();
+    	}  	
+
     }
     
     /**
@@ -340,65 +347,39 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     			Presentador_weather.class);    	
     	startActivity(intent);   	
     }
+    
+	/**
+	 * Sobreescribe el método goMain de MenuActivity
+	 * para no hacer nada (ya estamos en Main)
+	 */
+	@Override
+	protected boolean goMain() {
+		return true;
+	}
 
     /**
      * Actualiza los botones de sugerencias
      */
     private void actualizaSugerencias() {    	   	
-    	String[] busquedas = buscador.get_historial(6);
-    	for(int k=0; k<busquedas.length; k++) {
-    		setSugeText(k, busquedas[k]);
-    	}
-    }
-    /**
-     * Método auxiliar para facilitar el establecimiento
-     * del texto en los botones de sugerencias
-     */
-    private void setSugeText(int index, String text) {
-    	switch(index) {
-    	case 0:
-    		if (text != null) {
-    			b_suge1.setText(text);
-    		} else {
-    			b_suge1.setText(R.string.B_suge1);
-    		}
-    		break;
-    	case 1:
-    		if (text != null) {
-    			b_suge2.setText(text);
-    		} else {
-    			b_suge2.setText(R.string.B_suge2);
-    		}
-    		break;
-    	case 2:
-    		if (text != null) {
-    			b_suge3.setText(text);
-    		} else {
-    			b_suge3.setText(R.string.B_suge3);
-    		}
-    		break;
-    	case 3:
-    		if (text != null) {
-    			b_suge4.setText(text);
-    		} else {
-    			b_suge4.setText(R.string.B_suge4);
-    		}
-    		break;
-    	case 4:
-    		if (text != null) {
-    			b_suge5.setText(text);
-    		} else {
-    			b_suge5.setText(R.string.B_suge5);
-    		}
-    		break;
-    	case 5:
-    		if (text != null) {
-    			b_suge6.setText(text);
-    		} else {
-    			b_suge6.setText(R.string.B_suge6);
-    		}
-    		break;
-    	}
+
+    	// Pide un vector con las últimas N_SUGERENCIAS búsquedas
+    	// get_historial siempre devuelve un vector tamaño N_SUGERENCIAS
+    	// relleno con null si no las hay
+    	String[] historial = buscador.get_historial(N_SUGERENCIAS);
+    	
+    	// Establece el texto para cada botón...
+    	for(int k=0; k < historial.length; k++) {    		    		
+    		
+    		String texto = historial[k]; 
+    		// Si la entrada k está vacía..
+    		if ( texto == null) {
+    			// Rellena el botón con el valor por defecto
+    			texto = DEF_SUGERENCIAS[k];
+    			// Y lo añade al historial para que haya concordancia
+    			buscador.add_to_historial(texto);
+    		}    		
+    		b_sugerencias[k].setText(texto);
+    	}    	
     }
     
     /**
@@ -457,7 +438,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
      * @see es.ulpgc.IST.infosierrapp.main.ListenerTareaBusqueda#busquedaIniciada()
      */
 	@Override
-	public void busquedaIniciada() {
+	public void tareaIniciada() {
 		startProgressBar();		
 	}
 	/*
@@ -465,12 +446,18 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	 * @see es.ulpgc.IST.infosierrapp.main.ListenerTareaBusqueda#busquedaFinalizada(boolean)
 	 */
 	@Override
-	public void busquedaFinalizada(boolean result) {
+	public void tareaFinalizada(boolean result) {
+		
+		// Desenlaza la tarea 
+		busqueda = null;
+		
+		// Para la barra de progreso
 		stopProgressBar();
 		
-		busqueda = null;
+		// Limpia la searchview (por comodidad)    		
+		wi_search.setQuery("", false);
 
-		//pasar al maestro-detalle
+		// Y pasa al maestro-detalle
 		goToMaestroDetalle();
 		
 	}
@@ -479,7 +466,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	 * @see es.ulpgc.IST.infosierrapp.main.ListenerTareaBusqueda#busquedaCancelada()
 	 */
 	@Override
-	public void busquedaCancelada() {
+	public void tareaCancelada() {
 		stopProgressBar();
 		busqueda = null;
 		Toast.makeText(getApplicationContext(), 
@@ -491,7 +478,7 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	 * @see es.ulpgc.IST.infosierrapp.main.ListenerTareaBusqueda#progresoBusqueda(int)
 	 */
 	@Override
-	public void progresoBusqueda(int progreso) {
+	public void progresoTarea(int progreso) {
 		Toast.makeText(getApplicationContext(), 
 				"Buscando...<"+progreso+">", Toast.LENGTH_SHORT).show();		
 	}	

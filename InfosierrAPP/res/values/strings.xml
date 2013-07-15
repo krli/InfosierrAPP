@@ -11,12 +11,6 @@
     <string name="ET_buscar">ej: Restaurantes</string>
     <string name="SV_hint">ej: Librerías</string>
     <string name="SV_label">@string/app_name</string>
-    <string name="B_suge1">Talleres</string>
-    <string name="B_suge2">Restaurantes</string>
-    <string name="B_suge3">Fontanería</string>
-    <string name="B_suge4">Médico</string>
-    <string name="B_suge5">Transportes</string>
-    <string name="B_suge6">Librerías</string>
     <string name="B_weather">¿Qué tiempo hace?</string>
      <string name="B_map">Ver en mapa</string>
     <string name="T_weather">El tiempo en la sierra&#8230;</string>

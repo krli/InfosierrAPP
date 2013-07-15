@@ -26,7 +26,7 @@ public class HerramientasStrings {
 	 * @param string la cadena a descomponer
 	 * @param n_parts los trozos que se deben extraer. Si se
 	 * encuentran menos trozos de n_parts, esas componentes del
-	 * vector resultador tendrán valor null. 
+	 * vector resultado tendrán valor null. 
 	 * @return un vector de Strings con los trozos separados
 	 */
 	public static String[] splitString(String string, int n_parts) {		
@@ -78,10 +78,13 @@ public class HerramientasStrings {
 			return null;
 		}
 		for (int i=0; i<vector.length; i++) {
-			str.append(vector[i] + SEPARATOR_DB);			
+			// Si la cadena no es null la añade + un separador
+			if (vector[i] != null) {
+				str.append(vector[i] + SEPARATOR_DB);
+			}
 		}
 
-		// Devuelve la String generada eliminando el último separator		
+		// Devuelve la String generada		
 		return str.toString();		
 	}
 

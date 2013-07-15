@@ -1,37 +1,41 @@
-package es.ulpgc.IST.infosierrapp.datos;
+package es.ulpgc.IST.infosierrapp.eltiempo;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import android.os.AsyncTask;
+import android.webkit.WebView;
+import es.ulpgc.IST.infosierrapp.datos.ListenerTareaAsync;
 
 /**
- * Ejecuta una tarea de búsqueda en segundo plano informando
- * a la actividad (con interfaz ListenerTareaBusqueda) del
+ * Ejecuta la carga de una web en segundo plano informando
+ * a la actividad (con interfaz ListenerTareaAsync) del
  * progreso
  * 
  * @author krlo
  */
-public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
+public class TareaWebLoad extends AsyncTask<String, Integer, Boolean> {
 
 	/**
 	 * Interfaz para comunicación con la actividad
 	 * que ejecuta la tarea
 	 */
 	private ListenerTareaAsync listener;
-	
 	/**
-	 * Clase que contiene toda la lógica para la 
-	 * búsqueda.
+	 * WebView en que se debe cargar la web
 	 */
-	private BuscadorDatos buscador;
+	private WebView webview;
+
 	
 	/**
 	 * Constructor
 	 * @param context contexto de la aplicación
-	 * @param actividad actividad que implementa ListenerTareaBusqueda que 
+	 * @param actividad actividad que implementa ListenerTareaAsync que 
 	 * recibirá los avisos de progreso
 	 */
-	public TareaBusqueda(BuscadorDatos buscador, ListenerTareaAsync actividad) {
+	public TareaWebLoad(WebView webview, ListenerTareaAsync actividad) {
 		this.listener=actividad;
-		this.buscador=buscador;
+		this.webview=webview;
 	}	
 	
 	/**
@@ -52,25 +56,21 @@ public class TareaBusqueda extends AsyncTask<String, Integer, Boolean> {
 		/** Comprobación de argumentos **/
 		// Cantidad de argumentos
 		int n_params=param.length;
-		// Sólo esperamos una cadena para la búsqueda
+		// Sólo esperamos una cadena con la URL a la web
 		if (n_params != 1) {
 			return false;
 		}
-		String query_string = param[0];
+		String string_url = param[0];
 		
-		/** Búsqueda **/
-		
-		publishProgress(ListenerTareaAsync.MIN_PROGRESS);
-		
-		
-		// BuscadorDatos.loqueseaYtal...
-		buscador.buscar(query_string);
+		// Si la url no está bien formada, fin sin éxito
 		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
+			new URL(string_url);
+		} catch (MalformedURLException e) {
+			return false;
 		}
 		
-		publishProgress(ListenerTareaAsync.MAX_PROGRESS);
+		/** Carga la web **/
+		webview.loadUrl(string_url);
 		
 		return true;
 	}
