@@ -3,7 +3,8 @@
 	android:label="@string/SV_label"
 	android:hint="@string/SV_hint"	
 	android:inputType="text" 
-	android:voiceSearchMode="showVoiceSearchButton|launchRecognizer" >
+	android:voiceSearchMode="showVoiceSearchButton|launchRecognizer" 
+	android:voiceLanguageModel="web_search" >
 	
 <!-- 	android:searchSuggestAuthority=".datos.SuggestsProvider" -->
 <!-- 	android:searchSuggestIntentAction="android.intent.action.VIEW" -->

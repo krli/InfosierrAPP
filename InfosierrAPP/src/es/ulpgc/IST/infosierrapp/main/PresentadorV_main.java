@@ -47,6 +47,12 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 			"Transportes", "Librerías" };
 	
 	/**
+	 * Mínimo número de caracteres que se aceptan para una
+	 * búsqueda
+	 */
+	public static final int MIN_TAM_BUSQUEDA=3;
+	
+	/**
 	 * Clase buscador de datos que proporciona el historial de búsquedas 
 	 */
 	protected BuscadorDatos buscador;
@@ -80,6 +86,9 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		
 		/* Carga el layout */
 		loadView();
+		
+		/* Engancha con el buscador  */
+		buscador = BuscadorDatos.getBuscador(getApplicationContext());
 		
 		/* Inicializa las refs al layout */
 		wi_search=(SearchView)findViewById(R.id.searchView1);
@@ -116,10 +125,9 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 	    SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 	    // Assumes current activity is the searchable activity
 	    wi_search.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-	    
-		/* Engancha con el buscador  */
-		buscador = BuscadorDatos.getBuscador(getApplicationContext());
-	    		
+	    // Actualiza los botones de sugerencias
+    	actualizaSugerencias();
+    	
 		/* Y reacciona según el intent de llamada */	    
 		gestionaIntent(getIntent());	
 	}
@@ -145,8 +153,6 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
 		super.onResume();
 		// Verifica la orientación
 		checkOrientation();
-    	// Actualiza los botones de sugerencias
-    	actualizaSugerencias();
 	}
 	
 	/**
@@ -311,11 +317,20 @@ public class PresentadorV_main extends MenuActivity implements OnClickListener, 
     		// Extrae la cadena desde el Intent
     		String query_string = intent.getStringExtra(SearchManager.QUERY);
 
+    		// Si la cadena tiene menos de MIN_TAM... caracteres no se hace nada
+    		if ( (query_string == null) ||
+    				(query_string.length() < MIN_TAM_BUSQUEDA) ) {
+    			return;
+    		}
+    		
     		// Ejecuta la búsqueda en segundo plano
     		busqueda = new TareaBusqueda(buscador, this);
     		if (busqueda !=null) {
     			busqueda.execute(query_string);
-    		}    		
+    		}    
+    		
+        	// Actualiza los botones de sugerencias
+        	actualizaSugerencias();
     		
     	} else if (INTENT_ACTION.equals(intent.getAction())) {
    		/*** Cambio de orientación ***/
